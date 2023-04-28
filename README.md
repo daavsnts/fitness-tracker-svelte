@@ -27,5 +27,6 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 - [ ] Add a guide on how to run in browser, ios and android
 - [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
 - [ ] Add information on how the project is structured
+- [ ] Link more resources
 - [ ] Consider adding [Designs Addon](https://storybook.js.org/addons/storybook-addon-designs/)
 - [ ] Consider adding [Mock Service Worker Addon](https://storybook.js.org/addons/msw-storybook-addon)
