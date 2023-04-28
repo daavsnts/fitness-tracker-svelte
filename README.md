@@ -21,7 +21,7 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 - [x] Add a way to test components
 - [ ] Add example standalone tests
 - [x] Add more screen sizes to Storybook
-- [ ] Add Linter
+- [x] Add Linter
 - [x] Add SCSS support
 - [ ] Try to add [Storybook Storysource Addon](https://storybook.js.org/addons/@storybook/addon-storysource)
 - [ ] Add a guide on how to setup development environment
@@ -40,8 +40,15 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 
 1. Created a vite svelte project using `npm init vue` and selecting svelte as per the instructions available at the [Svelte docs](https://svelte.dev/docs#getting-started)
 2. Added Storybook using `npx storybook@latest init` as per the instructions available at the [Storybook Docs](https://storybook.js.org/docs/svelte/get-started/install/)
-3. Added the needed packages to run [Storybook Addon Interactions](https://storybook.js.org/addons/@storybook/addon-interactions/)
-4. Added [Vitest](https://vitest.dev/config/)
-5. Added [Testing Library](https://testing-library.com/docs/svelte-testing-library/setup)
-6. Added SCSS using [svelte-add](https://github.com/svelte-add/scss)
-7. Added aliases to SCSS following [this comment's suggestion](https://github.com/sveltejs/svelte-preprocess/issues/97#issuecomment-551842456)
+4. Added Testing
+   1. Added the needed packages to run [Storybook Addon Interactions](https://storybook.js.org/addons/@storybook/addon-interactions/)
+   2. Added [Vitest](https://vitest.dev/config/)
+   3. Added [Testing Library](https://testing-library.com/docs/svelte-testing-library/setup)
+5. Added SCSS using [svelte-add](https://github.com/svelte-add/scss)
+   1. Had to add a path aliasing configuration to stay consistent with all of the template
+6. Added linting step by step
+   1. Added aliases to SCSS following [this comment's suggestion](https://github.com/sveltejs/svelte-preprocess/issues/97#issuecomment-551842456)
+   2. Added javascript linting with [Eslint instructions](https://eslint.org/docs/latest/use/getting-started#configuration)
+   3.  Added typescript linting with [Typescript eslint instructions](https://typescript-eslint.io/getting-started). Had to com keep linting separated by using overrides
+   4.  Added Svelte linting with [eslint-plugin-svelte](https://github.com/sveltejs/eslint-plugin-svelte) and [svelte-eslint-parser](https://github.com/sveltejs/svelte-eslint-parser#readme)
+7.  Fixed all stories to the CSF3 format recommended by Storybook (less lint errors and much more intuitive)

@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from '@storybook/svelte';
+import type { Meta, StoryObj } from "@storybook/svelte";
 
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within, userEvent } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
-import Page from './Page.svelte';
+import Page from "./Page.svelte";
 
 const meta = {
-  title: 'Example/Page',
+  title: "Example/Page",
   component: Page,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/svelte/configure/story-layout
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 } satisfies Meta<Page>;
 
@@ -23,7 +23,7 @@ export const LoggedOut: Story = {};
 export const LoggedIn: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const loginButton = await canvas.getByRole('button', {
+    const loginButton = await canvas.getByRole("button", {
       name: /Log in/i,
     });
     await userEvent.click(loginButton);

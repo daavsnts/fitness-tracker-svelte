@@ -2,6 +2,7 @@ import preprocess from "svelte-preprocess";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import scssAliases from "./scssAliases.js";
 import aliases from "./aliases.config.js";
+import { LegacySyncImporter } from "sass";
 
 export default {
   // Consult https://svelte.dev/docs#compile-time-svelte-preprocess
@@ -10,10 +11,11 @@ export default {
     vitePreprocess(),
     preprocess({
       scss: {
-        prependData: '@use "$styles/variables.scss" as *;',
+        prependData: "@use \"$styles/variables.scss\" as *;",
         importer: [
-          scssAliases(aliases),
-        ]
+          // Bad typecast, but this feature doesn't seem deprecated, only the type
+          scssAliases(aliases) as LegacySyncImporter,
+        ],
       },
     }),
   ],

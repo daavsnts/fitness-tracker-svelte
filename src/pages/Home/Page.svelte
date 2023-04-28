@@ -8,9 +8,9 @@
 <article>
   <Header
     {user}
-    on:login={() => (user = { name: 'Jane Doe' })}
+    on:login={() => (user = { name: "Jane Doe" })}
     on:logout={() => (user = null)}
-    on:createAccount={() => (user = { name: 'Jane Doe' })}
+    on:createAccount={() => (user = { name: "Jane Doe" })}
   />
 
   <section>
