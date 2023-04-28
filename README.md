@@ -34,6 +34,7 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 - [ ] Link more resources
 - [ ] Consider adding [Designs Addon](https://storybook.js.org/addons/storybook-addon-designs/)
 - [ ] Consider adding [Mock Service Worker Addon](https://storybook.js.org/addons/msw-storybook-addon)
+- [ ] Consider adding [Prettier](https://github.com/sveltejs/prettier-plugin-svelte) to allow users to format in any IDE
 
 
 ## How this was built?
