@@ -23,6 +23,7 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 - [x] Add more screen sizes to Storybook
 - [x] Add Linter
 - [x] Add SCSS support
+- [ ] Add support to [Storybook Svelte CSF](https://storybook.js.org/addons/@storybook/addon-svelte-csf/)
 - [ ] Try to add [Storybook Storysource Addon](https://storybook.js.org/addons/@storybook/addon-storysource)
 - [ ] Add a guide on how to setup development environment
 - [ ] Add a guide on how to run in browser
