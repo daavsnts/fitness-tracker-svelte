@@ -1,5 +1,5 @@
-export default (aliases: Record<string, string>) => {
-  return (url: string) => {
+export default (aliases) => {
+  return (url) => {
     for (const [alias, aliasPath] of Object.entries(aliases)) {
       if (url.indexOf(alias) === 0) {
         return {

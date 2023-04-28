@@ -9,8 +9,8 @@
     "vite.config.ts",
     "vitest.config.ts",
     ".eslint.cjs",
-    "svelte.config.ts",
-    "aliases.config.ts",
-    "scssAliases.ts",
+    "svelte.config.js",
+    "aliases.config.js",
+    "scssAliases.js",
   ]
 }
