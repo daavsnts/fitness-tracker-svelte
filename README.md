@@ -23,11 +23,13 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 - [x] Add more screen sizes to Storybook
 - [ ] Add SCSS support
 - [ ] Try to add [Storybook Storysource Addon](https://storybook.js.org/addons/@storybook/addon-storysource)
-- [ ] Add Capacitor and enable mobile app development
 - [ ] Add a guide on how to setup development environment
-- [ ] Add a guide on how to run in browser, ios and android
-- [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
+- [ ] Add a guide on how to run in browser
 - [ ] Add information on how the project is structured
+- [ ] Add default snippets to project
+- [ ] Add Capacitor and enable mobile app development
+- [ ] Add a guide on how to run in android and ios
+- [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
 - [ ] Link more resources
 - [ ] Consider adding [Designs Addon](https://storybook.js.org/addons/storybook-addon-designs/)
 - [ ] Consider adding [Mock Service Worker Addon](https://storybook.js.org/addons/msw-storybook-addon)
