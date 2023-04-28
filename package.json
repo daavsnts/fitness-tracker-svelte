@@ -32,7 +32,9 @@
     "svelte-check": "^2.10.3",
     "tslib": "^2.5.0",
     "typescript": "^5.0.2",
-    "vite": "^4.3.3"
+    "vite": "^4.3.3",
+    "sass": "^1.53.0",
+    "svelte-preprocess": "^5.0.3"
   },
   "dependencies": {
     "vitest": "^0.30.1"

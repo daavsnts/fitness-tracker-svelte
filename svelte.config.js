@@ -1,7 +1,20 @@
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import preprocess from "svelte-preprocess";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
+import scssAliases from "./scssAliases.js";
+import aliases from "./aliases.config.js";
 
 export default {
   // Consult https://svelte.dev/docs#compile-time-svelte-preprocess
   // for more information about preprocessors
-  preprocess: vitePreprocess(),
-}
+  preprocess: [
+    vitePreprocess(),
+    preprocess({
+      scss: {
+        prependData: '@use "$styles/variables.scss" as *;',
+        importer: [
+          scssAliases(aliases),
+        ]
+      },
+    }),
+  ],
+};

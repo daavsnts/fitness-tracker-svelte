@@ -1,5 +1,6 @@
 <script lang="ts">
-  import Header from '../../components/Header/Header.svelte';
+  import Header from "$components/Header/Header.svelte";
+  import svelteLogo from "$assets/svelte.svg";
 
   let user: { name: string } | null = null;
 </script>
@@ -67,8 +68,17 @@
     </div>
   </section>
 </article>
+<article>
+  <section>
+    <h2>Image referencing</h2>
+    <p>To test if all image imports are working consistently, there's 3 images that should be the same visually, but were referenced differently. If you see only two images, there's something wrong!</p>
+    <div class="background-image"></div>
+    <img src="{svelteLogo}" alt="A" class="image-tag"/>
+    <div class="background-image-globally"></div>
+  </section>
+</article>
 
-<style>
+<style lang="scss">
   section {
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -139,4 +149,18 @@
     fill: #1ea7fd;
   }
 
+  section {
+    .background-image {
+      background-image: url("$assets/svelte.svg");
+      width: 10rem;
+      height: 10rem;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    img {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
 </style>

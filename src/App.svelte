@@ -2,4 +2,6 @@
   import Page from '$pages/Home/Page.svelte';
 </script>
 
-<Page />
+<main>
+  <Page />
+</main>
