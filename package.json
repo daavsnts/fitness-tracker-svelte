@@ -9,18 +9,22 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest run src",
+    "test:watch": "vitest src"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.7",
     "@storybook/addon-interactions": "^7.0.7",
     "@storybook/addon-links": "^7.0.7",
     "@storybook/blocks": "^7.0.7",
+    "@storybook/jest": "^0.1.0",
     "@storybook/svelte": "^7.0.7",
     "@storybook/svelte-vite": "^7.0.7",
     "@storybook/testing-library": "^0.0.14-next.2",
-    "@sveltejs/vite-plugin-svelte": "^2.0.3",
+    "@sveltejs/vite-plugin-svelte": "^2.1.1",
     "@tsconfig/svelte": "^4.0.1",
+    "jsdom": "^21.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.0.7",
@@ -28,6 +32,9 @@
     "svelte-check": "^2.10.3",
     "tslib": "^2.5.0",
     "typescript": "^5.0.2",
-    "vite": "^4.3.2"
+    "vite": "^4.3.3"
+  },
+  "dependencies": {
+    "vitest": "^0.30.1"
   }
 }

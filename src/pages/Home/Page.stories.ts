@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
+
 import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 
 import Page from './Page.svelte';
 
@@ -25,5 +27,7 @@ export const LoggedIn: Story = {
       name: /Log in/i,
     });
     await userEvent.click(loginButton);
+    const welcomeText = await canvas.findByText(/Welcome/i);
+    expect(welcomeText).toBeInTheDocument();
   },
 };
