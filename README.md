@@ -20,7 +20,7 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 - [x] Add Storybook
 - [x] Add a way to test components
 - [ ] Add example standalone tests
-- [ ] Add more screen sizes to Storybook
+- [x] Add more screen sizes to Storybook
 - [ ] Try to add [Storybook Storysource Addon](https://storybook.js.org/addons/@storybook/addon-storysource)
 - [ ] Add Capacitor and enable mobile app development
 - [ ] Add a guide on how to setup development environment
