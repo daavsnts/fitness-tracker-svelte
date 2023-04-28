@@ -21,6 +21,7 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 - [x] Add a way to test components
 - [ ] Add example standalone tests
 - [x] Add more screen sizes to Storybook
+- [ ] Add Linter
 - [ ] Add SCSS support
 - [ ] Try to add [Storybook Storysource Addon](https://storybook.js.org/addons/@storybook/addon-storysource)
 - [ ] Add a guide on how to setup development environment
