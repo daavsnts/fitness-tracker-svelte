@@ -20,7 +20,7 @@
 
 <!-- More on how to set up stories at: https://storybook.js.org/docs/svelte/writing-stories/introduction -->
 <Meta
-  title="Example/Button"
+  title="Components/Button"
   component={Button}
   argTypes={{
     backgroundColor: { control: "color" },
