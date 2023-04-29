@@ -161,7 +161,8 @@ Just look through their documentation for more info.
 - [x] Add a way to test components
 - [x] Add example standalone tests
 - [x] Add more screen sizes to Storybook
-- [ ] Add svelte-spa-router
+- [x] Add svelte-spa-router
+- [ ] Add route policies handling
 - [x] Add Linter
 - [x] Add SCSS support
 - [x] Add support to
