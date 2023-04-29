@@ -12,7 +12,7 @@
 
   // Spelling
   "cSpell.language": "pt,en",
-  "cSpell.words": ["autodocs", "storysource", "ultrawide"],
+  "cSpell.words": ["autodocs", "storysource", "ultrawide", "viewports"],
 
   // Utilities
   "auto-rename-tag.activationOnLanguage": ["markdown", "html", "svelte", "mdx"],

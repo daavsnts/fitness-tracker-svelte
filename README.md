@@ -4,8 +4,116 @@ This template should help get you started developing with Svelte and Capacitor.
 
 ## Recommended IDE Setup
 
-[VS Code](https://code.visualstudio.com/) +
-[Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+Use [VS Code](https://code.visualstudio.com/) and install the
+[extensions recommended for the workspace](./.vscode/extensions.json). Make sure
+the [settings](./.vscode/settings.json) aren't obscured by your user settings in
+any way.
+
+## Setting up the environment
+
+1. Install Node version 18. You may use asdf to install using `asdf install`
+2. (optional) Install the dependencies to run Storybook's test runner with
+   `sudo npx playwright install-deps`
+3. Install NPM packages with `npm install`
+
+## Running
+
+```sh
+# For development
+npm run dev # Runs the app in hot reload mode
+npm run storybook # Runs storybook in hot reloading mode
+
+# For deployment
+npm run build # Builds the app into the dist folder
+npm run preview # Runs the built app
+npm run storybook-build # Builds a static storybook site into storybook-static
+```
+
+To run storybook from the static folder you'll have to host the storybook-static
+folder.
+
+## Testing
+
+You may run two kinds of tests:
+
+```sh
+# run once variants
+npm run test:vitest # Runs tests in *.test.ts files
+npm run test:storybook # Runs tests in storybook stories using test runner
+
+# watch variants (will rerun changed tests automatically)
+npm run test:vitest-watch # Runs tests in *.test.ts files
+npm run test:storybook-watch # Runs tests in storybook stories using test runner
+```
+
+## Linting and Formatting
+
+The project comes with a pre-loaded eslint configuration, prettier and
+svelte-check. The commands are as follows:
+
+```sh
+npm run format # Formats all files using prettier
+npm run lint-fix # Fixes all autofixable issues detected by eslint
+npm run format-check # Checks if it's formatter correctly using prettier
+npm run lint # Checks if the files are okay according to eslint
+npm run check # Checks if the files are okay according to svelte-check
+```
+
+## Testing everything
+
+You may want to run all the tests to check if the project is following the
+formatter, linter and has no failing tests. You can do that with the command
+`npm run check-all`
+
+## How is it structured
+
+```
+/
+|-.storybook/
+| |-main.ts         # Storybook configuration
+| |-preview.ts      # Storybook render configuration
+| |-viewport.ts     # All the pre-loaded viewports
+|
+|-.vscode/
+| |-extensions.json # Extension recommendations
+| |-settings.json   # Workspace settings
+|
+|-public/           # This is copied to the root of the Svelte app
+|-scripts/          # Scripts that help with build and other stuff
+|-src/
+| |-assets/     # add all your assets here
+| |-components/ # add all your svelte components here, one folder per component
+| | |-Component/                 # Should have the same name as the component
+| |   |-Component.svelte         # The component should be capitalized
+| |   |-Component.stories.svelte # We recommend Svelte CSF
+| |   |-Component.test.ts        # The tests for this component
+| |   |-*other files related to the component*
+| |
+| |-helpers/    # add any useful code that's not specific here
+| |-pages/      # Add your pages here
+| | |-*same structure as components*
+| |
+| |-stories/    # Add any dangling documentation here as *.mdx here
+| |-styles/     # All globally available *.css or *.scss files should be put here
+| |-types/      # Useful type definitions or type templates should be put here
+| |
+| |-App.svelte    # The root component
+| |-main.ts       # The starting point of the app
+| |-vite-env.d.ts # Add type references as needed
+|
+|-.editorconfig     # Configure the IDE with the project's format
+|-.eslintrc.cjs     # Customize your eslint settings
+|-.prettierrc.cjs   # Customize your prettier settings
+|-aliases.config.js # All the aliases available in the project. Add more here
+|-index.html        # The root of the website
+|-package.json      # All dependencies here
+|-svelte.config.js  # Configure how svelte is built
+|-tsconfig.json     # Configure the typescript
+|-vite.config.ts    # Configure how the app builds
+|-vitest.config.ts  # Configure how the app is tested
+```
+
+More info here: https://docs.vlgi.com/team/dev/stack-guide/web-spa/
 
 ## Technical details
 
@@ -48,6 +156,7 @@ rule for the Template definition.
 - [x] Add a way to test components
 - [x] Add example standalone tests
 - [x] Add more screen sizes to Storybook
+- [ ] Add svelte-spa-router
 - [x] Add Linter
 - [x] Add SCSS support
 - [x] Add support to
@@ -60,9 +169,9 @@ rule for the Template definition.
 - [x] Set prettier as the default formatter to all languages (vscode)
 - [x] Set eslint to run on save on all relevant languages
 - [x] Add all the needed scripts in the package.json
-- [ ] Add a guide on how to setup development environment
-- [ ] Add a guide on how to run in browser
-- [ ] Add information on how the project is structured
+- [x] Add a guide on how to setup development environment
+- [x] Add a guide on how to run in browser
+- [x] Add information on how the project is structured
 - [ ] Link to in-depth structure guide
 - [ ] Add Capacitor and enable mobile app development
 - [ ] Add a guide on how to run in android and ios
