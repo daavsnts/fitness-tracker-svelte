@@ -10,7 +10,7 @@ export default {
     vitePreprocess(),
     preprocess({
       scss: {
-        prependData: "@use \"$styles/variables.scss\" as *;",
+        prependData: '@use "$styles/variables.scss" as *;',
         importer: [
           // Bad typecast, but this feature doesn't seem deprecated, only the type
           scssAliases(aliases),

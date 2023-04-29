@@ -14,7 +14,7 @@ const preview: Preview = {
     },
     viewport: {
       viewports,
-    }
+    },
   },
 };
 

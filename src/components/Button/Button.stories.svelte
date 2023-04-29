@@ -8,7 +8,10 @@
 
   import Button from "./Button.svelte";
 
-  const dynamicTest = async ({ args, canvasElement }: PlayFunctionParameter<Button>) => {
+  const dynamicTest = async ({
+    args,
+    canvasElement,
+  }: PlayFunctionParameter<Button>) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole("button"));
     console.log(args.event_click.constructor.name);

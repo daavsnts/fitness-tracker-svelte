@@ -4,10 +4,7 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: [
-    "eslint:recommended",
-    "prettier",
-  ],
+  extends: ["eslint:recommended", "prettier"],
   overrides: [
     {
       files: ["*.ts", "*.svelte"],
@@ -28,10 +25,7 @@ module.exports = {
     },
     {
       files: ["*.svelte"],
-      extends: [
-        "plugin:svelte/recommended",
-        "prettier",
-      ],
+      extends: ["plugin:svelte/recommended", "prettier"],
       parser: "svelte-eslint-parser",
       parserOptions: {
         parser: {
@@ -48,12 +42,13 @@ module.exports = {
     sourceType: "module",
     extraFileExtensions: [".svelte"],
   },
-  plugins: [
-    "@typescript-eslint",
-  ],
+  plugins: ["@typescript-eslint"],
   rules: {
     "no-param-reassign": ["error", { props: false }],
-    "no-unused-vars": ["error", { args: "after-used", argsIgnorePattern: "^_" }],
+    "no-unused-vars": [
+      "error",
+      { args: "after-used", argsIgnorePattern: "^_" },
+    ],
     "require-await": ["error"],
     "require-yield": ["error"],
   },

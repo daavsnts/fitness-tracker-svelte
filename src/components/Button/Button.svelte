@@ -17,7 +17,9 @@
    */
   export let label = "";
 
-  $: mode = primary ? "storybook-button--primary" : "storybook-button--secondary";
+  $: mode = primary
+    ? "storybook-button--primary"
+    : "storybook-button--secondary";
 
   $: style = backgroundColor ? `background-color: ${backgroundColor}` : "";
 </script>
@@ -33,7 +35,7 @@
 
 <style>
   .storybook-button {
-    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 700;
     border: 0;
     border-radius: 3em;
