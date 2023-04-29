@@ -1,17 +1,70 @@
 {
+  // Formatting
+  "editor.tabSize": 2,
+
+  // Linter
   "eslint.enable": true,
   "eslint.validate": [
     "javascript",
-    "javascriptreact",
     "typescript",
-    "typescriptreact",
     "svelte"
   ],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-  },
+  "eslint.lintTask.enable": true,
+
+  // Svelte
+  "svelte.enable-ts-plugin": true,
+
+  // Spelling
+  "cSpell.language": "pt,en",
   "cSpell.words": [
     "autodocs",
-    "storysource"
-  ]
+    "storysource",
+    "ultrawide"
+  ],
+
+  // Utilities
+  "auto-rename-tag.activationOnLanguage": [
+    "markdown",
+    "html",
+    "svelte",
+    "mdx",
+  ],
+  "auto-close-tag.activationOnLanguage": [
+    "markdown",
+    "html",
+    "svelte",
+    "mdx",
+  ],
+  "editor.rulers": [
+    {
+        "color": "#009e00",
+        "column": 80
+    },
+    {
+        "color": "#ce0000",
+        "column": 100
+    }
+  ],
+  "[svelte][mdx][markdown][html]": {
+    "editor.linkedEditing": true,
+  },
+  "todohighlight.keywords": [
+    {
+        "text": "NOTE:",
+        "color": "#5f5f5f",
+        "backgroundColor": "#ffd900",
+        "overviewRulerColor": "grey",
+    },
+  ],
+
+  "[javascript][typescript][svelte][html][css][scss][markdown][mdx]": {
+    // Formatter
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+
+    // Linter
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+    },
+  },
 }
