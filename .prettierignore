@@ -8,3 +8,8 @@ ios/*
 # Build
 dist/*
 storybook-static/*
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
