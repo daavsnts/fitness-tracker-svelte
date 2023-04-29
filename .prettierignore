@@ -1,4 +1,10 @@
+# External packages
 node_modules/*
-dist/*
+
+# Native
 android/*
 ios/*
+
+# Build
+dist/*
+storybook-static/*

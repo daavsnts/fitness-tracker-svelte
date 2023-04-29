@@ -89,6 +89,8 @@ rule for the Template definition.
    2. Added [Vitest](https://vitest.dev/config/)
    3. Added
       [Testing Library](https://testing-library.com/docs/svelte-testing-library/setup)
+   4. Installed package `@storybook/test-runner` for testing and installed its
+      dependencies `sudo npx playwright install-deps`
 4. Added SCSS using [svelte-add](https://github.com/svelte-add/scss)
    1. Had to add a path aliasing configuration to stay consistent with all of
       the template

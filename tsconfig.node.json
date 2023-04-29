@@ -11,6 +11,6 @@
     ".eslint.cjs",
     "svelte.config.js",
     "aliases.config.js",
-    "scssAliases.js",
+    "scripts/scssAliases.js",
   ]
 }

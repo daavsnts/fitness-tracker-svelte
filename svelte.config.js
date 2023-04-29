@@ -1,6 +1,6 @@
 import preprocess from "svelte-preprocess";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
-import scssAliases from "./scssAliases.js";
+import scssAliases from "./scripts/scssAliases.js";
 import aliases from "./aliases.config.js";
 
 export default {

@@ -10,8 +10,11 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest run src",
-    "test:watch": "vitest src"
+    "test": "npm run test:vitest && npm run test:storybook",
+    "test:vitest": "vitest run src",
+    "test:vitest-watch": "vitest src",
+    "test:storybook": "./scripts/test-storybook.sh",
+    "test:storybook-watch": "test-storybook --watch"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.7",
@@ -23,6 +26,7 @@
     "@storybook/jest": "^0.1.0",
     "@storybook/svelte": "^7.0.7",
     "@storybook/svelte-vite": "^7.0.7",
+    "@storybook/test-runner": "^0.10.0",
     "@storybook/testing-library": "^0.0.14-next.2",
     "@sveltejs/vite-plugin-svelte": "^2.1.1",
     "@tsconfig/svelte": "^4.0.1",
