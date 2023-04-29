@@ -23,6 +23,7 @@ module.exports = {
       },
       rules: {
         "@typescript-eslint/require-await": ["error"],
+        "@typescript-eslint/await-thenable": "off",
       },
     },
     {
