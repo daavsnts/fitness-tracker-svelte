@@ -55,10 +55,11 @@ rule for the Template definition.
 - [x] Try to add
       [Storybook Storysource Addon](https://storybook.js.org/addons/@storybook/addon-storysource)
 - [x] Add prettier to all programming languages
+- [x] Add [Prettier](https://github.com/sveltejs/prettier-plugin-svelte) to
+      allow users to format in any IDE
 - [x] Set prettier as the default formatter to all languages (vscode)
 - [x] Set eslint to run on save on all relevant languages
 - [x] Add all the needed scripts in the package.json
-- [ ] Add default snippets to project
 - [ ] Add a guide on how to setup development environment
 - [ ] Add a guide on how to run in browser
 - [ ] Add information on how the project is structured
@@ -69,13 +70,11 @@ rule for the Template definition.
 - [ ] Add Docker image for easy android development environment
 - [ ] Add Docker image for easy ios development environment
 - [ ] Link more resources
+- [ ] Add default snippets to project
 - [ ] Consider adding
       [Designs Addon](https://storybook.js.org/addons/storybook-addon-designs/)
 - [ ] Consider adding
       [Mock Service Worker Addon](https://storybook.js.org/addons/msw-storybook-addon)
-- [ ] Consider adding
-      [Prettier](https://github.com/sveltejs/prettier-plugin-svelte) to allow
-      users to format in any IDE
 
 ## How this was built?
 
