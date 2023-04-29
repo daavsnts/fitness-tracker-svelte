@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Meta, Story, Template } from "@storybook/addon-svelte-csf";
-  import { action } from "@storybook/addon-actions";
   import type { PlayFunctionParameter } from "$types/utils";
 
   import { expect } from "@storybook/jest";
@@ -42,7 +41,6 @@
   <Button
     {...args}
     on:click={args.event_click}
-    on:click={action("on:click")}
   />
 </Template>
 <!-- eslint-enable @typescript-eslint/no-unsafe-member-access -->

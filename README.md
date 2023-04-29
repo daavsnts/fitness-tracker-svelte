@@ -23,8 +23,10 @@ storybook Jest when creating play functions.
 ### Handling events in svelte stories
 
 Svelte Storybook will refuse to handle Svelte events and add automatically the
-actions, so you will have to manually add each event with a
-`action("on:<event name>")` handler.
+actions, so you would have to manually add each event with a
+`action("on:<event name>")` handler. However, in the next paragraph we describe
+how to add the mock call for testing. The mock call will produce an action, so
+we just recommend adding a call to `args.event_click` in the template.
 
 It is quite hard to find exactly how storybook gives events mock handlers as
 args in Svelte. Storybook will give you all the event handle mocks with the name
