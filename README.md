@@ -57,7 +57,7 @@ rule for the Template definition.
 - [x] Add prettier to all programming languages
 - [x] Set prettier as the default formatter to all languages (vscode)
 - [x] Set eslint to run on save on all relevant languages
-- [ ] Add all the needed scripts in the package.json
+- [x] Add all the needed scripts in the package.json
 - [ ] Add default snippets to project
 - [ ] Add a guide on how to setup development environment
 - [ ] Add a guide on how to run in browser
