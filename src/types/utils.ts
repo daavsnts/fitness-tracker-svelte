@@ -7,7 +7,7 @@ export type PlayFunctionParameter<Component extends SvelteComponent> =
   // eslint-disable-next-line @typescript-eslint/ban-types
   Parameters<Extract<StoryObj<Component>["play"], Function>>[0] & {
     args: {
-      // eslint-disable-next-line @typescript-eslint/type-annotation-spacing, @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       [P in keyof ComponentEvents<Component> as `event_${Extract<P, string>}`]: jest.Mock<(event: ComponentEvents<Component>[P]) => any | Promise<any>>
     }
   };
