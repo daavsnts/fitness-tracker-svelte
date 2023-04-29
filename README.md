@@ -23,15 +23,22 @@ Given the situation it is recommended to use Vitest when in a test file and the 
 - [x] Add more screen sizes to Storybook
 - [x] Add Linter
 - [x] Add SCSS support
-- [ ] Add support to [Storybook Svelte CSF](https://storybook.js.org/addons/@storybook/addon-svelte-csf/)
-- [ ] Try to add [Storybook Storysource Addon](https://storybook.js.org/addons/@storybook/addon-storysource)
+- [x] Add support to [Storybook Svelte CSF](https://storybook.js.org/addons/@storybook/addon-svelte-csf/)
+- [x] Try to add [Storybook Storysource Addon](https://storybook.js.org/addons/@storybook/addon-storysource)
+- [ ] Add prettier to all programming languages
+- [ ] Set prettier as the default formatter to all languages (vscode)
+- [ ] Set eslint to run on save on all relevant languages
+- [ ] Add all the needed scripts in the package.json
 - [ ] Add a guide on how to setup development environment
 - [ ] Add a guide on how to run in browser
 - [ ] Add information on how the project is structured
+- [ ] Link to in-depth structure guide
 - [ ] Add default snippets to project
 - [ ] Add Capacitor and enable mobile app development
 - [ ] Add a guide on how to run in android and ios
 - [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
+- [ ] Add Docker image for easy android development environment
+- [ ] Add Docker image for easy ios development environment
 - [ ] Link more resources
 - [ ] Consider adding [Designs Addon](https://storybook.js.org/addons/storybook-addon-designs/)
 - [ ] Consider adding [Mock Service Worker Addon](https://storybook.js.org/addons/msw-storybook-addon)

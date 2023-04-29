@@ -6,4 +6,5 @@ export default {
   $pages: path.resolve("./src/pages"),
   $helpers: path.resolve("./src/helpers"),
   $styles: path.resolve("./src/styles"),
+  $types: path.resolve("./src/types"),
 };
