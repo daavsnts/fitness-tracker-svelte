@@ -1,7 +1,8 @@
 <script lang="ts">
-  import Page from "$pages/Home/Page.svelte";
+  import Router from "svelte-spa-router";
+  import { routes } from "./routes";
 </script>
 
 <main>
-  <Page />
+  <Router {routes} />
 </main>

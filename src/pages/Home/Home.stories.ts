@@ -3,16 +3,16 @@ import type { Meta, StoryObj } from "@storybook/svelte";
 import { within, userEvent } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 
-import Page from "./Page.svelte";
+import Home from "./Home.svelte";
 
 const meta = {
-  title: "Example/Page",
-  component: Page,
+  title: "Pages/Home",
+  component: Home,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/svelte/configure/story-layout
     layout: "fullscreen",
   },
-} satisfies Meta<Page>;
+} satisfies Meta<Home>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

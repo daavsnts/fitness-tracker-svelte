@@ -149,6 +149,11 @@ so whenever you try to add the mock handlers to the events you will get a unsafe
 assignment with any value. My recommendation is to disable only that linting
 rule for the Template definition.
 
+### Routing
+
+We use [Svelte SPA router](https://github.com/ItalyPaleAle/svelte-spa-router).
+Just look through their documentation for more info.
+
 ## TODO
 
 - [x] Add svelte + vite + ts template
