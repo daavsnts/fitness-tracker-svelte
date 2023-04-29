@@ -172,7 +172,7 @@ rule for the Template definition.
 - [x] Add a guide on how to setup development environment
 - [x] Add a guide on how to run in browser
 - [x] Add information on how the project is structured
-- [ ] Link to in-depth structure guide
+- [x] Link to in-depth structure guide
 - [ ] Add Capacitor and enable mobile app development
 - [ ] Add a guide on how to run in android and ios
 - [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
