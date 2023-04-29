@@ -46,7 +46,7 @@ rule for the Template definition.
 - [x] Add svelte + vite + ts template
 - [x] Add Storybook
 - [x] Add a way to test components
-- [ ] Add example standalone tests
+- [x] Add example standalone tests
 - [x] Add more screen sizes to Storybook
 - [x] Add Linter
 - [x] Add SCSS support
