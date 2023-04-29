@@ -38,11 +38,11 @@ The last quirk is that the Template's slot props in Svelte CSF are badly typed, 
 - [ ] Set prettier as the default formatter to all languages (vscode)
 - [ ] Set eslint to run on save on all relevant languages
 - [ ] Add all the needed scripts in the package.json
+- [ ] Add default snippets to project
 - [ ] Add a guide on how to setup development environment
 - [ ] Add a guide on how to run in browser
 - [ ] Add information on how the project is structured
 - [ ] Link to in-depth structure guide
-- [ ] Add default snippets to project
 - [ ] Add Capacitor and enable mobile app development
 - [ ] Add a guide on how to run in android and ios
 - [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
