@@ -183,6 +183,8 @@ Just look through their documentation for more info.
 - [x] Add information on how the project is structured
 - [x] Link to in-depth structure guide
 - [ ] Add Capacitor and enable mobile app development
+- [ ] Add
+      [capacitor set version](https://www.npmjs.com/package/capacitor-set-version)
 - [ ] Add a guide on how to run in android and ios
 - [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
 - [ ] Add Docker image for easy android development environment
