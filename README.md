@@ -15,17 +15,27 @@ any way.
 2. (optional) Install the dependencies to run Storybook's test runner with
    `sudo npx playwright install-deps`
 3. Install NPM packages with `npm install`
+4. Setup your Android development environment
+   1. install android studio or android command line tools
+5. Setup your iOS development environment
+   1. install Xcode
+   2. `npx cap open ios`
+   3. Go to App > Signing & Capabilities and choose a signing certificate
 
 ## Running
 
 ```sh
 # For development
-npm run dev # Runs the app in hot reload mode
-npm run storybook # Runs storybook in hot reloading mode
+npm run dev         # Runs the app in hot reload mode
+npm run dev:android # Runs the app in hot reload mode on an android device or emulator
+npm run dev:ios     # Runs the app in hot reload mode on an ios device or emulator
+npm run storybook   # Runs storybook in hot reloading mode
 
 # For deployment
-npm run build # Builds the app into the dist folder
-npm run preview # Runs the built app
+npm run build           # Builds the app into the dist folder
+npm run preview         # Runs the built app
+npm run preview:android # Runs the built app on an android device or emulator
+npm run preview:ios     # Runs the built app on an ios device or emulator
 npm run storybook-build # Builds a static storybook site into storybook-static
 ```
 
@@ -64,6 +74,11 @@ npm run check # Checks if the files are okay according to svelte-check
 You may want to run all the tests to check if the project is following the
 formatter, linter and has no failing tests. You can do that with the command
 `npm run check-all`
+
+## Deploying
+
+- [Android](https://docs.vlgi.com/team/dev/flows/mobile-deploy/android-deploy/)
+- [iOS](https://docs.vlgi.com/team/dev/flows/mobile-deploy/ios-deploy/)
 
 ## How is it structured
 
@@ -109,6 +124,7 @@ formatter, linter and has no failing tests. You can do that with the command
 |-.prettierrc.cjs   # Customize your prettier settings
 |-aliases.config.js # All the aliases available in the project. Add more here
 |-index.html        # The root of the website
+|-ionic.config.json # A config so we can use ionic for livereload (and only that)
 |-package.json      # All dependencies here
 |-svelte.config.js  # Configure how svelte is built
 |-tsconfig.json     # Configure the typescript
@@ -157,6 +173,12 @@ rule for the Template definition.
 We use [Svelte SPA router](https://github.com/ItalyPaleAle/svelte-spa-router).
 Just look through their documentation for more info.
 
+### Ionic?
+
+This project is Capacitor only, not an Ionic project. We only added the
+ionic.config.json and the cli package so we could run the app as a livereload
+app. You may add ionic, but we do not recommend as it is not really worth it.
+
 ## TODO
 
 - [x] Add svelte + vite + ts template
@@ -185,8 +207,8 @@ Just look through their documentation for more info.
 - [x] Add Capacitor and enable mobile app development
 - [x] Add
       [capacitor set version](https://www.npmjs.com/package/capacitor-set-version)
-- [ ] Add a guide on how to run in android and ios
-- [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
+- [x] Add a guide on how to run in android and ios
+- [x] Add a guide on how to deploy to Appstore Connect and Google Play Console
 - [ ] Add Docker image for easy android development environment
 - [ ] Add Docker image for easy ios development environment
 - [ ] Link more resources
