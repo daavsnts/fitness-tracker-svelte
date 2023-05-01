@@ -22,7 +22,7 @@
       "$helpers/*": ["src/helpers/*"],
       "$styles/*": ["src/styles/*"],
       "$types/*": ["src/types/*"],
-      "$stores/*,": ["src/stores/*"],
+      "$stores/*": ["src/stores/*"],
       "$policies/*": ["src/policies/*"]
     }
   },
