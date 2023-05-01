@@ -2,6 +2,7 @@
   "name": "capacitive-svelte-template",
   "private": true,
   "version": "0.0.0",
+  "build": 1,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +20,8 @@
     "test:vitest": "vitest run src",
     "test:vitest-watch": "vitest src",
     "test:storybook": "./scripts/test-storybook.sh",
-    "test:storybook-watch": "test-storybook --watch"
+    "test:storybook-watch": "test-storybook --watch",
+    "update-version": "./scripts/update-version.sh"
   },
   "devDependencies": {
     "@capacitor/cli": "^4.8.0",
@@ -41,6 +43,7 @@
     "@tsconfig/svelte": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^5.59.1",
     "@typescript-eslint/parser": "^5.59.1",
+    "capacitor-set-version": "^2.0.13",
     "concurrently": "^8.0.1",
     "eslint": "^8.39.0",
     "eslint-config-prettier": "^8.8.0",
