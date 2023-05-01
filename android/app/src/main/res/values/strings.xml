@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">capacitive-svelte-template</string>
+    <string name="title_activity_main">capacitive-svelte-template</string>
+    <string name="package_name">br.com.vlgi.capacitive_svelte_template</string>
+    <string name="custom_url_scheme">br.com.vlgi.capacitive_svelte_template</string>
+</resources>
