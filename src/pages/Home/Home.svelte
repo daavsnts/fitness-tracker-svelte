@@ -1,5 +1,6 @@
 <script lang="ts">
   import svelteLogo from "$assets/svelte.svg";
+  import meta from "$components/Header/Header.stories";
 </script>
 
 <article>
@@ -89,6 +90,16 @@
       class="image-tag"
     />
     <div class="background-image-globally" />
+  </section>
+</article>
+<article>
+  <section>
+    <h2>.env variables</h2>
+    <p>
+      Only variables starting with <span class="pre">VITE_</span> will be
+      available to access via <span class="pre">import.meta.env</span>
+    </p>
+    <pre>import.meta.env: {JSON.stringify(import.meta.env, undefined, 4)}</pre>
   </section>
 </article>
 
