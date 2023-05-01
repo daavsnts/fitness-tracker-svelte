@@ -77,6 +77,10 @@ formatter, linter and has no failing tests. You can do that with the command
 
 ## Deploying
 
+Set `version` and `build` to the corresponding version and build number of the
+app and run `npm run update-version` to update the app version and build number
+and the follow the guides below:
+
 - [Android](https://docs.vlgi.com/team/dev/flows/mobile-deploy/android-deploy/)
 - [iOS](https://docs.vlgi.com/team/dev/flows/mobile-deploy/ios-deploy/)
 
@@ -267,3 +271,14 @@ app. You may add ionic, but we do not recommend as it is not really worth it.
        [Svelte SPA Router](https://github.com/ItalyPaleAle/svelte-spa-router)
     2. Added routes definitions
     3. Added a way to add policies and a conditions failed handler
+12. Added Capacitor
+    1. Installed needed packages
+       `npm i @capacitor/core @capacitor/ios @capacitor/android` and
+       `npm i -D @capacitor/cli`
+    2. Generated all ios and android files
+       `npx cap add android && npx cap add ios`
+    3. Added ionic cli and ionic config file for livereload support
+       `npm i -D @ionic/cli native-run`
+    4. Added a `ionic:serve` command so the livereload would work
+    5. Added commands to run the project
+    6. Added version setter for easier experience updating the app version
