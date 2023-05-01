@@ -179,8 +179,6 @@ Just look through their documentation for more info.
 - [x] Add a guide on how to run in browser
 - [x] Add information on how the project is structured
 - [x] Link to in-depth structure guide
-- [ ] Add global
-      [error boundary](https://github.com/CrownFramework/svelte-error-boundary)
 - [ ] Add Capacitor and enable mobile app development
 - [ ] Add a guide on how to run in android and ios
 - [ ] Add a guide on how to deploy to Appstore Connect and Google Play Console
