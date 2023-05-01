@@ -1,6 +1,5 @@
 <script lang="ts">
   import svelteLogo from "$assets/svelte.svg";
-  import meta from "$components/Header/Header.stories";
 </script>
 
 <article>
