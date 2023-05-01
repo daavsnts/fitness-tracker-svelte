@@ -236,7 +236,7 @@ Just look through their documentation for more info.
    quirks are dealt with
 10. Added Prettier support
     1. Firstly removed any eslint conflicts there could be by using
-       [this esling config](https://github.com/prettier/eslint-config-prettier#installation)
+       [this eslint config](https://github.com/prettier/eslint-config-prettier#installation)
     2. Added [Prettier](https://prettier.io/docs/en/install.html)
     3. Added
        [Svelte Prettier plugin](https://github.com/sveltejs/prettier-plugin-svelte)
