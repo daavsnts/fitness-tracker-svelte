@@ -93,12 +93,15 @@ formatter, linter and has no failing tests. You can do that with the command
 | |-pages/      # Add your pages here
 | | |-*same structure as components*
 | |
+| |-policies/   # Add route policies here
+| |-stores/     # Add custom stores or globally initialized stores here
 | |-stories/    # Add any dangling documentation here as *.mdx here
 | |-styles/     # All globally available *.css or *.scss files should be put here
 | |-types/      # Useful type definitions or type templates should be put here
 | |
 | |-App.svelte    # The root component
 | |-main.ts       # The starting point of the app
+| |-routes.ts     # The app routes definition and route policies handler
 | |-vite-env.d.ts # Add type references as needed
 |
 |-.editorconfig     # Configure the IDE with the project's format
