@@ -238,3 +238,8 @@ Just look through their documentation for more info.
     2. Added [Prettier](https://prettier.io/docs/en/install.html)
     3. Added
        [Svelte Prettier plugin](https://github.com/sveltejs/prettier-plugin-svelte)
+11. Added routing
+    1. Installed
+       [Svelte SPA Router](https://github.com/ItalyPaleAle/svelte-spa-router)
+    2. Added routes definitions
+    3. Added a way to add policies and a conditions failed handler
