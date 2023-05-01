@@ -1,0 +1,7 @@
+{
+  "name": "Capacitive Svelte Template",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

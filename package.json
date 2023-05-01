@@ -6,8 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:android": "npx @ionic/cli cap run android -l --external",
+    "dev:ios": "npx @ionic/cli cap run ios -l --external",
     "build": "vite build",
     "preview": "vite preview",
+    "preview:android": "npm run build && npx cap sync && npx cap run android",
+    "preview:ios": "npm run build && npx cap sync && npx cap run ios",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "format": "npx prettier --write .",
@@ -21,10 +25,12 @@
     "test:vitest-watch": "vitest src",
     "test:storybook": "./scripts/test-storybook.sh",
     "test:storybook-watch": "test-storybook --watch",
-    "update-version": "./scripts/update-version.sh"
+    "update-version": "./scripts/update-version.sh",
+    "ionic:serve": "npm run dev --"
   },
   "devDependencies": {
     "@capacitor/cli": "^4.8.0",
+    "@ionic/cli": "^7.0.1",
     "@storybook/addon-docs": "^7.0.7",
     "@storybook/addon-essentials": "^7.0.7",
     "@storybook/addon-interactions": "^7.0.7",
@@ -54,6 +60,7 @@
     "eslint-plugin-svelte": "^2.27.1",
     "http-server": "^14.1.1",
     "jsdom": "^21.1.1",
+    "native-run": "^1.7.2",
     "prettier": "2.8.8",
     "prettier-plugin-svelte": "^2.10.0",
     "react": "^18.2.0",
