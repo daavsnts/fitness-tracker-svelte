@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { push } from "svelte-spa-router";
   import Button from "../Button/Button.svelte";
 
   import { createEventDispatcher } from "svelte";
@@ -20,7 +21,15 @@
 
 <header>
   <div class="wrapper">
-    <div>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div
+      class="logo"
+      on:click={() => {
+        push("/").catch((e) => {
+          throw e;
+        });
+      }}
+    >
       <svg
         width="32"
         height="32"
@@ -49,7 +58,15 @@
     </div>
     <div>
       {#if user}
-        <span class="welcome">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <span
+          class="welcome"
+          on:click={() => {
+            push("/profile").catch((e) => {
+              throw e;
+            });
+          }}
+        >
           Welcome, <b>{user.name}</b>!
         </span>
         <Button
@@ -106,5 +123,9 @@
     color: #333;
     font-size: 14px;
     margin-right: 10px;
+    cursor: pointer;
+  }
+  .logo {
+    cursor: pointer;
   }
 </style>

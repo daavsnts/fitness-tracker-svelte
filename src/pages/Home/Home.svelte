@@ -1,18 +1,8 @@
 <script lang="ts">
-  import Header from "$components/Header/Header.svelte";
   import svelteLogo from "$assets/svelte.svg";
-
-  let user: { name: string } | null = null;
 </script>
 
 <article>
-  <Header
-    {user}
-    on:login={() => (user = { name: "Jane Doe" })}
-    on:logout={() => (user = null)}
-    on:createAccount={() => (user = { name: "Jane Doe" })}
-  />
-
   <section>
     <h2>Pages in Storybook</h2>
     <p>

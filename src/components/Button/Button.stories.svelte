@@ -7,6 +7,7 @@
 
   import Button from "./Button.svelte";
 
+  // More on interaction testing: https://storybook.js.org/docs/svelte/writing-tests/interaction-testing
   const dynamicTest = async ({
     args,
     canvasElement,

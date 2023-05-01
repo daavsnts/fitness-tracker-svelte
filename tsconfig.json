@@ -21,7 +21,9 @@
       "$pages/*": ["src/pages/*"],
       "$helpers/*": ["src/helpers/*"],
       "$styles/*": ["src/styles/*"],
-      "$types/*": ["src/types/*"]
+      "$types/*": ["src/types/*"],
+      "$stores/*,": ["src/stores/*"],
+      "$policies/*": ["src/policies/*"]
     }
   },
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
