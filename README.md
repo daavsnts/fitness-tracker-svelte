@@ -221,6 +221,12 @@ app. You may add ionic, but we do not recommend as it is not really worth it.
       [Designs Addon](https://storybook.js.org/addons/storybook-addon-designs/)
 - [ ] Consider adding
       [Mock Service Worker Addon](https://storybook.js.org/addons/msw-storybook-addon)
+- [ ] Add more snippets
+- [ ] Add `ionic:build` script in package.json
+- [ ] Add `safe-area` class for easily padding elements inside the safe area in
+      iPhones
+- [ ] Add way to start a server that already connects to the installed
+      livereload apps in android and iOS devices
 
 ## How this was built?
 
