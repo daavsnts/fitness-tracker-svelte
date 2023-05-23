@@ -213,6 +213,10 @@ app. You may add ionic, but we do not recommend as it is not really worth it.
       [capacitor set version](https://www.npmjs.com/package/capacitor-set-version)
 - [x] Add a guide on how to run in android and ios
 - [x] Add a guide on how to deploy to Appstore Connect and Google Play Console
+- [ ] Change storybook interaction tests to be used more as documentation and a
+      separate script in package.json
+- [ ] Type everything in Svelte CSF
+- [ ] Make prop doc comments work with storybook
 - [ ] Add Docker image for easy android development environment
 - [ ] Add Docker image for easy ios development environment
 - [ ] Link more resources
