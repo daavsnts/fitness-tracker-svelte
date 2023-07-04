@@ -11,7 +11,7 @@ any way.
 
 ## Setting up the environment
 
-1. Install Node version 18. You may use asdf to install using `asdf install`
+1. Install Node version 18. You can use asdf to install using `asdf install`
 2. (optional) Install the dependencies to run Storybook's test runner with
    `sudo npx playwright install-deps`
 3. Install NPM packages with `npm install`
@@ -21,6 +21,17 @@ any way.
    1. install Xcode
    2. `npx cap open ios`
    3. Go to App > Signing & Capabilities and choose a signing certificate
+
+## Setting up the environment (with docker)
+
+This currently works only for android on linux.
+
+1. Install docker;
+2. Run `make up` on the project root folder, this will create the container and
+   attach you to it.
+3. Run `npm install`;
+
+Now you are ready to go =).
 
 ## Running
 

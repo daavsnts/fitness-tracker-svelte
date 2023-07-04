@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    image: 01oseluiz/node-android
+    env_file:
+      - .env
+    container_name: mobile-app
+    working_dir: /app
+    privileged: true
+    volumes:
+      - ./:/app
+      - /dev/bus/usb:/dev/bus/usb
+    # In host mode is not needed bind ports
+    network_mode: host
+    tty: true
+    # Set your user and group if you want to create file from inside the container and want to edit them from outside the container.
+    user: 1000:1000
