@@ -1,18 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/svelte";
 
-import Home from "./Home.svelte";
+import LoggedInUser from "$stores/LoggedInUser";
+import lunaImg from "$assets/Luna.jpg";
+
+import Profile from "./Profile.svelte";
 
 const meta = {
-  title: "Pages/Home",
-  component: Home,
+  title: "Pages/Profile",
+  component: Profile,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/svelte/configure/story-layout
     layout: "fullscreen",
-    docs: {
-      autodocs: false,
-    },
   },
-} satisfies Meta<Home>;
+} satisfies Meta<Profile>;
+
+// Mock global store data
+LoggedInUser.set({
+  name: "João Silva",
+  image: lunaImg,
+});
 
 export default meta;
 type Story = StoryObj<typeof meta>;

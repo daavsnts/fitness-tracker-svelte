@@ -115,7 +115,7 @@ and the follow the guides below:
 | |-components/ # add all your svelte components here, one folder per component
 | | |-Component/                 # Should have the same name as the component
 | |   |-Component.svelte         # The component should be capitalized
-| |   |-Component.stories.svelte # We recommend Svelte CSF
+| |   |-Component.stories.ts     # We recommend normal CSF
 | |   |-Component.test.ts        # The tests for this component
 | |   |-*other files related to the component*
 | |
@@ -123,8 +123,8 @@ and the follow the guides below:
 | |-pages/      # Add your pages here
 | | |-*same structure as components*
 | |
-| |-policies/   # Add route policies here
-| |-stores/     # Add custom stores or globally initialized stores here
+| |-policies/   # Add route policies here. You can use in other places too.
+| |-stores/     # Add globally initialized stores here
 | |-stories/    # Add any dangling documentation here as *.mdx here
 | |-styles/     # All globally available *.css or *.scss files should be put here
 | |-types/      # Useful type definitions or type templates should be put here
@@ -132,6 +132,7 @@ and the follow the guides below:
 | |-App.svelte    # The root component
 | |-main.ts       # The starting point of the app
 | |-routes.ts     # The app routes definition and route policies handler
+| |-env.d.ts      # Add type for env variables
 | |-vite-env.d.ts # Add type references as needed
 |
 |-.editorconfig     # Configure the IDE with the project's format
@@ -140,14 +141,33 @@ and the follow the guides below:
 |-aliases.config.js # All the aliases available in the project. Add more here
 |-index.html        # The root of the website
 |-ionic.config.json # A config so we can use ionic for livereload (and only that)
+|-Makefile          # File to create short hands commands to run outside the app container
 |-package.json      # All dependencies here
 |-svelte.config.js  # Configure how svelte is built
 |-tsconfig.json     # Configure the typescript
 |-vite.config.ts    # Configure how the app builds
 |-vitest.config.ts  # Configure how the app is tested
+|-.env              # Configure common variables see more in https://vitejs.dev/guide/env-and-mode.html#env-files
 ```
 
 More info here: https://docs.vlgi.com/team/dev/stack-guide/web-spa/
+
+## Snippets
+
+This project has defined some snippets to help with svelte and stories
+boilerplate.
+
+### Snippets for svelte file
+
+- `component`: Create Svelte Component with TS and SCSS
+- `script`: Create Svelte Script tag with TS lang
+- `style`: Create Svelte Style tag with SCSS lang
+
+### Snippets for Typescript file
+
+- `story`: Create a story for a component.
+- `story-template`: Create a story for a component with story template, to reuse
+  common configs.
 
 ## Technical details
 
@@ -161,6 +181,11 @@ stories granted by the Storybook Interactions addon is only usable with the
 
 Given the situation it is recommended to use Vitest when in a test file and the
 storybook Jest when creating play functions.
+
+Create play functions to automate the process of interact with the component
+you're developing, and to let documented the component interactions.
+
+Use vitest to test your components, to guarantee that they work properly.
 
 ### Handling events in svelte stories
 

@@ -1,32 +1,32 @@
 <script lang="ts">
   import Router, { push } from "svelte-spa-router";
   import { conditionsFailHandler, routeLoadingHandler, routes } from "./routes";
-  import { user } from "$stores/global";
+  import LoggedInUser from "$stores/LoggedInUser";
   import lunaImg from "$assets/Luna.jpg";
   import Header from "$components/Header/Header.svelte";
   import { tick } from "svelte";
 
   const userMock = {
-    name: "Victor Gris",
+    name: "João Silva",
     image: lunaImg,
   };
 </script>
 
 <header>
   <Header
-    user={$user}
-    on:login={() => ($user = userMock)}
+    user={$LoggedInUser}
+    on:login={() => ($LoggedInUser = userMock)}
     on:logout={() => {
       push("/")
         .then(async () => {
           await tick();
-          $user = null;
+          $LoggedInUser = null;
         })
         .catch((e) => {
           throw e;
         });
     }}
-    on:createAccount={() => ($user = userMock)}
+    on:createAccount={() => ($LoggedInUser = userMock)}
   />
 </header>
 <main>

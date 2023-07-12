@@ -8,14 +8,14 @@
 
   const dispatch = createEventDispatcher();
 
-  function onLogin(event: MouseEvent) {
-    dispatch("login", event);
+  function onLogin() {
+    dispatch("login");
   }
-  function onLogout(event: MouseEvent) {
-    dispatch("logout", event);
+  function onLogout() {
+    dispatch("logout");
   }
-  function onCreateAccount(event: MouseEvent) {
-    dispatch("createAccount", event);
+  function onCreateAccount() {
+    dispatch("createAccount");
   }
 </script>
 
@@ -72,20 +72,24 @@
         <Button
           size="small"
           on:click={onLogout}
-          label="Log out"
-        />
+        >
+          Log out
+        </Button>
       {:else}
         <Button
           size="small"
           on:click={onLogin}
-          label="Log in"
-        />
+        >
+          Log in
+        </Button>
+
         <Button
           primary
           size="small"
           on:click={onCreateAccount}
-          label="Sign up"
-        />
+        >
+          Sign up
+        </Button>
       {/if}
     </div>
   </div>

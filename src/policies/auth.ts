@@ -1,4 +1,4 @@
-import { user } from "$stores/global";
+import LoggedInUser from "$stores/LoggedInUser";
 import { get } from "svelte/store";
 
-export const isUserLoggedIn = (): boolean => get(user) !== null;
+export const isUserLoggedIn = (): boolean => get(LoggedInUser) !== null;

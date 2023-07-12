@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { user } from "$stores/global";
+  import LoggedInUser from "$stores/LoggedInUser";
 </script>
 
-{#if $user}
+{#if $LoggedInUser}
   <article>
-    <h1>{$user.name}</h1>
+    <h1>{$LoggedInUser.name}</h1>
     <img
-      src={$user.image}
-      alt="{$user.name}'s profile picture"
+      src={$LoggedInUser.image}
+      alt="{$LoggedInUser.name}'s profile picture"
     />
   </article>
 {/if}

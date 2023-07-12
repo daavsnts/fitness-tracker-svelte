@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   /**
    * Is this the principal call to action on the page?
    */
@@ -11,15 +13,18 @@
   /**
    * How large should the button be?
    */
-  export let size: "small" | "medium" | "large" = "medium";
-  /**
-   * Button contents
-   */
-  export let label = "";
+  export let size: "small" | "medium" | "large";
 
-  $: mode = primary
-    ? "storybook-button--primary"
-    : "storybook-button--secondary";
+  const dispatcher = createEventDispatcher<{
+    click: undefined;
+  }>();
+
+  function fireClick() {
+    // Event comment =)
+    dispatcher("click");
+  }
+
+  $: mode = primary ? "storybook-button--primary" : "storybook-button--secondary";
 
   $: style = backgroundColor ? `background-color: ${backgroundColor}` : "";
 </script>
@@ -28,9 +33,10 @@
   type="button"
   class={["storybook-button", `storybook-button--${size}`, mode].join(" ")}
   {style}
-  on:click
+  on:click={fireClick}
 >
-  {label}
+  <!-- Slot comment =) -->
+  <slot />
 </button>
 
 <style>

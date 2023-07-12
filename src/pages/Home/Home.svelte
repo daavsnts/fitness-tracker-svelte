@@ -17,18 +17,18 @@
       process starting with atomic components and ending with pages.
     </p>
     <p>
-      Render pages with mock data. This makes it easy to build and review page
-      states without needing to navigate to them in your app. Here are some
-      handy patterns for managing page data in Storybook:
+      Render pages with mock data. This makes it easy to build and review page states without
+      needing to navigate to them in your app. Here are some handy patterns for managing page data
+      in Storybook:
     </p>
     <ul>
       <li>
-        Use a higher-level connected component. Storybook helps you compose such
-        data from the "args" of child component stories
+        Use a higher-level connected component. Storybook helps you compose such data from the
+        "args" of child component stories
       </li>
       <li>
-        Assemble data in the page component from your services. You can mock
-        these services out using Storybook.
+        Assemble data in the page component from your services. You can mock these services out
+        using Storybook.
       </li>
     </ul>
     <p>
@@ -78,9 +78,9 @@
   <section>
     <h2>Image referencing</h2>
     <p>
-      To test if all image imports are working consistently, there's 3 images
-      that should be the same visually, but were referenced differently. If you
-      see only two images, there's something wrong!
+      To test if all image imports are working consistently, there's 3 images that should be the
+      same visually, but were referenced differently. If you see only two images, there's something
+      wrong!
     </p>
     <div class="background-image" />
     <img
@@ -95,8 +95,8 @@
   <section>
     <h2>.env variables</h2>
     <p>
-      Only variables starting with <span class="pre">VITE_</span> will be
-      available to access via <span class="pre">import.meta.env</span>
+      Only variables starting with <span class="pre">VITE_</span> will be available to access via
+      <span class="pre">import.meta.env</span>
     </p>
     <pre>import.meta.env: {JSON.stringify(import.meta.env, undefined, 4)}</pre>
   </section>

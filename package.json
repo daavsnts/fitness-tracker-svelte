@@ -26,7 +26,8 @@
     "test:storybook": "./scripts/test-storybook.sh",
     "test:storybook-watch": "test-storybook --watch",
     "update-version": "./scripts/update-version.sh",
-    "ionic:serve": "npm run dev --"
+    "ionic:serve": "npm run dev --",
+    "ionic:build": "npm run build --"
   },
   "devDependencies": {
     "@capacitor/cli": "^4.8.0",

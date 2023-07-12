@@ -1,24 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/svelte";
-import Header from "./Header.svelte";
+import NotAuthorized from "./NotAuthorized.svelte";
 
 const meta = {
-  title: "Components/Header",
-  component: Header,
+  title: "Pages/NotAuthorized",
+  component: NotAuthorized,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/svelte/configure/story-layout
     layout: "fullscreen",
   },
-} satisfies Meta<Header>;
+} satisfies Meta<NotAuthorized>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LoggedIn: Story = {
-  args: {
-    user: {
-      name: "Jane Doe",
-    },
-  },
-};
-
-export const LoggedOut: Story = {};
+export const Default: Story = {};
