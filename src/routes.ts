@@ -1,8 +1,6 @@
 import Home from "$pages/Home/Home.svelte";
 import NotAuthorized from "$pages/NotAuthorized/NotAuthorized.svelte";
 import NotFound from "$pages/NotFound/NotFound.svelte";
-import Profile from "$pages/Profile/Profile.svelte";
-import { isUserLoggedIn } from "$policies/auth";
 import { type ConditionsFailedEvent, type RouteLoadingEvent, replace } from "svelte-spa-router";
 import { wrap } from "svelte-spa-router/wrap";
 
@@ -12,13 +10,6 @@ routes.set(
   "/",
   wrap({
     component: Home,
-  })
-);
-routes.set(
-  "/profile",
-  wrap({
-    component: Profile,
-    conditions: [isUserLoggedIn],
   })
 );
 routes.set(
