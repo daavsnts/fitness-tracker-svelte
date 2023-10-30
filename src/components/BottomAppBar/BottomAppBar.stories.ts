@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/svelte";
 import BottomAppBar from "./BottomAppBar.svelte";
 
 const meta = {
-  title: "Pages/BottomAppBar",
+  title: "Components/BottomAppBar",
   component: BottomAppBar,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/svelte/configure/story-layout
