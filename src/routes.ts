@@ -1,4 +1,4 @@
-import Home from "$pages/Home/Home.svelte";
+import WaterTracker from "$pages/WaterTracker/WaterTracker.svelte";
 import NotAuthorized from "$pages/NotAuthorized/NotAuthorized.svelte";
 import NotFound from "$pages/NotFound/NotFound.svelte";
 import { type ConditionsFailedEvent, type RouteLoadingEvent, replace } from "svelte-spa-router";
@@ -9,7 +9,7 @@ export const routes = new Map();
 routes.set(
   "/",
   wrap({
-    component: Home,
+    component: WaterTracker,
   })
 );
 routes.set(
