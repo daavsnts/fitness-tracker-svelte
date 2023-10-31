@@ -1,4 +1,5 @@
 import { readable, writable, type Readable, type Writable } from "svelte/store";
+import waterRepository from "../data/repository/WaterRepository";
 
 function createWaterTrackerStore(
   initialWaterQuantity: number,
@@ -22,9 +23,12 @@ function createWaterTrackerStore(
   return {
     getWaterQuantity,
     addWaterQuantity,
-    getWaterGoal
+    getWaterGoal,
   };
 }
 
-const waterTrackerStore = createWaterTrackerStore(1000, 3000);
+const waterTrackerStore = createWaterTrackerStore(
+  waterRepository.getDailyWaterQuantity(),
+  waterRepository.getWaterGoal()
+);
 export default waterTrackerStore;
