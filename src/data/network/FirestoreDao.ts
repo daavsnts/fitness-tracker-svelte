@@ -44,19 +44,40 @@ export class FirestoreDao {
     return historyList;
   }
 
-  async getTodayTotalWaterIntake(): Promise<number> {
+  private async getTodayHistory<T>(
+    historyList: T[],
+    collectionWanted: string
+  ): Promise<T[]> {
     const todayInterval = new TodayInterval();
     const q = query(
-      collection(this._db, "water-intake-log"),
+      collection(this._db, collectionWanted),
       where("timeStamp", ">=", Timestamp.fromDate(todayInterval.start)),
       where("timeStamp", "<=", Timestamp.fromDate(todayInterval.end))
     );
-    const todayTotalWaterIntakeSnapshot = await getDocs(q);
-    let totalWaterIntake = 0;
+    const listSnapshot = await getDocs(q);
 
-    todayTotalWaterIntakeSnapshot.forEach((doc) => {
-      totalWaterIntake += Number(doc.data().quantity);
+    listSnapshot.forEach((doc) => {
+      historyList.push(doc.data() as T);
     });
+    return historyList;
+  }
+
+  async getTodayTotalWaterIntake(): Promise<number> {
+    const todayTotalWaterIntakeHistoryEmptyList: WaterIntake[] = [];
+    const todayWaterIntakeHistory = await this.getTodayHistory(
+      todayTotalWaterIntakeHistoryEmptyList,
+      "water-intake-log"
+    );
+
+    const totalWaterIntake = todayWaterIntakeHistory.reduce(
+      (totalWaterIntakeAccumulator, currentWaterIntake) => {
+        return (
+          totalWaterIntakeAccumulator + Number(currentWaterIntake.quantity)
+        );
+      },
+      0
+    );
+
     return totalWaterIntake;
   }
 
@@ -88,10 +109,6 @@ export class FirestoreDao {
     return firstDoc;
   }
 
-  async addWaterIntake(quantity: number) {
-    await this.addWater(quantity, "water-intake-log");
-  }
-
   async updateTodayWaterGoal(quantity: number) {
     const currentWaterGoalSnapshot = await this.getCurrentWaterGoalSnapshot();
     const currentWaterGoalDocument = this.getFirstDocFromSnapshot(
@@ -116,7 +133,11 @@ export class FirestoreDao {
     }
   }
 
-  async addWater(quantity: number, selectedCollection: string) {
+  async addWaterIntake(quantity: number) {
+    await this.addWater(quantity, "water-intake-log");
+  }
+
+  private async addWater(quantity: number, selectedCollection: string) {
     await addDoc(collection(this._db, selectedCollection), {
       quantity: quantity,
       timeStamp: Timestamp.fromDate(new Date()),
