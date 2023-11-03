@@ -30,6 +30,14 @@ export class FirestoreWaterDao {
     );
   }
 
+  async getTodayWaterIntakeHistory(): Promise<WaterIntake[]> {
+    const emptyTodayWaterIntakeHistory: WaterIntake[] = [];
+    return this._utils.getTodayHistory(
+      emptyTodayWaterIntakeHistory,
+      this._WATER_INTAKE_COLLECTION
+    );
+  }
+
   async getTodayTotalWaterIntake(): Promise<number> {
     const todayTotalWaterIntakeHistoryEmptyList: WaterIntake[] = [];
     const todayWaterIntakeHistory = await this._utils.getTodayHistory(

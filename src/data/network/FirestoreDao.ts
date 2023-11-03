@@ -30,6 +30,10 @@ export class FirestoreDao {
     return this._waterDao.getWaterGoalHistory();
   }
 
+  async getTodayWaterIntakeHistory(): Promise<WaterIntake[]> {
+    return this._waterDao.getTodayWaterIntakeHistory();
+  }
+
   async getExerciseHistory(): Promise<Exercise[]> {
     return this._exerciseDao.getExerciseHistory();
   }

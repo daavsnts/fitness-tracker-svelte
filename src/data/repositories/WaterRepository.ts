@@ -16,6 +16,10 @@ export class WaterRepository {
     return await this._dao.getTodayTotalWaterIntake();
   }
 
+  async getTodayWaterIntakeHistory(): Promise<WaterIntake[]> {
+    return await this._dao.getTodayWaterIntakeHistory();
+  }
+
   async getWaterGoalHistory(): Promise<WaterGoal[]> {
     return await this._dao.getWaterGoalHistory();
   }
