@@ -1,4 +1,4 @@
-import type { Exercise } from "$types/fitnessTypes";
+import type { Exercise, ExerciseGoal } from "$types/fitnessTypes";
 import type { FirestoreDao } from "../network/FirestoreDao";
 
 export class ExerciseRepository {
@@ -12,8 +12,24 @@ export class ExerciseRepository {
     return await this._dao.getExerciseHistory();
   }
 
+  async getTodayTotalExercisesPauses(): Promise<number> {
+    return await this._dao.getTodayTotalExercisesPauses();
+  }
+
   async getTodayExerciseHistory(): Promise<Exercise[]> {
     return await this._dao.getTodayExerciseHistory();
+  }
+
+  async getExerciseGoalHistory(): Promise<ExerciseGoal[]> {
+    return await this._dao.getExerciseGoalHistory();
+  }
+
+  async getCurrentExerciseGoal(): Promise<ExerciseGoal> {
+    return await this._dao.getCurrentExerciseGoal();
+  }
+
+  async updateTodayExerciseGoal(quantity: number) {
+    return await this._dao.updateTodayExerciseGoal(quantity);
   }
 
   async addExercise(type: string): Promise<void> {
