@@ -1,7 +1,20 @@
 <script lang="ts">
+  import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
+
+  let todayExerciseHistory = exerciseTrackerStore.todayExerciseHistory;
+  let exerciseTypeInputValue = "";
 </script>
 
-<h1>Exercise Tracker</h1>
+{#each $todayExerciseHistory as exercise}
+  <li>{exercise.type}</li>
+{/each}
+<input bind:value={exerciseTypeInputValue} />
+
+<button
+  on:click={() => exerciseTrackerStore.addExercise(exerciseTypeInputValue)}
+>
+  Add
+</button>
 
 <style lang="scss">
 </style>
