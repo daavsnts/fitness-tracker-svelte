@@ -87,15 +87,25 @@ export class FirestoreDao {
   }
 
   async getTodayTotalWaterIntake(): Promise<number> {
-    return this.getTodayTotal("water-intake-log");
+    const todayTotalWaterIntakeHistoryEmptyList: WaterIntake[] = [];
+    return this.getTodayTotal(
+      "water-intake-log",
+      todayTotalWaterIntakeHistoryEmptyList
+    );
   }
 
   async getTodayTotalExercises(): Promise<number> {
-    return this.getTodayTotal("exercise-log");
+    const todayTotalExerciseHistoryEmptyList: WaterIntake[] = [];
+    return this.getTodayTotal(
+      "exercise-log",
+      todayTotalExerciseHistoryEmptyList
+    );
   }
 
-  async getTodayTotal(collectionWanted: string): Promise<number> {
-    const todayTotalHistoryEmptyList: WaterIntake[] = [];
+  async getTodayTotal<T>(
+    collectionWanted: string,
+    todayTotalHistoryEmptyList: T[]
+  ): Promise<number> {
     const todayHistory = await this.getTodayHistory(
       todayTotalHistoryEmptyList,
       collectionWanted
