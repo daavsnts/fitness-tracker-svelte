@@ -11,6 +11,8 @@ import type { FirestoreDaoUtils } from "./FirestoreDaoUtils";
 export class FirestoreExerciseDao {
   private _db: Firestore;
   private _utils: FirestoreDaoUtils;
+  private _EXERCISE_COLLECTION = "exercise-log";
+  private _EXERCISE_GOAL_COLLECTION = "exercise-goal-log";
 
   constructor(db: Firestore, utils: FirestoreDaoUtils) {
     this._db = db;
@@ -19,14 +21,14 @@ export class FirestoreExerciseDao {
 
   async getExerciseHistory(): Promise<Exercise[]> {
     const emptyExerciseHistory: Exercise[] = [];
-    return this._utils.getHistory(emptyExerciseHistory, "exercise-log");
+    return this._utils.getHistory(emptyExerciseHistory, this._EXERCISE_COLLECTION);
   }
 
   async getExerciseGoalHistory(): Promise<ExerciseGoal[]> {
     const emptyExerciseGoalHistory: ExerciseGoal[] = [];
     return this._utils.getHistory(
       emptyExerciseGoalHistory,
-      "exercise-goal-log"
+     this._EXERCISE_GOAL_COLLECTION
     );
   }
 
@@ -34,7 +36,7 @@ export class FirestoreExerciseDao {
     const emptyTodayExerciseHistory: Exercise[] = [];
     return this._utils.getTodayHistory(
       emptyTodayExerciseHistory,
-      "exercise-log"
+     this._EXERCISE_COLLECTION
     );
   }
 
@@ -42,7 +44,7 @@ export class FirestoreExerciseDao {
     const todayTotalExerciseHistoryEmptyList: Exercise[] = [];
     const todayExerciseHistory = await this._utils.getTodayHistory(
       todayTotalExerciseHistoryEmptyList,
-      "exercise-log"
+     this._EXERCISE_COLLECTION
     );
 
     const todayTotalExercisesPauses = todayExerciseHistory.length;
@@ -51,7 +53,7 @@ export class FirestoreExerciseDao {
 
   async getCurrentExerciseGoal(): Promise<ExerciseGoal> {
     const currentExerciseGoalSnapshot =
-      await this._utils.getCurrentGoalSnapshot("exercise-goal-log");
+      await this._utils.getCurrentGoalSnapshot(this._EXERCISE_GOAL_COLLECTION);
     const currentExerciseGoalDocumentData = this._utils
       .getFirstDocFromSnapshot(currentExerciseGoalSnapshot)
       .data();
@@ -60,11 +62,11 @@ export class FirestoreExerciseDao {
   }
 
   async updateTodayExerciseGoal(quantity: number) {
-    await this._utils.updateGoal(quantity, "exercise-goal-log");
+    await this._utils.updateGoal(quantity, this._EXERCISE_GOAL_COLLECTION);
   }
 
   async addExercise(type: string) {
-    await addDoc(collection(this._db, "exercise-log"), {
+    await addDoc(collection(this._db, this._EXERCISE_COLLECTION), {
       type: type,
       timeStamp: Timestamp.fromDate(new Date()),
     });
