@@ -97,7 +97,9 @@ export class FirestoreDao {
   }
 
   async getCurrentWaterGoal(): Promise<WaterGoal> {
-    const currentWaterGoalSnapshot = await this.getCurrentWaterGoalSnapshot();
+    const currentWaterGoalSnapshot = await this.getCurrentGoalSnapshot(
+      "water-goal-log"
+    );
     const currentWaterGoalDocumentData = this.getFirstDocFromSnapshot(
       currentWaterGoalSnapshot
     ).data();
@@ -105,9 +107,9 @@ export class FirestoreDao {
     return WaterGoalConverter.fromFirestore(currentWaterGoalDocumentData);
   }
 
-  private async getCurrentWaterGoalSnapshot() {
+  private async getCurrentGoalSnapshot(collectionWanted: string) {
     const q = query(
-      collection(this._db, "water-goal-log"),
+      collection(this._db, collectionWanted),
       orderBy("timeStamp", "desc"),
       limit(1)
     );
@@ -125,34 +127,35 @@ export class FirestoreDao {
   }
 
   async updateTodayWaterGoal(quantity: number) {
-    const currentWaterGoalSnapshot = await this.getCurrentWaterGoalSnapshot();
-    const currentWaterGoalDocument = this.getFirstDocFromSnapshot(
-      currentWaterGoalSnapshot
+    await this.updateGoal(quantity, "water-goal-log");
+  }
+
+  private async updateGoal(quantity: number, collectionWanted: string) {
+    const currentGoalSnapshot = await this.getCurrentGoalSnapshot(
+      collectionWanted
     );
-    const currentWaterGoalDocumentData = currentWaterGoalDocument.data();
-    const currentWaterGoalTimestamp =
-      currentWaterGoalDocumentData.timeStamp as Timestamp;
+    const currentGoalDocument =
+      this.getFirstDocFromSnapshot(currentGoalSnapshot);
+    const currentGoalDocumentData = currentGoalDocument.data();
+    const currentGoalTimestamp = currentGoalDocumentData.timeStamp as Timestamp;
 
     const todayInterval = new TodayInterval();
 
-    if (currentWaterGoalTimestamp > Timestamp.fromDate(todayInterval.start)) {
-      await updateDoc(
-        doc(this._db, "water-goal-log", currentWaterGoalDocument.id),
-        {
-          quantity: quantity,
-          timeStamp: Timestamp.fromDate(new Date()),
-        }
-      );
+    if (currentGoalTimestamp > Timestamp.fromDate(todayInterval.start)) {
+      await updateDoc(doc(this._db, collectionWanted, currentGoalDocument.id), {
+        quantity: quantity,
+        timeStamp: Timestamp.fromDate(new Date()),
+      });
     } else {
-      await this.addWater(quantity, "water-goal-log");
+      await this.addQuantity(quantity, collectionWanted);
     }
   }
 
   async addWaterIntake(quantity: number) {
-    await this.addWater(quantity, "water-intake-log");
+    await this.addQuantity(quantity, "water-intake-log");
   }
 
-  private async addWater(quantity: number, selectedCollection: string) {
+  private async addQuantity(quantity: number, selectedCollection: string) {
     await addDoc(collection(this._db, selectedCollection), {
       quantity: quantity,
       timeStamp: Timestamp.fromDate(new Date()),
