@@ -26,7 +26,6 @@ import {
   ExerciseGoalConverter,
   WaterGoalConverter,
 } from "./FirestoreConverters";
-
 export class FirestoreDao {
   private _db: Firestore;
 
@@ -88,34 +87,30 @@ export class FirestoreDao {
 
   async getTodayTotalWaterIntake(): Promise<number> {
     const todayTotalWaterIntakeHistoryEmptyList: WaterIntake[] = [];
-    return this.getTodayTotal(
-      "water-intake-log",
-      todayTotalWaterIntakeHistoryEmptyList
+    const todayWaterIntakeHistory = await this.getTodayHistory(
+      todayTotalWaterIntakeHistoryEmptyList,
+      "water-intake-log"
     );
+
+    const todayTotal = todayWaterIntakeHistory.reduce(
+      (totalAccumulator, current) => {
+        return totalAccumulator + Number(current.quantity);
+      },
+      0
+    );
+
+    return todayTotal;
   }
 
   async getTodayTotalExercises(): Promise<number> {
-    const todayTotalExerciseHistoryEmptyList: WaterIntake[] = [];
-    return this.getTodayTotal(
-      "exercise-log",
-      todayTotalExerciseHistoryEmptyList
-    );
-  }
-
-  async getTodayTotal<T extends { quantity: number }>(
-    collectionWanted: string,
-    todayTotalHistoryEmptyList: T[]
-  ): Promise<number> {
-    const todayHistory = await this.getTodayHistory(
-      todayTotalHistoryEmptyList,
-      collectionWanted
+    const todayTotalExerciseHistoryEmptyList: Exercise[] = [];
+    const todayExerciseHistory = await this.getTodayHistory(
+      todayTotalExerciseHistoryEmptyList,
+      "exercise-log"
     );
 
-    const todayTotal = todayHistory.reduce((totalAccumulator, current) => {
-      return totalAccumulator + Number(current.quantity);
-    }, 0);
-
-    return todayTotal;
+    const todayTotalExercises = todayExerciseHistory.length;
+    return todayTotalExercises;
   }
 
   async getCurrentWaterGoal(): Promise<WaterGoal> {
