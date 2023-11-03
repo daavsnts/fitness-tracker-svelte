@@ -6,6 +6,10 @@ export class WaterGoal {
   constructor(public quantity: number, public timeStamp: Date) {}
 }
 
+export class Exercise {
+  constructor(public type: string, public timeStamp: Date) {}
+}
+
 export class TodayInterval {
   public start: Date;
   public end: Date;

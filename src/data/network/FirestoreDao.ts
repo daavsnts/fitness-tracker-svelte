@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment*/
-import { TodayInterval, WaterGoal, WaterIntake } from "$types/fitnessTypes";
+import {
+  Exercise,
+  TodayInterval,
+  WaterGoal,
+  WaterIntake,
+} from "$types/fitnessTypes";
 import {
   collection,
   type Firestore,
@@ -35,6 +40,11 @@ export class FirestoreDao {
     return this.getHistory(emptyWaterGoalHistory, "water-goal-log");
   }
 
+  async getExerciseHistory(): Promise<Exercise[]> {
+    const emptyExerciseHistory: Exercise[] = [];
+    return this.getHistory(emptyExerciseHistory, "exercise-log");
+  }
+
   private async getHistory<T>(historyList: T[], table: string): Promise<T[]> {
     const listSnapshot = await getDocs(collection(this._db, table));
 
@@ -42,6 +52,11 @@ export class FirestoreDao {
       historyList.push(doc.data() as T);
     });
     return historyList;
+  }
+
+  async getTodayExerciseHistory(): Promise<Exercise[]> {
+    const emptyTodayExerciseHistory: Exercise[] = [];
+    return this.getTodayHistory(emptyTodayExerciseHistory, "exercise-log");
   }
 
   private async getTodayHistory<T>(
@@ -140,6 +155,13 @@ export class FirestoreDao {
   private async addWater(quantity: number, selectedCollection: string) {
     await addDoc(collection(this._db, selectedCollection), {
       quantity: quantity,
+      timeStamp: Timestamp.fromDate(new Date()),
+    });
+  }
+
+  async addExercise(type: string) {
+    await addDoc(collection(this._db, "exercise-log"), {
+      quantity: type,
       timeStamp: Timestamp.fromDate(new Date()),
     });
   }
