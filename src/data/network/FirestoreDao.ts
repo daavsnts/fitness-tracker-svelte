@@ -27,12 +27,12 @@ export class FirestoreDao {
 
   async getWaterIntakeHistory(): Promise<WaterIntake[]> {
     const emptyWaterIntakeHistory: WaterIntake[] = [];
-    return this.getHistory(emptyWaterIntakeHistory, "water-intake");
+    return this.getHistory(emptyWaterIntakeHistory, "water-intake-log");
   }
 
   async getWaterGoalHistory(): Promise<WaterGoal[]> {
     const emptyWaterGoalHistory: WaterGoal[] = [];
-    return this.getHistory(emptyWaterGoalHistory, "water-goal");
+    return this.getHistory(emptyWaterGoalHistory, "water-goal-log");
   }
 
   private async getHistory<T>(historyList: T[], table: string): Promise<T[]> {
@@ -47,7 +47,7 @@ export class FirestoreDao {
   async getTodayTotalWaterIntake(): Promise<number> {
     const todayInterval = new TodayInterval();
     const q = query(
-      collection(this._db, "water-intake"),
+      collection(this._db, "water-intake-log"),
       where("timeStamp", ">=", Timestamp.fromDate(todayInterval.start)),
       where("timeStamp", "<=", Timestamp.fromDate(todayInterval.end))
     );
@@ -71,7 +71,7 @@ export class FirestoreDao {
 
   private async getCurrentWaterGoalSnapshot() {
     const q = query(
-      collection(this._db, "water-goal"),
+      collection(this._db, "water-goal-log"),
       orderBy("timeStamp", "desc"),
       limit(1)
     );
@@ -89,7 +89,7 @@ export class FirestoreDao {
   }
 
   async addWaterIntake(quantity: number) {
-    await this.addWater(quantity, "water-intake");
+    await this.addWater(quantity, "water-intake-log");
   }
 
   async updateTodayWaterGoal(quantity: number) {
@@ -105,14 +105,14 @@ export class FirestoreDao {
 
     if (currentWaterGoalTimestamp > Timestamp.fromDate(todayInterval.start)) {
       await updateDoc(
-        doc(this._db, "water-goal", currentWaterGoalDocument.id),
+        doc(this._db, "water-goal-log", currentWaterGoalDocument.id),
         {
           quantity: quantity,
           timeStamp: Timestamp.fromDate(new Date()),
         }
       );
     } else {
-      await this.addWater(quantity, "water-goal");
+      await this.addWater(quantity, "water-goal-log");
     }
   }
 
