@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment*/
 import {
   Exercise,
+  ExerciseGoal,
   TodayInterval,
   WaterGoal,
   WaterIntake,
@@ -21,7 +22,10 @@ import {
   QueryDocumentSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { WaterGoalConverter } from "./FirestoreConverters";
+import {
+  ExerciseGoalConverter,
+  WaterGoalConverter,
+} from "./FirestoreConverters";
 
 export class FirestoreDao {
   private _db: Firestore;
@@ -107,6 +111,17 @@ export class FirestoreDao {
     return WaterGoalConverter.fromFirestore(currentWaterGoalDocumentData);
   }
 
+  async getCurrentExerciseGoal(): Promise<ExerciseGoal> {
+    const currentExerciseGoalSnapshot = await this.getCurrentGoalSnapshot(
+      "exercise-goal-log"
+    );
+    const currentExerciseGoalDocumentData = this.getFirstDocFromSnapshot(
+      currentExerciseGoalSnapshot
+    ).data();
+
+    return ExerciseGoalConverter.fromFirestore(currentExerciseGoalDocumentData);
+  }
+
   private async getCurrentGoalSnapshot(collectionWanted: string) {
     const q = query(
       collection(this._db, collectionWanted),
@@ -128,6 +143,10 @@ export class FirestoreDao {
 
   async updateTodayWaterGoal(quantity: number) {
     await this.updateGoal(quantity, "water-goal-log");
+  }
+
+  async updateTodayExerciseGoal(quantity: number) {
+    await this.updateGoal(quantity, "exercise-goal-log");
   }
 
   private async updateGoal(quantity: number, collectionWanted: string) {

@@ -1,4 +1,4 @@
-import { WaterGoal } from "$types/fitnessTypes";
+import { ExerciseGoal, WaterGoal } from "$types/fitnessTypes";
 import { type DocumentData, Timestamp } from "firebase/firestore";
 
 export class WaterGoalConverter {
@@ -9,6 +9,18 @@ export class WaterGoalConverter {
   }
 
   static toFirestore({ quantity, timeStamp }: WaterGoal) {
+    return { quantity: quantity, timeStamp: Timestamp.fromDate(timeStamp) };
+  }
+}
+
+export class ExerciseGoalConverter {
+  static fromFirestore(exerciseGoalDoc: DocumentData) {
+    const quantity = exerciseGoalDoc.quantity as number;
+    const timestamp = exerciseGoalDoc.timeStamp as Timestamp;
+    return new ExerciseGoal(quantity, timestamp.toDate());
+  }
+
+  static toFirestore({ quantity, timeStamp }: ExerciseGoal) {
     return { quantity: quantity, timeStamp: Timestamp.fromDate(timeStamp) };
   }
 }
