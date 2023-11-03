@@ -46,8 +46,8 @@ export class FirestoreDao {
     return this._waterDao.getTodayTotalWaterIntake();
   }
 
-  async getTodayTotalExercises(): Promise<number> {
-    return this._exerciseDao.getTodayTotalExercises();
+  async getTodayTotalExercisesPauses(): Promise<number> {
+    return this._exerciseDao.getTodayTotalExercisesPauses();
   }
 
   async getCurrentWaterGoal(): Promise<WaterGoal> {

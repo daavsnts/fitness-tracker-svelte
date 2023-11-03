@@ -38,15 +38,15 @@ export class FirestoreExerciseDao {
     );
   }
 
-  async getTodayTotalExercises(): Promise<number> {
+  async getTodayTotalExercisesPauses(): Promise<number> {
     const todayTotalExerciseHistoryEmptyList: Exercise[] = [];
     const todayExerciseHistory = await this._utils.getTodayHistory(
       todayTotalExerciseHistoryEmptyList,
       "exercise-log"
     );
 
-    const todayTotalExercises = todayExerciseHistory.length;
-    return todayTotalExercises;
+    const todayTotalExercisesPauses = todayExerciseHistory.length;
+    return todayTotalExercisesPauses;
   }
 
   async getCurrentExerciseGoal(): Promise<ExerciseGoal> {
