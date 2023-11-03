@@ -24,8 +24,8 @@ export class WaterRepository {
     return await this._dao.getCurrentWaterGoal();
   }
 
-  async addWaterGoal(quantity: number): Promise<void> {
-    return await this._dao.addWaterGoal(quantity);
+  async updateTodayWaterGoal(quantity: number): Promise<void> {
+    return await this._dao.updateTodayWaterGoal(quantity);
   }
 
   async addWaterIntake(quantity: number): Promise<void> {

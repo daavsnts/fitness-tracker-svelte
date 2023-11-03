@@ -46,8 +46,8 @@ export class WaterTrackerStore {
     await this.refreshStoreStates();
   }
 
-  async addWaterGoal(quantity: number) {
-    await this._waterRepository.addWaterGoal(quantity);
+  async updateTodayWaterGoal(quantity: number) {
+    await this._waterRepository.updateTodayWaterGoal(quantity);
     await this.refreshStoreStates();
   }
 }

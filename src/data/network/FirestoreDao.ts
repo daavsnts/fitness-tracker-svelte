@@ -10,6 +10,11 @@ import {
   orderBy,
   limit,
   addDoc,
+  doc,
+  type DocumentData,
+  QuerySnapshot,
+  QueryDocumentSnapshot,
+  updateDoc,
 } from "firebase/firestore";
 
 export class FirestoreDao {
@@ -57,26 +62,71 @@ export class FirestoreDao {
   }
 
   async getCurrentWaterGoal(): Promise<WaterGoal> {
+    const currentWaterGoalSnapshot = await this.getCurrentWaterGoalSnapshot();
+    const currentWaterGoalDocumentData = this.getFirstDocFromSnapshot(
+      currentWaterGoalSnapshot
+    ).data();
+
+    const currentWaterGoalQuantity =
+      currentWaterGoalDocumentData.quantity as number;
+    const currentWaterGoalTimestamp =
+      currentWaterGoalDocumentData.timeStamp as Timestamp;
+
+    const currentWaterGoal = new WaterGoal(
+      currentWaterGoalQuantity,
+      currentWaterGoalTimestamp.toDate()
+    );
+
+    return currentWaterGoal;
+  }
+
+  private async getCurrentWaterGoalSnapshot() {
     const q = query(
       collection(this._db, "water-goal"),
       orderBy("timeStamp", "desc"),
       limit(1)
     );
-    const currentWaterGoalSnapshot = await getDocs(q);
-    let currentWaterGoal: WaterGoal;
+    return await getDocs(q);
+  }
 
-    currentWaterGoalSnapshot.forEach((doc) => {
-      currentWaterGoal = doc.data() as WaterGoal;
+  private getFirstDocFromSnapshot(
+    snapshot: QuerySnapshot<DocumentData, DocumentData>
+  ): QueryDocumentSnapshot<DocumentData, DocumentData> {
+    let firstDoc: QueryDocumentSnapshot<DocumentData, DocumentData>;
+    snapshot.forEach((doc) => {
+      firstDoc = doc;
     });
-    return currentWaterGoal;
+    return firstDoc;
   }
 
   async addWaterIntake(quantity: number) {
     await this.addWater(quantity, "water-intake");
   }
 
-  async addWaterGoal(quantity: number) {
-    await this.addWater(quantity, "water-goal");
+  async updateTodayWaterGoal(quantity: number) {
+    const currentWaterGoalSnapshot = await this.getCurrentWaterGoalSnapshot();
+    const currentWaterGoalDocument = this.getFirstDocFromSnapshot(
+      currentWaterGoalSnapshot
+    );
+    const currentWaterGoalDocumentData = currentWaterGoalDocument.data();
+    const currentWaterGoalTimestamp =
+      currentWaterGoalDocumentData.timeStamp as Timestamp;
+
+    const todayDate = new Date();
+    const startOfTheDay = new Date(todayDate.setHours(0, 0, 0, 0));
+    const startOfTheDayTimestamp = Timestamp.fromDate(startOfTheDay);
+
+    if (currentWaterGoalTimestamp > startOfTheDayTimestamp) {
+      await updateDoc(
+        doc(this._db, "water-goal", currentWaterGoalDocument.id),
+        {
+          quantity: quantity,
+          timeStamp: Timestamp.fromDate(new Date()),
+        }
+      );
+    } else {
+      await this.addWater(quantity, "water-goal");
+    }
   }
 
   async addWater(quantity: number, selectedCollection: string) {
