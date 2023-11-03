@@ -161,7 +161,7 @@ export class FirestoreDao {
 
   async addExercise(type: string) {
     await addDoc(collection(this._db, "exercise-log"), {
-      quantity: type,
+      type: type,
       timeStamp: Timestamp.fromDate(new Date()),
     });
   }
