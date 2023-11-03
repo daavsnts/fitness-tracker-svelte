@@ -43,10 +43,12 @@ export class WaterTrackerStore {
 
   async addWaterIntake(quantity: number) {
     await this._waterRepository.addWaterIntake(quantity);
+    await this.refreshStoreStates();
   }
 
   async addWaterGoal(quantity: number) {
     await this._waterRepository.addWaterGoal(quantity);
+    await this.refreshStoreStates();
   }
 }
 
