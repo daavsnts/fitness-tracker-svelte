@@ -6,11 +6,10 @@ import {
   getDocs,
   where,
   query,
-  setDoc,
   Timestamp,
-  doc,
   orderBy,
   limit,
+  addDoc,
 } from "firebase/firestore";
 
 export class FirestoreDao {
@@ -80,8 +79,8 @@ export class FirestoreDao {
     await this.addWater(quantity, "water-goal");
   }
 
-  async addWater(quantity: number, collection: string) {
-    await setDoc(doc(this._db, collection), {
+  async addWater(quantity: number, selectedCollection: string) {
+    await addDoc(collection(this._db, selectedCollection), {
       quantity: quantity,
       timeStamp: Timestamp.fromDate(new Date()),
     });
