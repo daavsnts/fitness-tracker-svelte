@@ -49,6 +49,11 @@ export class FirestoreDao {
     return this.getHistory(emptyExerciseHistory, "exercise-log");
   }
 
+  async getExerciseGoalHistory(): Promise<ExerciseGoal[]> {
+    const emptyExerciseGoalHistory: ExerciseGoal[] = [];
+    return this.getHistory(emptyExerciseGoalHistory, "exercise-goal-log");
+  }
+
   private async getHistory<T>(historyList: T[], table: string): Promise<T[]> {
     const listSnapshot = await getDocs(collection(this._db, table));
 
@@ -82,7 +87,11 @@ export class FirestoreDao {
   }
 
   async getTodayTotalWaterIntake(): Promise<number> {
-    return this.getTodayTotal("water-intake-log")
+    return this.getTodayTotal("water-intake-log");
+  }
+
+  async getTodayTotalExercises(): Promise<number> {
+    return this.getTodayTotal("exercise-log");
   }
 
   async getTodayTotal(collectionWanted: string): Promise<number> {
@@ -92,14 +101,9 @@ export class FirestoreDao {
       collectionWanted
     );
 
-    const todayTotal = todayHistory.reduce(
-      (totalAccumulator, current) => {
-        return (
-          totalAccumulator + Number(current.quantity)
-        );
-      },
-      0
-    );
+    const todayTotal = todayHistory.reduce((totalAccumulator, current) => {
+      return totalAccumulator + Number(current.quantity);
+    }, 0);
 
     return todayTotal;
   }
