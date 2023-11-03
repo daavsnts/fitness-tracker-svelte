@@ -1,10 +1,10 @@
 import type { Exercise, ExerciseGoal } from "$types/fitnessTypes";
-import type { FirestoreDao } from "../network/FirestoreDao";
+import type { FirestoreExerciseDao } from "../network/FirestoreExerciseDao";
 
 export class ExerciseRepository {
-  private _dao: FirestoreDao;
+  private _dao: FirestoreExerciseDao;
 
-  constructor(dao: FirestoreDao) {
+  constructor(dao: FirestoreExerciseDao) {
     this._dao = dao;
   }
 

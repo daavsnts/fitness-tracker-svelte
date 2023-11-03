@@ -1,10 +1,10 @@
 import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
-import type { FirestoreDao } from "../network/FirestoreDao";
+import type { FirestoreWaterDao } from "../network/FirestoreWaterDao";
 
 export class WaterRepository {
-  private _dao: FirestoreDao;
+  private _dao: FirestoreWaterDao;
 
-  constructor(dao: FirestoreDao) {
+  constructor(dao: FirestoreWaterDao) {
     this._dao = dao;
   }
 
