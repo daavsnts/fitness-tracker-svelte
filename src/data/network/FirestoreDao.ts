@@ -102,7 +102,7 @@ export class FirestoreDao {
     );
   }
 
-  async getTodayTotal<T>(
+  async getTodayTotal<T extends { quantity: number }>(
     collectionWanted: string,
     todayTotalHistoryEmptyList: T[]
   ): Promise<number> {
