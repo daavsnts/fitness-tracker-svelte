@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment*/
-import { WaterGoal, WaterIntake } from "$types/fitnessTypes";
+import { TodayInterval, WaterGoal, WaterIntake } from "$types/fitnessTypes";
 import {
   collection,
   type Firestore,
@@ -16,6 +16,7 @@ import {
   QueryDocumentSnapshot,
   updateDoc,
 } from "firebase/firestore";
+import { WaterGoalConverter } from "./FirestoreConverters";
 
 export class FirestoreDao {
   private _db: Firestore;
@@ -44,13 +45,11 @@ export class FirestoreDao {
   }
 
   async getTodayTotalWaterIntake(): Promise<number> {
-    const todayDate = new Date();
-    const startOfTheDay = new Date(todayDate.setHours(0, 0, 0, 0));
-    const endOfTheDay = new Date(todayDate.setHours(23, 59, 59, 999));
+    const todayInterval = new TodayInterval();
     const q = query(
       collection(this._db, "water-intake"),
-      where("timeStamp", ">=", Timestamp.fromDate(startOfTheDay)),
-      where("timeStamp", "<=", Timestamp.fromDate(endOfTheDay))
+      where("timeStamp", ">=", Timestamp.fromDate(todayInterval.start)),
+      where("timeStamp", "<=", Timestamp.fromDate(todayInterval.end))
     );
     const todayTotalWaterIntakeSnapshot = await getDocs(q);
     let totalWaterIntake = 0;
@@ -67,17 +66,7 @@ export class FirestoreDao {
       currentWaterGoalSnapshot
     ).data();
 
-    const currentWaterGoalQuantity =
-      currentWaterGoalDocumentData.quantity as number;
-    const currentWaterGoalTimestamp =
-      currentWaterGoalDocumentData.timeStamp as Timestamp;
-
-    const currentWaterGoal = new WaterGoal(
-      currentWaterGoalQuantity,
-      currentWaterGoalTimestamp.toDate()
-    );
-
-    return currentWaterGoal;
+    return WaterGoalConverter.fromFirestore(currentWaterGoalDocumentData);
   }
 
   private async getCurrentWaterGoalSnapshot() {
@@ -112,11 +101,9 @@ export class FirestoreDao {
     const currentWaterGoalTimestamp =
       currentWaterGoalDocumentData.timeStamp as Timestamp;
 
-    const todayDate = new Date();
-    const startOfTheDay = new Date(todayDate.setHours(0, 0, 0, 0));
-    const startOfTheDayTimestamp = Timestamp.fromDate(startOfTheDay);
+    const todayInterval = new TodayInterval();
 
-    if (currentWaterGoalTimestamp > startOfTheDayTimestamp) {
+    if (currentWaterGoalTimestamp > Timestamp.fromDate(todayInterval.start)) {
       await updateDoc(
         doc(this._db, "water-goal", currentWaterGoalDocument.id),
         {
