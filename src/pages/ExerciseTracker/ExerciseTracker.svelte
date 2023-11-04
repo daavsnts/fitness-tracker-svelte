@@ -2,18 +2,39 @@
   import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
 
   let todayExerciseHistory = exerciseTrackerStore.todayExerciseHistory;
+  let todayTotalExercisePauses = exerciseTrackerStore.todayTotalExercisePauses;
+  let todayCurrentExerciseGoal = exerciseTrackerStore.todayCurrentExerciseGoal;
   let exerciseTypeInputValue = "";
+  let updateGoalInputValue = 0;
 </script>
 
+<p>Pauses history:</p>
 {#each $todayExerciseHistory as exercise}
   <li>{exercise.type}</li>
 {/each}
-<input bind:value={exerciseTypeInputValue} />
 
+<p>Today total pauses: {$todayTotalExercisePauses}</p>
+<p>Today current goal: {$todayCurrentExerciseGoal.quantity}</p>
+
+<input
+  bind:value={exerciseTypeInputValue}
+  type="text"
+/>
 <button
   on:click={() => exerciseTrackerStore.addExercise(exerciseTypeInputValue)}
 >
-  Add
+  Add Pause
+</button>
+
+<input
+  bind:value={updateGoalInputValue}
+  type="number"
+/>
+<button
+  on:click={() =>
+    exerciseTrackerStore.updateTodayExerciseGoal(updateGoalInputValue)}
+>
+  Update goal
 </button>
 
 <style lang="scss">
