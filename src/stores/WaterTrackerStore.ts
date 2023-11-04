@@ -9,6 +9,9 @@ export class WaterTrackerStore {
     new WaterGoal(0, new Date())
   );
   private _todayTotalWaterIntake: Writable<number> = writable(0);
+  private _todayWaterIntakeHistory: Writable<WaterGoal[]> = writable(
+    [] as WaterGoal[]
+  );
 
   constructor(waterRepository: WaterRepository) {
     this._waterRepository = waterRepository;
@@ -28,6 +31,10 @@ export class WaterTrackerStore {
       const todayTotalWaterIntake =
         await this._waterRepository.getTodayTotalWaterIntake();
       this._todayTotalWaterIntake.set(todayTotalWaterIntake);
+
+      const todayWaterIntakeHistory =
+        await this._waterRepository.getTodayWaterIntakeHistory();
+      this._todayWaterIntakeHistory.set(todayWaterIntakeHistory);
     } catch (msg) {
       console.log(msg);
     }
@@ -39,6 +46,10 @@ export class WaterTrackerStore {
 
   get todayTotalWaterIntake() {
     return this._todayTotalWaterIntake;
+  }
+
+  get todayWaterIntakeHistory() {
+    return this._todayWaterIntakeHistory;
   }
 
   async addWaterIntake(quantity: number) {
