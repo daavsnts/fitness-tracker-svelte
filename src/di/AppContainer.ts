@@ -4,35 +4,48 @@ import { ExerciseRepository } from "../data/repositories/ExerciseRepository";
 import { FirestoreDaoUtils } from "../data/network/FirestoreDaoUtils";
 import { FirestoreWaterDao } from "../data/network/FirestoreWaterDao";
 import { FirestoreExerciseDao } from "../data/network/FirestoreExerciseDao";
+import { UserRepository } from "../data/repositories/UserRepository";
+import { FirebaseAuthenticator } from "../data/network/FirebaseAuthenticator";
 
 class AppContainer {
   private _firebaseService: FirebaseService;
-  private _daoUtils: FirestoreDaoUtils;
-  private _waterDao: FirestoreWaterDao;
-  private _exerciseDao: FirestoreExerciseDao;
+  private _firebaseAuth: FirebaseAuthenticator;
+  private _firestoreDaoUtils: FirestoreDaoUtils;
+  private _firestoreWaterDao: FirestoreWaterDao;
+  private _firestoreExerciseDao: FirestoreExerciseDao;
   private _waterRepository: WaterRepository;
   private _exerciseRepository: ExerciseRepository;
+  private _userRepository: UserRepository;
 
   constructor() {
     this._firebaseService = new FirebaseService();
-    this._daoUtils = new FirestoreDaoUtils(this._firebaseService.db);
-    this._waterDao = new FirestoreWaterDao(
+    this._firebaseAuth = new FirebaseAuthenticator(this._firebaseService.auth);
+    this._firestoreDaoUtils = new FirestoreDaoUtils(this._firebaseService.db);
+    this._firestoreWaterDao = new FirestoreWaterDao(
       this._firebaseService.db,
-      this._daoUtils
+      this._firestoreDaoUtils
     );
-    this._exerciseDao = new FirestoreExerciseDao(
+    this._firestoreExerciseDao = new FirestoreExerciseDao(
       this._firebaseService.db,
-      this._daoUtils
+      this._firestoreDaoUtils
     );
-    this._waterRepository = new WaterRepository(this._waterDao);
-    this._exerciseRepository = new ExerciseRepository(this._exerciseDao);
+    this._waterRepository = new WaterRepository(this._firestoreWaterDao);
+    this._exerciseRepository = new ExerciseRepository(
+      this._firestoreExerciseDao
+    );
+    this._userRepository = new UserRepository(this._firebaseAuth);
   }
 
   get waterRepository() {
     return this._waterRepository;
   }
+
   get exerciseRepository() {
     return this._exerciseRepository;
+  }
+
+  get userRepository() {
+    return this._userRepository;
   }
 }
 
