@@ -21,14 +21,17 @@ export class FirestoreExerciseDao {
 
   async getExerciseHistory(): Promise<Exercise[]> {
     const emptyExerciseHistory: Exercise[] = [];
-    return this._utils.getHistory(emptyExerciseHistory, this._EXERCISE_COLLECTION);
+    return this._utils.getHistory(
+      emptyExerciseHistory,
+      this._EXERCISE_COLLECTION
+    );
   }
 
   async getExerciseGoalHistory(): Promise<ExerciseGoal[]> {
     const emptyExerciseGoalHistory: ExerciseGoal[] = [];
     return this._utils.getHistory(
       emptyExerciseGoalHistory,
-     this._EXERCISE_GOAL_COLLECTION
+      this._EXERCISE_GOAL_COLLECTION
     );
   }
 
@@ -36,7 +39,7 @@ export class FirestoreExerciseDao {
     const emptyTodayExerciseHistory: Exercise[] = [];
     return this._utils.getTodayHistory(
       emptyTodayExerciseHistory,
-     this._EXERCISE_COLLECTION
+      this._EXERCISE_COLLECTION
     );
   }
 
@@ -44,25 +47,26 @@ export class FirestoreExerciseDao {
     const todayTotalExerciseHistoryEmptyList: Exercise[] = [];
     const todayExerciseHistory = await this._utils.getTodayHistory(
       todayTotalExerciseHistoryEmptyList,
-     this._EXERCISE_COLLECTION
+      this._EXERCISE_COLLECTION
     );
 
     const todayTotalExercisesPauses = todayExerciseHistory.length;
     return todayTotalExercisesPauses;
   }
 
-  async getCurrentExerciseGoal(): Promise<ExerciseGoal> {
-    const currentExerciseGoalSnapshot =
-      await this._utils.getCurrentGoalSnapshot(this._EXERCISE_GOAL_COLLECTION);
-    const currentExerciseGoalDocumentData = this._utils
-      .getFirstDocFromSnapshot(currentExerciseGoalSnapshot)
-      .data();
+  async getTodayCurrentExerciseGoal(): Promise<ExerciseGoal> {
+    const todayCurrentExerciseGoalDocumentData =
+      await this._utils.getTodayCurrentGoalDocumentData(
+        this._EXERCISE_GOAL_COLLECTION
+      );
 
-    return ExerciseGoalConverter.fromFirestore(currentExerciseGoalDocumentData);
+    return ExerciseGoalConverter.fromFirestore(
+      todayCurrentExerciseGoalDocumentData
+    );
   }
 
   async updateTodayExerciseGoal(quantity: number) {
-    await this._utils.updateGoal(quantity, this._EXERCISE_GOAL_COLLECTION);
+    await this._utils.updateTodayGoal(quantity, this._EXERCISE_GOAL_COLLECTION);
   }
 
   async addExercise(type: string) {

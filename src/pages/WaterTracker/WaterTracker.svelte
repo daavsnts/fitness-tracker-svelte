@@ -2,7 +2,7 @@
   import waterTrackerStore from "$stores/WaterTrackerStore";
 
   let todayTotalWaterIntake = waterTrackerStore.todayTotalWaterIntake;
-  let currentWaterGoal = waterTrackerStore.currentWaterGoal;
+  let currentWaterGoal = waterTrackerStore.todayCurrentWaterGoal;
 
   let addWaterIntakeInputValue = 0;
   let updateTodayWaterGoalInputValue = 0;

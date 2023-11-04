@@ -50,9 +50,22 @@ export class FirestoreDaoUtils {
     return historyList;
   }
 
-  async getCurrentGoalSnapshot(collectionWanted: string) {
+  async getTodayCurrentGoalDocumentData(collectionWanted: string) {
+    const todayCurrentGoalSnapshot = await this.getTodayCurrentGoalSnapshot(
+      collectionWanted
+    );
+
+    return this.getFirstDocFromSnapshot(
+      todayCurrentGoalSnapshot
+    ).data();
+  }
+
+  private async getTodayCurrentGoalSnapshot(collectionWanted: string) {
+    const todayInterval = new TodayInterval();
     const q = query(
       collection(this._db, collectionWanted),
+      where("timeStamp", ">=", Timestamp.fromDate(todayInterval.start)),
+      where("timeStamp", "<=", Timestamp.fromDate(todayInterval.end)),
       orderBy("timeStamp", "desc"),
       limit(1)
     );
@@ -69,8 +82,8 @@ export class FirestoreDaoUtils {
     return firstDoc;
   }
 
-  async updateGoal(quantity: number, collectionWanted: string) {
-    const currentGoalSnapshot = await this.getCurrentGoalSnapshot(
+  async updateTodayGoal(quantity: number, collectionWanted: string) {
+    const currentGoalSnapshot = await this.getTodayCurrentGoalSnapshot(
       collectionWanted
     );
     const currentGoalDocument =

@@ -5,7 +5,7 @@ import { writable, type Writable } from "svelte/store";
 
 export class WaterTrackerStore {
   private _waterRepository: WaterRepository;
-  private _currentWaterGoal: Writable<WaterGoal> = writable(
+  private _todayCurrentWaterGoal: Writable<WaterGoal> = writable(
     new WaterGoal(0, new Date())
   );
   private _todayTotalWaterIntake: Writable<number> = writable(0);
@@ -21,9 +21,9 @@ export class WaterTrackerStore {
 
   private async refreshStoreStates() {
     try {
-      const currentWaterGoal =
-        await this._waterRepository.getCurrentWaterGoal();
-      this._currentWaterGoal.set(currentWaterGoal);
+      const todayCurrentWaterGoal =
+        await this._waterRepository.getTodayCurrentWaterGoal();
+      this._todayCurrentWaterGoal.set(todayCurrentWaterGoal);
 
       const todayTotalWaterIntake =
         await this._waterRepository.getTodayTotalWaterIntake();
@@ -33,8 +33,8 @@ export class WaterTrackerStore {
     }
   }
 
-  get currentWaterGoal() {
-    return this._currentWaterGoal;
+  get todayCurrentWaterGoal() {
+    return this._todayCurrentWaterGoal;
   }
 
   get todayTotalWaterIntake() {

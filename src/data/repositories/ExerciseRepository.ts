@@ -24,8 +24,8 @@ export class ExerciseRepository {
     return await this._dao.getExerciseGoalHistory();
   }
 
-  async getCurrentExerciseGoal(): Promise<ExerciseGoal> {
-    return await this._dao.getCurrentExerciseGoal();
+  async getTodayCurrentExerciseGoal(): Promise<ExerciseGoal> {
+    return await this._dao.getTodayCurrentExerciseGoal();
   }
 
   async updateTodayExerciseGoal(quantity: number) {

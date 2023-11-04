@@ -55,19 +55,17 @@ export class FirestoreWaterDao {
     return todayTotal;
   }
 
-  async getCurrentWaterGoal(): Promise<WaterGoal> {
-    const currentWaterGoalSnapshot = await this._utils.getCurrentGoalSnapshot(
-      this._WATER_GOAL_COLLECTION
-    );
-    const currentWaterGoalDocumentData = this._utils
-      .getFirstDocFromSnapshot(currentWaterGoalSnapshot)
-      .data();
+  async getTodayCurrentWaterGoal(): Promise<WaterGoal> {
+    const todayCurrentWaterGoalDocumentData =
+      await this._utils.getTodayCurrentGoalDocumentData(
+        this._WATER_GOAL_COLLECTION
+      );
 
-    return WaterGoalConverter.fromFirestore(currentWaterGoalDocumentData);
+    return WaterGoalConverter.fromFirestore(todayCurrentWaterGoalDocumentData);
   }
 
   async updateTodayWaterGoal(quantity: number) {
-    await this._utils.updateGoal(quantity, this._WATER_GOAL_COLLECTION);
+    await this._utils.updateTodayGoal(quantity, this._WATER_GOAL_COLLECTION);
   }
 
   async addWaterIntake(quantity: number) {
