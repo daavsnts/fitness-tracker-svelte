@@ -55,9 +55,7 @@ export class FirestoreDaoUtils {
       collectionWanted
     );
 
-    return this.getFirstDocFromSnapshot(
-      todayCurrentGoalSnapshot
-    ).data();
+    return this.getFirstDocFromSnapshot(todayCurrentGoalSnapshot).data();
   }
 
   private async getTodayCurrentGoalSnapshot(collectionWanted: string) {
@@ -83,6 +81,8 @@ export class FirestoreDaoUtils {
   }
 
   async updateTodayGoal(quantity: number, collectionWanted: string) {
+    if (quantity <= 0) throw Error("Invalid quantity!");
+
     const currentGoalSnapshot = await this.getTodayCurrentGoalSnapshot(
       collectionWanted
     );
@@ -104,6 +104,8 @@ export class FirestoreDaoUtils {
   }
 
   async addQuantity(quantity: number, selectedCollection: string) {
+    if (quantity <= 0) throw Error("Invalid quantity!");
+
     await addDoc(collection(this._db, selectedCollection), {
       quantity: quantity,
       timeStamp: Timestamp.fromDate(new Date()),
