@@ -23,8 +23,11 @@ export class FirestoreDaoUtils {
     this._db = db;
   }
 
-  async getHistory<T>(historyList: T[], table: string): Promise<T[]> {
-    const listSnapshot = await getDocs(collection(this._db, table));
+  async getHistory<T>(
+    historyList: T[],
+    collectionWanted: string
+  ): Promise<T[]> {
+    const listSnapshot = await getDocs(collection(this._db, collectionWanted));
 
     listSnapshot.forEach((doc) => {
       historyList.push(doc.data() as T);
