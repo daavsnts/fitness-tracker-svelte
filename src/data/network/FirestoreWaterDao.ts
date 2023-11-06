@@ -61,6 +61,8 @@ export class FirestoreWaterDao {
         this._WATER_GOAL_COLLECTION
       );
 
+    if (!todayCurrentWaterGoalDocumentData) return null;
+
     return WaterGoalConverter.fromFirestore(todayCurrentWaterGoalDocumentData);
   }
 

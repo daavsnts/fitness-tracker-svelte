@@ -26,15 +26,18 @@ export class ExerciseTrackerStore {
     try {
       const todayExerciseHistory =
         await this._exerciseRepository.getTodayExerciseHistory();
-      this._todayExerciseHistory.set(todayExerciseHistory);
+      if (todayExerciseHistory)
+        this._todayExerciseHistory.set(todayExerciseHistory);
 
       const todayTotalExercisePauses =
         await this._exerciseRepository.getTodayTotalExercisesPauses();
-      this._todayTotalExercisePauses.set(todayTotalExercisePauses);
+      if (todayTotalExercisePauses)
+        this._todayTotalExercisePauses.set(todayTotalExercisePauses);
 
       const todayCurrentExerciseGoal =
         await this._exerciseRepository.getTodayCurrentExerciseGoal();
-      this._todayCurrentExerciseGoal.set(todayCurrentExerciseGoal);
+      if (todayCurrentExerciseGoal)
+        this._todayCurrentExerciseGoal.set(todayCurrentExerciseGoal);
     } catch (msg) {
       console.log(msg);
     }

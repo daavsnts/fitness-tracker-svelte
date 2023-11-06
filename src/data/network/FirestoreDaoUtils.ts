@@ -55,6 +55,8 @@ export class FirestoreDaoUtils {
       collectionWanted
     );
 
+    if (todayCurrentGoalSnapshot.empty) return null;
+
     return this.getFirstDocFromSnapshot(todayCurrentGoalSnapshot).data();
   }
 
@@ -73,11 +75,7 @@ export class FirestoreDaoUtils {
   getFirstDocFromSnapshot(
     snapshot: QuerySnapshot<DocumentData, DocumentData>
   ): QueryDocumentSnapshot<DocumentData, DocumentData> {
-    let firstDoc: QueryDocumentSnapshot<DocumentData, DocumentData>;
-    snapshot.forEach((doc) => {
-      firstDoc = doc;
-    });
-    return firstDoc;
+    return snapshot.docs[0];
   }
 
   async updateTodayGoal(quantity: number, collectionWanted: string) {
@@ -86,20 +84,29 @@ export class FirestoreDaoUtils {
     const currentGoalSnapshot = await this.getTodayCurrentGoalSnapshot(
       collectionWanted
     );
-    const currentGoalDocument =
-      this.getFirstDocFromSnapshot(currentGoalSnapshot);
-    const currentGoalDocumentData = currentGoalDocument.data();
-    const currentGoalTimestamp = currentGoalDocumentData.timeStamp as Timestamp;
 
-    const todayInterval = new TodayInterval();
-
-    if (currentGoalTimestamp > Timestamp.fromDate(todayInterval.start)) {
-      await updateDoc(doc(this._db, collectionWanted, currentGoalDocument.id), {
-        quantity: quantity,
-        timeStamp: Timestamp.fromDate(new Date()),
-      });
-    } else {
+    if (currentGoalSnapshot.empty) {
       await this.addQuantity(quantity, collectionWanted);
+    } else {
+      const currentGoalDocument =
+        this.getFirstDocFromSnapshot(currentGoalSnapshot);
+      const currentGoalDocumentData = currentGoalDocument.data();
+      const currentGoalTimestamp =
+        currentGoalDocumentData.timeStamp as Timestamp;
+
+      const todayInterval = new TodayInterval();
+
+      if (currentGoalTimestamp > Timestamp.fromDate(todayInterval.start)) {
+        await updateDoc(
+          doc(this._db, collectionWanted, currentGoalDocument.id),
+          {
+            quantity: quantity,
+            timeStamp: Timestamp.fromDate(new Date()),
+          }
+        );
+      } else {
+        await this.addQuantity(quantity, collectionWanted);
+      }
     }
   }
 

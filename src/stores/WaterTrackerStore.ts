@@ -26,15 +26,18 @@ export class WaterTrackerStore {
     try {
       const todayCurrentWaterGoal =
         await this._waterRepository.getTodayCurrentWaterGoal();
-      this._todayCurrentWaterGoal.set(todayCurrentWaterGoal);
+      if (todayCurrentWaterGoal)
+        this._todayCurrentWaterGoal.set(todayCurrentWaterGoal);
 
       const todayTotalWaterIntake =
         await this._waterRepository.getTodayTotalWaterIntake();
-      this._todayTotalWaterIntake.set(todayTotalWaterIntake);
+      if (todayTotalWaterIntake)
+        this._todayTotalWaterIntake.set(todayTotalWaterIntake);
 
       const todayWaterIntakeHistory =
         await this._waterRepository.getTodayWaterIntakeHistory();
-      this._todayWaterIntakeHistory.set(todayWaterIntakeHistory);
+      if (todayTotalWaterIntake)
+        this._todayWaterIntakeHistory.set(todayWaterIntakeHistory);
     } catch (msg) {
       console.log(msg);
     }

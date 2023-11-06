@@ -60,6 +60,8 @@ export class FirestoreExerciseDao {
         this._EXERCISE_GOAL_COLLECTION
       );
 
+    if (!todayCurrentExerciseGoalDocumentData) return null;
+
     return ExerciseGoalConverter.fromFirestore(
       todayCurrentExerciseGoalDocumentData
     );
