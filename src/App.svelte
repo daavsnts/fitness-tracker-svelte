@@ -4,6 +4,7 @@
   import LoginPage from "$pages/LoginPage/LoginPage.svelte";
 
   let userLoggedIn = userAuthenticationStore.isUserLoggedIn;
+
 </script>
 
 <div class="App">

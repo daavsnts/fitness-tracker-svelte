@@ -1,5 +1,6 @@
 <script lang="ts">
   import waterTrackerStore from "$stores/WaterTrackerStore";
+  import { onMount } from "svelte";
 
   let todayTotalWaterIntake = waterTrackerStore.todayTotalWaterIntake;
   let todayCurrentWaterGoal = waterTrackerStore.todayCurrentWaterGoal;
@@ -7,6 +8,10 @@
 
   let addWaterIntakeInputValue = 0;
   let updateTodayWaterGoalInputValue = 0;
+
+  onMount(() => {
+    waterTrackerStore.refreshStoreStates();
+  });
 </script>
 
 <p>Water intake history:</p>

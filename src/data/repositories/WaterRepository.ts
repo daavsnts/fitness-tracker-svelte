@@ -1,38 +1,48 @@
 import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
 import type { FirestoreWaterDao } from "../network/FirestoreWaterDao";
+import type { UserRepository } from "./UserRepository";
 
 export class WaterRepository {
   private _dao: FirestoreWaterDao;
+  private _userRepository: UserRepository;
 
-  constructor(dao: FirestoreWaterDao) {
+  constructor(dao: FirestoreWaterDao, userRepository: UserRepository) {
     this._dao = dao;
+    this._userRepository = userRepository;
   }
 
   async getWaterIntakeHistory(): Promise<WaterIntake[]> {
-    return await this._dao.getWaterIntakeHistory();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getWaterIntakeHistory(userId);
   }
 
   async getTodayTotalWaterIntake(): Promise<number> {
-    return await this._dao.getTodayTotalWaterIntake();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getTodayTotalWaterIntake(userId);
   }
 
   async getTodayWaterIntakeHistory(): Promise<WaterIntake[]> {
-    return await this._dao.getTodayWaterIntakeHistory();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getTodayWaterIntakeHistory(userId);
   }
 
   async getWaterGoalHistory(): Promise<WaterGoal[]> {
-    return await this._dao.getWaterGoalHistory();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getWaterGoalHistory(userId);
   }
 
   async getTodayCurrentWaterGoal(): Promise<WaterGoal> {
-    return await this._dao.getTodayCurrentWaterGoal();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getTodayCurrentWaterGoal(userId);
   }
 
   async updateTodayWaterGoal(quantity: number): Promise<void> {
-    return await this._dao.updateTodayWaterGoal(quantity);
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.updateTodayWaterGoal(userId, quantity);
   }
 
   async addWaterIntake(quantity: number): Promise<void> {
-    return await this._dao.addWaterIntake(quantity);
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.addWaterIntake(userId, quantity);
   }
 }

@@ -15,14 +15,9 @@ export class ExerciseTrackerStore {
 
   constructor(exerciseRepository: ExerciseRepository) {
     this._exerciseRepository = exerciseRepository;
-    this.init();
   }
 
-  init() {
-    void this.refreshStoreStates();
-  }
-
-  private async refreshStoreStates() {
+  async refreshStoreStates() {
     try {
       const todayExerciseHistory =
         await this._exerciseRepository.getTodayExerciseHistory();

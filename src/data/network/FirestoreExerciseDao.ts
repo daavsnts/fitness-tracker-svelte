@@ -19,33 +19,37 @@ export class FirestoreExerciseDao {
     this._utils = utils;
   }
 
-  async getExerciseHistory(): Promise<Exercise[]> {
+  async getExerciseHistory(userId: string): Promise<Exercise[]> {
     const emptyExerciseHistory: Exercise[] = [];
     return this._utils.getHistory(
+      userId,
       emptyExerciseHistory,
       this._EXERCISE_COLLECTION
     );
   }
 
-  async getExerciseGoalHistory(): Promise<ExerciseGoal[]> {
+  async getExerciseGoalHistory(userId: string): Promise<ExerciseGoal[]> {
     const emptyExerciseGoalHistory: ExerciseGoal[] = [];
     return this._utils.getHistory(
+      userId,
       emptyExerciseGoalHistory,
       this._EXERCISE_GOAL_COLLECTION
     );
   }
 
-  async getTodayExerciseHistory(): Promise<Exercise[]> {
+  async getTodayExerciseHistory(userId: string): Promise<Exercise[]> {
     const emptyTodayExerciseHistory: Exercise[] = [];
     return this._utils.getTodayHistory(
+      userId,
       emptyTodayExerciseHistory,
       this._EXERCISE_COLLECTION
     );
   }
 
-  async getTodayTotalExercisesPauses(): Promise<number> {
+  async getTodayTotalExercisesPauses(userId: string): Promise<number> {
     const todayTotalExerciseHistoryEmptyList: Exercise[] = [];
     const todayExerciseHistory = await this._utils.getTodayHistory(
+      userId,
       todayTotalExerciseHistoryEmptyList,
       this._EXERCISE_COLLECTION
     );
@@ -54,9 +58,10 @@ export class FirestoreExerciseDao {
     return todayTotalExercisesPauses;
   }
 
-  async getTodayCurrentExerciseGoal(): Promise<ExerciseGoal> {
+  async getTodayCurrentExerciseGoal(userId: string): Promise<ExerciseGoal> {
     const todayCurrentExerciseGoalDocumentData =
       await this._utils.getTodayCurrentGoalDocumentData(
+        userId,
         this._EXERCISE_GOAL_COLLECTION
       );
 
@@ -67,12 +72,17 @@ export class FirestoreExerciseDao {
     );
   }
 
-  async updateTodayExerciseGoal(quantity: number) {
-    await this._utils.updateTodayGoal(quantity, this._EXERCISE_GOAL_COLLECTION);
+  async updateTodayExerciseGoal(userId: string, quantity: number) {
+    await this._utils.updateTodayGoal(
+      userId,
+      quantity,
+      this._EXERCISE_GOAL_COLLECTION
+    );
   }
 
-  async addExercise(type: string) {
+  async addExercise(userId: string, type: string) {
     await addDoc(collection(this._db, this._EXERCISE_COLLECTION), {
+      userId: userId,
       type: type,
       timeStamp: Timestamp.fromDate(new Date()),
     });

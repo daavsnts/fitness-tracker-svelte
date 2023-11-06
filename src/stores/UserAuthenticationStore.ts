@@ -10,22 +10,12 @@ export class UserAuthenticationStore {
 
   constructor(userRepository: UserRepository) {
     this._userRepository = userRepository;
-    this.init();
-  }
-
-  init() {
-    this.refreshStoreStates();
   }
 
   private refreshStoreStates() {
     const user = this._userRepository.getUser();
     this._userLoggedIn.set(user);
-
-    if (user) {
-      this._isUserLoggedIn.set(true);
-    } else {
-      this._isUserLoggedIn.set(false);
-    }
+    this._isUserLoggedIn.set(user != null);
   }
 
   async userRegister(email: string, password: string, displayName: string) {

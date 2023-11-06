@@ -1,38 +1,48 @@
 import type { Exercise, ExerciseGoal } from "$types/fitnessTypes";
 import type { FirestoreExerciseDao } from "../network/FirestoreExerciseDao";
+import type { UserRepository } from "./UserRepository";
 
 export class ExerciseRepository {
   private _dao: FirestoreExerciseDao;
+  private _userRepository: UserRepository;
 
-  constructor(dao: FirestoreExerciseDao) {
+  constructor(dao: FirestoreExerciseDao, userRepository: UserRepository) {
     this._dao = dao;
+    this._userRepository = userRepository;
   }
 
   async getExerciseHistory(): Promise<Exercise[]> {
-    return await this._dao.getExerciseHistory();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getExerciseHistory(userId);
   }
 
   async getTodayTotalExercisesPauses(): Promise<number> {
-    return await this._dao.getTodayTotalExercisesPauses();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getTodayTotalExercisesPauses(userId);
   }
 
   async getTodayExerciseHistory(): Promise<Exercise[]> {
-    return await this._dao.getTodayExerciseHistory();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getTodayExerciseHistory(userId);
   }
 
   async getExerciseGoalHistory(): Promise<ExerciseGoal[]> {
-    return await this._dao.getExerciseGoalHistory();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getExerciseGoalHistory(userId);
   }
 
   async getTodayCurrentExerciseGoal(): Promise<ExerciseGoal> {
-    return await this._dao.getTodayCurrentExerciseGoal();
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getTodayCurrentExerciseGoal(userId);
   }
 
   async updateTodayExerciseGoal(quantity: number) {
-    return await this._dao.updateTodayExerciseGoal(quantity);
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.updateTodayExerciseGoal(userId, quantity);
   }
 
   async addExercise(type: string): Promise<void> {
-    return await this._dao.addExercise(type);
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.addExercise(userId, type);
   }
 }

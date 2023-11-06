@@ -1,11 +1,16 @@
 <script lang="ts">
   import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
+  import { onMount } from "svelte";
 
   let todayExerciseHistory = exerciseTrackerStore.todayExerciseHistory;
   let todayTotalExercisePauses = exerciseTrackerStore.todayTotalExercisePauses;
   let todayCurrentExerciseGoal = exerciseTrackerStore.todayCurrentExerciseGoal;
   let exerciseTypeInputValue = "";
   let updateGoalInputValue = 0;
+
+  onMount(() => {
+    exerciseTrackerStore.refreshStoreStates();
+  });
 </script>
 
 <p>Pauses history:</p>

@@ -14,33 +14,37 @@ export class FirestoreWaterDao {
     this._utils = utils;
   }
 
-  async getWaterIntakeHistory(): Promise<WaterIntake[]> {
+  async getWaterIntakeHistory(userId: string): Promise<WaterIntake[]> {
     const emptyWaterIntakeHistory: WaterIntake[] = [];
     return this._utils.getHistory(
+      userId,
       emptyWaterIntakeHistory,
       this._WATER_INTAKE_COLLECTION
     );
   }
 
-  async getWaterGoalHistory(): Promise<WaterGoal[]> {
+  async getWaterGoalHistory(userId: string): Promise<WaterGoal[]> {
     const emptyWaterGoalHistory: WaterGoal[] = [];
     return this._utils.getHistory(
+      userId,
       emptyWaterGoalHistory,
       this._WATER_GOAL_COLLECTION
     );
   }
 
-  async getTodayWaterIntakeHistory(): Promise<WaterIntake[]> {
+  async getTodayWaterIntakeHistory(userId: string): Promise<WaterIntake[]> {
     const emptyTodayWaterIntakeHistory: WaterIntake[] = [];
     return this._utils.getTodayHistory(
+      userId,
       emptyTodayWaterIntakeHistory,
       this._WATER_INTAKE_COLLECTION
     );
   }
 
-  async getTodayTotalWaterIntake(): Promise<number> {
+  async getTodayTotalWaterIntake(userId: string): Promise<number> {
     const todayTotalWaterIntakeHistoryEmptyList: WaterIntake[] = [];
     const todayWaterIntakeHistory = await this._utils.getTodayHistory(
+      userId,
       todayTotalWaterIntakeHistoryEmptyList,
       this._WATER_INTAKE_COLLECTION
     );
@@ -55,9 +59,10 @@ export class FirestoreWaterDao {
     return todayTotal;
   }
 
-  async getTodayCurrentWaterGoal(): Promise<WaterGoal> {
+  async getTodayCurrentWaterGoal(userId: string): Promise<WaterGoal> {
     const todayCurrentWaterGoalDocumentData =
       await this._utils.getTodayCurrentGoalDocumentData(
+        userId,
         this._WATER_GOAL_COLLECTION
       );
 
@@ -66,11 +71,19 @@ export class FirestoreWaterDao {
     return WaterGoalConverter.fromFirestore(todayCurrentWaterGoalDocumentData);
   }
 
-  async updateTodayWaterGoal(quantity: number) {
-    await this._utils.updateTodayGoal(quantity, this._WATER_GOAL_COLLECTION);
+  async updateTodayWaterGoal(userId: string, quantity: number) {
+    await this._utils.updateTodayGoal(
+      userId,
+      quantity,
+      this._WATER_GOAL_COLLECTION
+    );
   }
 
-  async addWaterIntake(quantity: number) {
-    await this._utils.addQuantity(quantity, this._WATER_INTAKE_COLLECTION);
+  async addWaterIntake(userId: string, quantity: number) {
+    await this._utils.addQuantity(
+      userId,
+      quantity,
+      this._WATER_INTAKE_COLLECTION
+    );
   }
 }

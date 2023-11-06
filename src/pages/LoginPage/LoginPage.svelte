@@ -3,7 +3,7 @@
   import {
     conditionsFailHandler,
     routeLoadingHandler,
-    unLoggedRoutes as routes,
+    loginPageRoutes as routes,
   } from "../../routes";
 </script>
 

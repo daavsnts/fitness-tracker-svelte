@@ -12,73 +12,72 @@ import { wrap } from "svelte-spa-router/wrap";
 import UserLogin from "$pages/UserLogin/UserLogin.svelte";
 import UserRegister from "$pages/UserRegister/UserRegister.svelte";
 import { isUserLoggedIn } from "$policies/auth";
+const loginPageRoutes = new Map();
 
-const unLoggedRoutes = new Map();
-
-unLoggedRoutes.set(
+loginPageRoutes.set(
   "/",
   wrap({
     component: UserLogin,
   })
 );
-unLoggedRoutes.set(
+loginPageRoutes.set(
   "/user-register",
   wrap({
     component: UserRegister,
   })
 );
-unLoggedRoutes.set(
+loginPageRoutes.set(
   "/not-authorized",
   wrap({
     component: NotAuthorized,
   })
 );
-unLoggedRoutes.set(
+loginPageRoutes.set(
   "*",
   wrap({
     component: NotFound,
   })
 );
 
-export { unLoggedRoutes };
+export { loginPageRoutes };
 
-const loggedRoutes = new Map();
+const homePageRoutes = new Map();
 
-loggedRoutes.set(
+homePageRoutes.set(
   "/",
   wrap({
     component: WaterTracker,
     conditions: [isUserLoggedIn],
   })
 );
-loggedRoutes.set(
+homePageRoutes.set(
   "/exercise-tracker",
   wrap({
     component: ExerciseTracker,
     conditions: [isUserLoggedIn],
   })
 );
-loggedRoutes.set(
+homePageRoutes.set(
   "/user-profile",
   wrap({
     component: UserProfile,
     conditions: [isUserLoggedIn],
   })
 );
-loggedRoutes.set(
+homePageRoutes.set(
   "/not-authorized",
   wrap({
     component: NotAuthorized,
   })
 );
-loggedRoutes.set(
+homePageRoutes.set(
   "*",
   wrap({
     component: NotFound,
   })
 );
 
-export { loggedRoutes };
+export { homePageRoutes };
 
 export function routeLoadingHandler({ detail }: RouteLoadingEvent): void {
   // If not hash based, redirect to hash based path

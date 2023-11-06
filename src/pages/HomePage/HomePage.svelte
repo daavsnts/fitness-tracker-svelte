@@ -3,7 +3,7 @@
   import {
     conditionsFailHandler,
     routeLoadingHandler,
-    loggedRoutes as routes,
+    homePageRoutes as routes,
   } from "../../routes";
   import TopAppBar from "$components/TopAppBar/TopAppBar.svelte";
   import BottomAppBar from "$components/BottomAppBar/BottomAppBar.svelte";

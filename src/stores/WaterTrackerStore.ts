@@ -15,14 +15,9 @@ export class WaterTrackerStore {
 
   constructor(waterRepository: WaterRepository) {
     this._waterRepository = waterRepository;
-    this.init();
   }
 
-  init() {
-    void this.refreshStoreStates();
-  }
-
-  private async refreshStoreStates() {
+  async refreshStoreStates() {
     try {
       const todayCurrentWaterGoal =
         await this._waterRepository.getTodayCurrentWaterGoal();

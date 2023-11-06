@@ -29,11 +29,15 @@ class AppContainer {
       this._firebaseService.db,
       this._firestoreDaoUtils
     );
-    this._waterRepository = new WaterRepository(this._firestoreWaterDao);
-    this._exerciseRepository = new ExerciseRepository(
-      this._firestoreExerciseDao
-    );
     this._userRepository = new UserRepository(this._firebaseAuth);
+    this._waterRepository = new WaterRepository(
+      this._firestoreWaterDao,
+      this._userRepository
+    );
+    this._exerciseRepository = new ExerciseRepository(
+      this._firestoreExerciseDao,
+      this._userRepository
+    );
   }
 
   get waterRepository() {

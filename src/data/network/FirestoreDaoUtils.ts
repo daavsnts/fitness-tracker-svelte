@@ -24,10 +24,15 @@ export class FirestoreDaoUtils {
   }
 
   async getHistory<T>(
+    userId: string,
     historyList: T[],
     collectionWanted: string
   ): Promise<T[]> {
-    const listSnapshot = await getDocs(collection(this._db, collectionWanted));
+    const q = query(
+      collection(this._db, collectionWanted),
+      where("userId", "==", userId)
+    );
+    const listSnapshot = await getDocs(q);
 
     listSnapshot.forEach((doc) => {
       historyList.push(doc.data() as T);
@@ -36,12 +41,14 @@ export class FirestoreDaoUtils {
   }
 
   async getTodayHistory<T>(
+    userId: string,
     historyList: T[],
     collectionWanted: string
   ): Promise<T[]> {
     const todayInterval = new TodayInterval();
     const q = query(
       collection(this._db, collectionWanted),
+      where("userId", "==", userId),
       where("timeStamp", ">=", Timestamp.fromDate(todayInterval.start)),
       where("timeStamp", "<=", Timestamp.fromDate(todayInterval.end))
     );
@@ -53,8 +60,12 @@ export class FirestoreDaoUtils {
     return historyList;
   }
 
-  async getTodayCurrentGoalDocumentData(collectionWanted: string) {
+  async getTodayCurrentGoalDocumentData(
+    userId: string,
+    collectionWanted: string
+  ) {
     const todayCurrentGoalSnapshot = await this.getTodayCurrentGoalSnapshot(
+      userId,
       collectionWanted
     );
 
@@ -63,10 +74,14 @@ export class FirestoreDaoUtils {
     return this.getFirstDocFromSnapshot(todayCurrentGoalSnapshot).data();
   }
 
-  private async getTodayCurrentGoalSnapshot(collectionWanted: string) {
+  private async getTodayCurrentGoalSnapshot(
+    userId: string,
+    collectionWanted: string
+  ) {
     const todayInterval = new TodayInterval();
     const q = query(
       collection(this._db, collectionWanted),
+      where("userId", "==", userId),
       where("timeStamp", ">=", Timestamp.fromDate(todayInterval.start)),
       where("timeStamp", "<=", Timestamp.fromDate(todayInterval.end)),
       orderBy("timeStamp", "desc"),
@@ -81,15 +96,20 @@ export class FirestoreDaoUtils {
     return snapshot.docs[0];
   }
 
-  async updateTodayGoal(quantity: number, collectionWanted: string) {
+  async updateTodayGoal(
+    userId: string,
+    quantity: number,
+    collectionWanted: string
+  ) {
     if (quantity <= 0) throw Error("Invalid quantity!");
 
     const currentGoalSnapshot = await this.getTodayCurrentGoalSnapshot(
+      userId,
       collectionWanted
     );
 
     if (currentGoalSnapshot.empty) {
-      await this.addQuantity(quantity, collectionWanted);
+      await this.addQuantity(userId, quantity, collectionWanted);
     } else {
       const currentGoalDocument =
         this.getFirstDocFromSnapshot(currentGoalSnapshot);
@@ -103,20 +123,26 @@ export class FirestoreDaoUtils {
         await updateDoc(
           doc(this._db, collectionWanted, currentGoalDocument.id),
           {
+            userId: userId,
             quantity: quantity,
             timeStamp: Timestamp.fromDate(new Date()),
           }
         );
       } else {
-        await this.addQuantity(quantity, collectionWanted);
+        await this.addQuantity(userId, quantity, collectionWanted);
       }
     }
   }
 
-  async addQuantity(quantity: number, selectedCollection: string) {
+  async addQuantity(
+    userId: string,
+    quantity: number,
+    selectedCollection: string
+  ) {
     if (quantity <= 0) throw Error("Invalid quantity!");
 
     await addDoc(collection(this._db, selectedCollection), {
+      userId: userId,
       quantity: quantity,
       timeStamp: Timestamp.fromDate(new Date()),
     });

@@ -8,8 +8,12 @@ export class WaterGoalConverter {
     return new WaterGoal(quantity, timestamp.toDate());
   }
 
-  static toFirestore({ quantity, timeStamp }: WaterGoal) {
-    return { quantity: quantity, timeStamp: Timestamp.fromDate(timeStamp) };
+  static toFirestore(userId: string, { quantity, timeStamp }: WaterGoal) {
+    return {
+      userId: userId,
+      quantity: quantity,
+      timeStamp: Timestamp.fromDate(timeStamp),
+    };
   }
 }
 
@@ -20,7 +24,11 @@ export class ExerciseGoalConverter {
     return new ExerciseGoal(quantity, timestamp.toDate());
   }
 
-  static toFirestore({ quantity, timeStamp }: ExerciseGoal) {
-    return { quantity: quantity, timeStamp: Timestamp.fromDate(timeStamp) };
+  static toFirestore(userId: string, { quantity, timeStamp }: ExerciseGoal) {
+    return {
+      userId: userId,
+      quantity: quantity,
+      timeStamp: Timestamp.fromDate(timeStamp),
+    };
   }
 }
