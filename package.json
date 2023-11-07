@@ -1,7 +1,7 @@
 {
-  "name": "capacitive-svelte-template",
+  "name": "fitness-tracker",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "build": 1,
   "type": "module",
   "scripts": {
