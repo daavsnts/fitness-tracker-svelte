@@ -19,7 +19,11 @@ export class UserAuthenticationStore {
   }
 
   async userRegister(email: string, password: string, displayName: string) {
-    await this._userRepository.userRegister(email, password, displayName);
+    return await this._userRepository.userRegister(
+      email,
+      password,
+      displayName
+    );
   }
 
   async userLogin(email: string, password: string) {

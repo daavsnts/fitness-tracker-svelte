@@ -1,11 +1,13 @@
 <script lang="ts">
   import TextButton from "$components/TextButton/TextButton.svelte";
   import userAuthenticationStore from "$stores/UserAuthenticationStore";
+  import type { User } from "firebase/auth";
   import { push } from "svelte-spa-router";
 
   let loginInputValue = "";
   let passwordInputValue = "";
   let displayNameInputValue = "";
+  let userRegistered: User;
 </script>
 
 <div class="UserLogin">
@@ -38,15 +40,21 @@
       size={100}
     />
     <TextButton
-      onClickFunction={() =>
-        userAuthenticationStore.userRegister(
+      onClickFunction={async () =>
+        (userRegistered = await userAuthenticationStore.userRegister(
           loginInputValue,
           passwordInputValue,
           displayNameInputValue
-        )}
+        ))}
       text="Register"
       size={100}
     />
+  </div>
+
+  <div class="message-container">
+    {#if userRegistered}
+      <h2>Account created!</h2>
+    {/if}
   </div>
 </div>
 
@@ -105,6 +113,20 @@
       justify-content: center;
       align-items: center;
       column-gap: 30px;
+    }
+
+    .message-container {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      h2 {
+        color: #00e925;
+        text-align: center;
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+      }
     }
   }
 </style>
