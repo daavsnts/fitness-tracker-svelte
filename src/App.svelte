@@ -4,7 +4,6 @@
   import LoginPage from "$pages/LoginPage/LoginPage.svelte";
 
   let userLoggedIn = userAuthenticationStore.isUserLoggedIn;
-
 </script>
 
 <div class="App">
@@ -19,5 +18,6 @@
   .App {
     width: 100%;
     height: 100vh;
+    background: linear-gradient(#0258AF, #379DDD);
   }
 </style>

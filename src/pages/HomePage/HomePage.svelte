@@ -30,6 +30,5 @@
   .Screens {
     width: 100%;
     height: 80%;
-    background-color: green;
   }
 </style>

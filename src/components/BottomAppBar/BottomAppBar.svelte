@@ -27,8 +27,7 @@
     display: flex;
     flex-direction: row;
     column-gap: 10px;
-    background-color: grey;
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
+    background-color: #ffffff;
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.6));
   }
 </style>
