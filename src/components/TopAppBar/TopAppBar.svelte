@@ -1,14 +1,28 @@
 <script lang="ts">
+  import userAuthenticationStore from "$stores/UserAuthenticationStore";
+
+  let user = userAuthenticationStore.user;
+  let userDisplayName = $user.displayName;
 </script>
 
-<div>
-  <h1>Top App Bar</h1>
+<div class="TopAppBar">
+  <div>
+    <h1>Welcome {userDisplayName}!</h1>
+  </div>
 </div>
 
 <style lang="scss">
-  div {
+  .TopAppBar {
     width: 100%;
     height: 10%;
-    background-color: pink;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: end;
+
+    h1 {
+      color: #fff;
+      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    }
   }
 </style>
