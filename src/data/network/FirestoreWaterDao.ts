@@ -41,6 +41,24 @@ export class FirestoreWaterDao {
     );
   }
 
+  async getTotalWaterIntake(userId: string): Promise<number> {
+    const totalWaterIntakeHistoryEmptyList: WaterIntake[] = [];
+    const totalWaterIntakeHistory = await this._utils.getHistory(
+      userId,
+      totalWaterIntakeHistoryEmptyList,
+      this._WATER_INTAKE_COLLECTION
+    );
+
+    const total = totalWaterIntakeHistory.reduce(
+      (totalAccumulator, current) => {
+        return totalAccumulator + Number(current.quantity);
+      },
+      0
+    );
+
+    return total;
+  }
+
   async getTodayTotalWaterIntake(userId: string): Promise<number> {
     const todayTotalWaterIntakeHistoryEmptyList: WaterIntake[] = [];
     const todayWaterIntakeHistory = await this._utils.getTodayHistory(

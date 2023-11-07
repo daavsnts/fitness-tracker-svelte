@@ -16,6 +16,11 @@ export class WaterRepository {
     return await this._dao.getWaterIntakeHistory(userId);
   }
 
+  async getTotalWaterIntake(): Promise<number> {
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getTotalWaterIntake(userId);
+  }
+
   async getTodayTotalWaterIntake(): Promise<number> {
     const userId = this._userRepository.getUser().uid;
     return await this._dao.getTodayTotalWaterIntake(userId);

@@ -12,6 +12,7 @@ export class ExerciseTrackerStore {
   private _todayCurrentExerciseGoal: Writable<ExerciseGoal> = writable(
     new ExerciseGoal(0, new Date())
   );
+  private _totalExercisePauses: Writable<number> = writable(0);
 
   constructor(exerciseRepository: ExerciseRepository) {
     this._exerciseRepository = exerciseRepository;
@@ -33,6 +34,11 @@ export class ExerciseTrackerStore {
         await this._exerciseRepository.getTodayCurrentExerciseGoal();
       if (todayCurrentExerciseGoal)
         this._todayCurrentExerciseGoal.set(todayCurrentExerciseGoal);
+
+      const totalExercisePauses =
+        await this._exerciseRepository.getTotalExercisesPauses();
+      if (totalExercisePauses)
+        this._totalExercisePauses.set(totalExercisePauses);
     } catch (msg) {
       console.log(msg);
     }
@@ -48,6 +54,10 @@ export class ExerciseTrackerStore {
 
   get todayCurrentExerciseGoal() {
     return this._todayCurrentExerciseGoal;
+  }
+
+  get totalExercisePauses() {
+    return this._totalExercisePauses;
   }
 
   async addExercise(type: string) {

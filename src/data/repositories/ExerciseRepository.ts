@@ -16,6 +16,11 @@ export class ExerciseRepository {
     return await this._dao.getExerciseHistory(userId);
   }
 
+  async getTotalExercisesPauses(): Promise<number> {
+    const userId = this._userRepository.getUser().uid;
+    return await this._dao.getTotalExercisesPauses(userId);
+  }
+
   async getTodayTotalExercisesPauses(): Promise<number> {
     const userId = this._userRepository.getUser().uid;
     return await this._dao.getTodayTotalExercisesPauses(userId);

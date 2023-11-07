@@ -46,6 +46,18 @@ export class FirestoreExerciseDao {
     );
   }
 
+  async getTotalExercisesPauses(userId: string): Promise<number> {
+    const totalExerciseHistoryEmptyList: Exercise[] = [];
+    const totalExerciseHistory = await this._utils.getHistory(
+      userId,
+      totalExerciseHistoryEmptyList,
+      this._EXERCISE_COLLECTION
+    );
+
+    const totalExercisesPauses = totalExerciseHistory.length;
+    return totalExercisesPauses;
+  }
+
   async getTodayTotalExercisesPauses(userId: string): Promise<number> {
     const todayTotalExerciseHistoryEmptyList: Exercise[] = [];
     const todayExerciseHistory = await this._utils.getTodayHistory(
