@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/svelte";
 
-import RoundedIconButton from "./RoundedIconButton.svelte";
+import TextButton from "./TextButton.svelte";
 
 const meta = {
-  title: "Components/RoundedIconButton",
-  component: RoundedIconButton,
+  title: "Components/TextButton",
+  component: TextButton,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/svelte/configure/story-layout
     layout: "fullscreen",
@@ -12,7 +12,7 @@ const meta = {
       autodocs: false,
     },
   },
-} satisfies Meta<RoundedIconButton>;
+} satisfies Meta<TextButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
