@@ -1,8 +1,13 @@
 <script lang="ts">
   import userAuthenticationStore from "$stores/UserAuthenticationStore";
+  import { onMount } from "svelte";
 
   let user = userAuthenticationStore.user;
   let userDisplayName = $user.displayName;
+
+  onMount(() => {
+    userAuthenticationStore.refreshStoreStates();
+  });
 </script>
 
 <div class="TopAppBar">

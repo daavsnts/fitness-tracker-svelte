@@ -12,7 +12,7 @@ export class UserAuthenticationStore {
     this._userRepository = userRepository;
   }
 
-  private refreshStoreStates() {
+  refreshStoreStates() {
     const user = this._userRepository.getUser();
     this._userLoggedIn.set(user);
     this._isUserLoggedIn.set(user != null);
