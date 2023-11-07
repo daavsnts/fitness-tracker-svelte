@@ -3,20 +3,21 @@
   import exerciseIcon from "$assets/person-exercising-icon.svg";
   import userIcon from "$assets/person-icon.svg";
   import IconButton from "$components/IconButton/IconButton.svelte";
+  import { push } from "svelte-spa-router";
 </script>
 
 <div>
   <IconButton
     iconPath={waterIcon}
-    route="/"
+    onClickFunction={() => push("/")}
   />
   <IconButton
     iconPath={exerciseIcon}
-    route="/exercise-tracker"
+    onClickFunction={() => push("/exercise-tracker")}
   />
   <IconButton
     iconPath={userIcon}
-    route="/user-profile"
+    onClickFunction={() => push("/user-profile")}
   />
 </div>
 
