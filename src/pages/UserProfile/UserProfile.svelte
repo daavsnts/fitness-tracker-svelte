@@ -1,10 +1,7 @@
 <script lang="ts">
-  import TextButton from "$components/TextButton/TextButton.svelte";
   import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
-  import userAuthenticationStore from "$stores/UserAuthenticationStore";
   import waterTrackerStore from "$stores/WaterTrackerStore";
   import { onMount } from "svelte";
-  import { push } from "svelte-spa-router";
 
   let totalWaterIntake = waterTrackerStore.totalWaterIntake;
   let totalExercisePauses = exerciseTrackerStore.totalExercisePauses;
@@ -29,15 +26,6 @@
   </div>
 
   <h1>User history soon!</h1>
-
-  <TextButton
-    onClickFunction={() => {
-      userAuthenticationStore.userLogout();
-      push("/");
-    }}
-    text="Logout"
-    size={40}
-  />
 </div>
 
 <style lang="scss">
@@ -62,6 +50,7 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
+      padding: 3%;
 
       .water-intake-container {
         display: flex;
