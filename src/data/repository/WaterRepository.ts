@@ -1,39 +1,41 @@
-import type { WaterConsumption } from "$types/water-types";
-import dataBaseMock from "../local/DatabaseMock";
+import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
+import type { SQLiteDao } from "../local/SQLiteDao";
 
 export type WaterRepository = {
-  getDailyWaterQuantity: () => number;
-  getWaterGoal: () => number;
-  getWaterConsumptionHistory: () => WaterConsumption[];
-  updateWaterConstumptionHistory: (waterConsumption: WaterConsumption) => void;
+  getDailyTotalWaterIntake: () => Promise<number>;
+  getLatestWaterGoal: () => Promise<WaterGoal>;
+  getWaterIntakeHistory: () => Promise<WaterIntake[]>;
+  addWaterIntake: (quantity: number) => Promise<boolean>;
 };
 
-function createWaterRepository(): WaterRepository {
-  function getDailyWaterQuantity(): number {
-    return dataBaseMock.getWaterConsumption().reduce((acc, currentValue) => {
+export function createWaterRepository(dao: SQLiteDao): WaterRepository {
+  async function getDailyTotalWaterIntake(): Promise<number> {
+    const waterIntakeHistory = await dao.getWaterIntakeHistory();
+
+    return waterIntakeHistory.reduce((acc, currentValue) => {
       return acc + currentValue.quantity;
     }, 0);
   }
 
-  function getWaterConsumptionHistory(): WaterConsumption[] {
-    return dataBaseMock.getWaterConsumption();
+  async function getWaterIntakeHistory(): Promise<WaterIntake[]> {
+    return await dao.getWaterIntakeHistory();
   }
 
-  function getWaterGoal(): number {
-    return dataBaseMock.getWaterGoal();
+  async function getLatestWaterGoal(): Promise<WaterGoal> {
+    return await dao.getLastestWaterGoal();
   }
 
-  function updateWaterConstumptionHistory(waterConsumption: WaterConsumption) {
-    dataBaseMock.addWaterConsumption(waterConsumption);
+  async function addWaterIntake(quantity: number) {
+    return await dao.addWaterIntake({
+      quantity: quantity,
+      timeStamp: new Date(),
+    } as WaterIntake);
   }
 
   return {
-    getDailyWaterQuantity,
-    getWaterGoal,
-    getWaterConsumptionHistory,
-    updateWaterConstumptionHistory,
+    getDailyTotalWaterIntake,
+    getWaterIntakeHistory,
+    getLatestWaterGoal,
+    addWaterIntake,
   };
 }
-
-const waterRepository = createWaterRepository();
-export default waterRepository;
