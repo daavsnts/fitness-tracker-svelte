@@ -35,12 +35,13 @@ export function createSQLiteDatabase(): SQLiteDatabase {
     await dbConnection.open();
 
     const initialSchema = `
-      CREATE TABLE IF NOT EXISTS water_intake (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      quantity INTEGER NOT NULL,
-      timeStamp INTEGER NOT NULL);
+      CREATE TABLE IF NOT EXISTS water_intake_log (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        quantity INTEGER NOT NULL,
+        timeStamp INTEGER NOT NULL
+      );
 
-      CREATE TABLE IF NOT EXISTS water_goal (
+      CREATE TABLE IF NOT EXISTS water_goal_log (
         id INTERGER PRIMARY KEY AUTOINCREMENT,
         quantity INTEGER NOT NULL,
         timeStamp INTEGER NOT NULL);
@@ -49,6 +50,12 @@ export function createSQLiteDatabase(): SQLiteDatabase {
       CREATE TABLE IF NOT EXISTS exercise_log (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         exerciseType TEXT NOT NULL,
+        timeStamp INTEGER NOT NULL
+      );
+
+      CREATE TABLE IF NOT EXISTS exercise_goal_log (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        quantity INTEGER NOT NULL,
         timeStamp INTEGER NOT NULL
       );
     `;

@@ -12,7 +12,7 @@ export function createSQLiteDao(dbConnection: SQLiteDBConnection): SQLiteDao {
   async function getWaterIntakeHistory(): Promise<WaterIntake[]> {
     await dbConnection.open();
     const waterIntakeHistoryResponse = dbConnection.query(
-      "SELECT * FROM water_intake;"
+      "SELECT * FROM water_intake_log;"
     );
     await dbConnection.close();
     return (await waterIntakeHistoryResponse).values as WaterIntake[];
@@ -21,7 +21,7 @@ export function createSQLiteDao(dbConnection: SQLiteDBConnection): SQLiteDao {
   async function getLastestWaterGoal(): Promise<WaterGoal> {
     await dbConnection.open();
     const lastestWaterGoalResponse = dbConnection.query(
-      "SELECT * FROM water_goal ORDER BY id DESC LIMIT 1;"
+      "SELECT * FROM water_goal_log ORDER BY id DESC LIMIT 1;"
     );
     await dbConnection.close();
     return (await lastestWaterGoalResponse).values[0] as WaterGoal;
@@ -30,7 +30,7 @@ export function createSQLiteDao(dbConnection: SQLiteDBConnection): SQLiteDao {
   async function getWaterGoalHistory(): Promise<WaterGoal[]> {
     await dbConnection.open();
     const waterGoalHistoryResponse = dbConnection.query(
-      "SELECT * FROM water_goal;"
+      "SELECT * FROM water_goal_log;"
     );
     await dbConnection.close();
     return (await waterGoalHistoryResponse).values as WaterGoal[];
@@ -39,7 +39,7 @@ export function createSQLiteDao(dbConnection: SQLiteDBConnection): SQLiteDao {
   async function addWaterIntake(waterIntake: WaterIntake): Promise<boolean> {
     await dbConnection.open();
     const addWaterIntakeResponse = dbConnection.run(
-      "INSERT INTO water_intake (quantity, timeStamp) VALUES (?, ?);",
+      "INSERT INTO water_intake_log (quantity, timeStamp) VALUES (?, ?);",
       [waterIntake.quantity, waterIntake.timeStamp]
     );
     await dbConnection.close();
