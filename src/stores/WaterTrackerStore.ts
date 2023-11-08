@@ -1,12 +1,18 @@
-import { readable, writable, type Readable, type Writable } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 import waterRepository from "../data/repository/WaterRepository";
+
+export type WaterTrackerStore = {
+  getWaterQuantity: () => Writable<number>;
+  addWaterQuantity: (moreWater: number) => void;
+  getWaterGoal: () => Writable<number>;
+};
 
 function createWaterTrackerStore(
   initialWaterQuantity: number,
   initialWaterGoal: number
-) {
+): WaterTrackerStore {
   const waterQuantity = writable(initialWaterQuantity);
-  const waterGoal = readable(initialWaterGoal);
+  const waterGoal = writable(initialWaterGoal);
 
   function getWaterQuantity(): Writable<number> {
     return waterQuantity;
@@ -16,7 +22,7 @@ function createWaterTrackerStore(
     waterQuantity.update((waterQuantity) => waterQuantity + moreWater);
   }
 
-  function getWaterGoal(): Readable<number> {
+  function getWaterGoal(): Writable<number> {
     return waterGoal;
   }
 
