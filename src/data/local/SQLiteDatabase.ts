@@ -5,23 +5,25 @@ import {
 } from "@capacitor-community/sqlite";
 
 export type SQLiteDatabase = {
-  build: () => Promise<void>;
-  get: () => SQLiteDBConnection;
+  build: () => Promise<SQLiteDBConnection>;
 };
 
-export function createSQliteDatabase(): SQLiteDatabase {
+export function createSQLiteDatabase(): SQLiteDatabase {
   const sqlite: SQLiteConnection = new SQLiteConnection(CapacitorSQLite);
-  let db: SQLiteDBConnection;
+  let dbConnection: SQLiteDBConnection;
 
-  async function build() {
+  async function build(): Promise<SQLiteDBConnection> {
     const ret = await sqlite.checkConnectionsConsistency();
     const isConn = (await sqlite.isConnection("fitness-tracker-db", false))
       .result;
 
     if (ret.result && isConn) {
-      db = await sqlite.retrieveConnection("fitness-tracker-db", false);
+      dbConnection = await sqlite.retrieveConnection(
+        "fitness-tracker-db",
+        false
+      );
     } else {
-      db = await sqlite.createConnection(
+      dbConnection = await sqlite.createConnection(
         "fitness-tracker-db",
         false,
         "no-encryption",
@@ -30,7 +32,7 @@ export function createSQliteDatabase(): SQLiteDatabase {
       );
     }
 
-    await db.open();
+    await dbConnection.open();
 
     const initialSchema = `
       CREATE TABLE IF NOT EXISTS water_intake (
@@ -51,17 +53,14 @@ export function createSQliteDatabase(): SQLiteDatabase {
       );
     `;
 
-    await db.execute(initialSchema);
-    await db.close();
+    await dbConnection.execute(initialSchema);
+    await dbConnection.close();
     await sqlite.closeConnection("fitness-tracker-db", false);
-  }
 
-  function get() {
-    return db;
+    return dbConnection;
   }
 
   return {
     build,
-    get,
   };
 }

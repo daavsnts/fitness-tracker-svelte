@@ -3,8 +3,8 @@ import type { SQLiteDao } from "../local/SQLiteDao";
 
 export type WaterRepository = {
   getDailyTotalWaterIntake: () => Promise<number>;
-  getLatestWaterGoal: () => Promise<WaterGoal>;
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
+  getLatestWaterGoal: () => Promise<WaterGoal>;
   addWaterIntake: (quantity: number) => Promise<boolean>;
 };
 
@@ -25,7 +25,7 @@ export function createWaterRepository(dao: SQLiteDao): WaterRepository {
     return await dao.getLastestWaterGoal();
   }
 
-  async function addWaterIntake(quantity: number) {
+  async function addWaterIntake(quantity: number): Promise<boolean> {
     return await dao.addWaterIntake({
       quantity: quantity,
       timeStamp: new Date(),

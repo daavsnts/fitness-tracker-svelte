@@ -1,5 +1,4 @@
 import { SQLiteDBConnection } from "@capacitor-community/sqlite";
-import { type SQLiteDatabase } from "./SQLiteDatabase";
 import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
 
 export type SQLiteDao = {
@@ -9,39 +8,41 @@ export type SQLiteDao = {
   addWaterIntake: (waterIntake: WaterIntake) => Promise<boolean>;
 };
 
-export function createSQLiteDao(sqliteDb: SQLiteDatabase): SQLiteDao {
-  const db: SQLiteDBConnection = sqliteDb.get();
-
+export function createSQLiteDao(dbConnection: SQLiteDBConnection): SQLiteDao {
   async function getWaterIntakeHistory(): Promise<WaterIntake[]> {
-    await db.open();
-    const waterIntakeHistoryResponse = db.query("SELECT * FROM water_intake;");
-    await db.close();
+    await dbConnection.open();
+    const waterIntakeHistoryResponse = dbConnection.query(
+      "SELECT * FROM water_intake;"
+    );
+    await dbConnection.close();
     return (await waterIntakeHistoryResponse).values as WaterIntake[];
   }
 
   async function getLastestWaterGoal(): Promise<WaterGoal> {
-    await db.open();
-    const lastestWaterGoalResponse = db.query(
+    await dbConnection.open();
+    const lastestWaterGoalResponse = dbConnection.query(
       "SELECT * FROM water_goal ORDER BY id DESC LIMIT 1;"
     );
-    await db.close();
+    await dbConnection.close();
     return (await lastestWaterGoalResponse).values[0] as WaterGoal;
   }
 
   async function getWaterGoalHistory(): Promise<WaterGoal[]> {
-    await db.open();
-    const waterGoalHistoryResponse = db.query("SELECT * FROM water_goal;");
-    await db.close();
+    await dbConnection.open();
+    const waterGoalHistoryResponse = dbConnection.query(
+      "SELECT * FROM water_goal;"
+    );
+    await dbConnection.close();
     return (await waterGoalHistoryResponse).values as WaterGoal[];
   }
 
   async function addWaterIntake(waterIntake: WaterIntake): Promise<boolean> {
-    await db.open();
-    const addWaterIntakeResponse = db.run(
+    await dbConnection.open();
+    const addWaterIntakeResponse = dbConnection.run(
       "INSERT INTO water_intake (quantity, timeStamp) VALUES (?, ?);",
       [waterIntake.quantity, waterIntake.timeStamp]
     );
-    await db.close();
+    await dbConnection.close();
     return (await addWaterIntakeResponse).changes.changes == 1;
   }
 
