@@ -1,19 +1,19 @@
 export type WaterIntake = {
   quantity: number;
-  timeStamp: Date;
+  timeStamp: number;
 };
 
 export type WaterGoal = {
   quantity: number;
-  timeStamp: Date;
+  timeStamp: number;
 };
 
 export type Exercise = {
   type: string;
-  timeStamp: Date;
+  timeStamp: number;
 };
 
 export type ExerciseGoal = {
   quantity: number;
-  timeStamp: Date;
+  timeStamp: number;
 };
