@@ -1,14 +1,21 @@
 import type { WaterConsumption } from "$types/water-types";
 import dataBaseMock from "../local/DatabaseMock";
 
-function createWaterRepository() {
+export type WaterRepository = {
+  getDailyWaterQuantity: () => number;
+  getWaterGoal: () => number;
+  getWaterConsumptionHistory: () => WaterConsumption[];
+  updateWaterConstumptionHistory: (waterConsumption: WaterConsumption) => void;
+};
+
+function createWaterRepository(): WaterRepository {
   function getDailyWaterQuantity(): number {
     return dataBaseMock.getWaterConsumption().reduce((acc, currentValue) => {
       return acc + currentValue.quantity;
     }, 0);
   }
 
-  function getWaterConsumptionHistory(): Array<WaterConsumption> {
+  function getWaterConsumptionHistory(): WaterConsumption[] {
     return dataBaseMock.getWaterConsumption();
   }
 
