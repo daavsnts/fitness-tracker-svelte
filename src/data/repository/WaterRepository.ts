@@ -2,14 +2,14 @@ import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
 import type { SQLiteDao } from "../local/SQLiteDao";
 
 export type WaterRepository = {
-  getDailyTotalWaterIntake: () => Promise<number>;
+  getTotalWaterIntake: () => Promise<number>;
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
   getLatestWaterGoal: () => Promise<WaterGoal>;
   addWaterIntake: (quantity: number) => Promise<boolean>;
 };
 
 export function createWaterRepository(dao: SQLiteDao): WaterRepository {
-  async function getDailyTotalWaterIntake(): Promise<number> {
+  async function getTotalWaterIntake(): Promise<number> {
     const waterIntakeHistory = await dao.getWaterIntakeHistory();
 
     return waterIntakeHistory.reduce((acc, currentValue) => {
@@ -33,7 +33,7 @@ export function createWaterRepository(dao: SQLiteDao): WaterRepository {
   }
 
   return {
-    getDailyTotalWaterIntake,
+    getTotalWaterIntake,
     getWaterIntakeHistory,
     getLatestWaterGoal,
     addWaterIntake,
