@@ -19,7 +19,8 @@ function createWaterTrackerStore(
 
   async function refreshStoreStates() {
     try {
-      waterRepository = await waterRepositoryPromise;
+      if (!waterRepository) waterRepository = await waterRepositoryPromise;
+
       const awaitedTotalWaterIntake =
         await waterRepository.getTotalWaterIntake();
       if (awaitedTotalWaterIntake)
