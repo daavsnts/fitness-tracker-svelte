@@ -28,7 +28,7 @@ export function createWaterRepository(dao: SQLiteDao): WaterRepository {
   async function addWaterIntake(quantity: number): Promise<boolean> {
     return await dao.addWaterIntake({
       quantity: quantity,
-      timeStamp: new Date(),
+      timeStamp: Date.now(),
     } as WaterIntake);
   }
 

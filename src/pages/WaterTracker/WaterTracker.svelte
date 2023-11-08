@@ -1,19 +1,29 @@
 <script lang="ts">
   import waterTrackerStore from "$stores/WaterTrackerStore";
-  const { getWaterQuantity, addWaterQuantity, getWaterGoal } =
-    waterTrackerStore;
+  import { onMount } from "svelte";
+  const {
+    getTotalWaterIntake,
+    addWaterIntake,
+    getLatestWaterGoal,
+    refreshStoreStates,
+  } = waterTrackerStore;
 
-  let waterQuantity = getWaterQuantity();
-  let waterGoal = getWaterGoal();
-  let waterInputQuantity = 0;
+  let totalWaterIntake = getTotalWaterIntake();
+  let latestWaterGoal = getLatestWaterGoal();
+
+  onMount(async () => {
+    await refreshStoreStates();
+  });
+
+  let waterInputQuantity: number = 0;
 </script>
 
-<h1>{$waterQuantity}/{$waterGoal}</h1>
+<h1>{$totalWaterIntake}/{$latestWaterGoal}</h1>
 <input
   type="number"
   bind:value={waterInputQuantity}
 />
-<button on:click={() => addWaterQuantity(waterInputQuantity)}>increment</button>
+<button on:click={() => addWaterIntake(waterInputQuantity)}>Add</button>
 
 <style lang="scss">
 </style>

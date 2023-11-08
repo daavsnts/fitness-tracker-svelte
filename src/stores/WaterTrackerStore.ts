@@ -18,8 +18,13 @@ function createWaterTrackerStore(
 
   async function refreshStoreStates() {
     try {
-      totalWaterIntake.set(await waterRepository.getTotalWaterIntake());
-      latestWaterGoal.set(await waterRepository.getLatestWaterGoal());
+      const awaitedTotalWaterIntake =
+        await waterRepository.getTotalWaterIntake();
+      if (awaitedTotalWaterIntake)
+        totalWaterIntake.set(awaitedTotalWaterIntake);
+
+      const awaitedLatestWaterGoal = await waterRepository.getLatestWaterGoal();
+      if (awaitedLatestWaterGoal) latestWaterGoal.set(awaitedLatestWaterGoal);
     } catch (msg) {
       console.log(msg);
     }
