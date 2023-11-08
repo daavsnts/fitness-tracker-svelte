@@ -1,33 +1,21 @@
-import type { SQLiteDBConnection } from "@capacitor-community/sqlite";
-import { createSQLiteDao, type SQLiteDao } from "../data/local/SQLiteDao";
-import {
-  createSQLiteDatabase,
-  type SQLiteDatabase,
-} from "../data/local/SQLiteDatabase";
+import { createSQLiteDao } from "../data/local/SQLiteDao";
+import { createSQLiteDatabase } from "../data/local/SQLiteDatabase";
 import {
   createWaterRepository,
   type WaterRepository,
 } from "../data/repository/WaterRepository";
 
-export type AppContainer = {
-  getWaterRepository: () => WaterRepository;
-};
+export interface AppContainer {
+  getWaterRepository: () => Promise<WaterRepository>;
+}
 
-function createAppContainer() {
-  const db = createSQLiteDatabase();
-  let dbConnection: SQLiteDBConnection;
-  db.build()
-    .then((response) => {
-      dbConnection = response;
-    })
-    .catch((reason) => {
-      console.log(reason);
-    });
+function createAppContainer(): AppContainer {
+  const dbConnection = createSQLiteDatabase();
   const dao = createSQLiteDao(dbConnection);
   const waterRepository = createWaterRepository(dao);
 
-  function getWaterRepository(): WaterRepository {
-    return waterRepository;
+  async function getWaterRepository(): Promise<WaterRepository> {
+    return await waterRepository;
   }
 
   return {
@@ -36,4 +24,4 @@ function createAppContainer() {
 }
 
 const appContainer = createAppContainer();
-export default appContainer;
+export { appContainer };

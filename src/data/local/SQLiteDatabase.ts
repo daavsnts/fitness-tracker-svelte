@@ -4,37 +4,29 @@ import {
   SQLiteDBConnection,
 } from "@capacitor-community/sqlite";
 
-export type SQLiteDatabase = {
-  build: () => Promise<SQLiteDBConnection>;
-};
-
-export function createSQLiteDatabase(): SQLiteDatabase {
+export async function createSQLiteDatabase(): Promise<SQLiteDBConnection> {
   const sqlite: SQLiteConnection = new SQLiteConnection(CapacitorSQLite);
   let dbConnection: SQLiteDBConnection;
 
-  async function build(): Promise<SQLiteDBConnection> {
-    const ret = await sqlite.checkConnectionsConsistency();
-    const isConn = (await sqlite.isConnection("fitness-tracker-db", false))
-      .result;
+  const ret = await sqlite.checkConnectionsConsistency();
+  const isConn = (await sqlite.isConnection("fitness-tracker-db", false))
+    .result;
 
-    if (ret.result && isConn) {
-      dbConnection = await sqlite.retrieveConnection(
-        "fitness-tracker-db",
-        false
-      );
-    } else {
-      dbConnection = await sqlite.createConnection(
-        "fitness-tracker-db",
-        false,
-        "no-encryption",
-        1,
-        false
-      );
-    }
+  if (ret.result && isConn) {
+    dbConnection = await sqlite.retrieveConnection("fitness-tracker-db", false);
+  } else {
+    dbConnection = await sqlite.createConnection(
+      "fitness-tracker-db",
+      false,
+      "no-encryption",
+      1,
+      false
+    );
+  }
 
-    await dbConnection.open();
+  await dbConnection.open();
 
-    const initialSchema = `
+  const initialSchema = `
       CREATE TABLE IF NOT EXISTS water_intake_log (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         quantity INTEGER NOT NULL,
@@ -42,9 +34,9 @@ export function createSQLiteDatabase(): SQLiteDatabase {
       );
 
       CREATE TABLE IF NOT EXISTS water_goal_log (
-        id INTERGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         quantity INTEGER NOT NULL,
-        timeStamp INTEGER NOT NULL);
+        timeStamp INTEGER NOT NULL
       );
 
       CREATE TABLE IF NOT EXISTS exercise_log (
@@ -60,14 +52,8 @@ export function createSQLiteDatabase(): SQLiteDatabase {
       );
     `;
 
-    await dbConnection.execute(initialSchema);
-    await dbConnection.close();
-    await sqlite.closeConnection("fitness-tracker-db", false);
+  await dbConnection.execute(initialSchema);
+  await dbConnection.close();
 
-    return dbConnection;
-  }
-
-  return {
-    build,
-  };
+  return dbConnection;
 }

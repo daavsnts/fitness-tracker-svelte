@@ -1,14 +1,18 @@
 import { SQLiteDBConnection } from "@capacitor-community/sqlite";
 import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
 
-export type SQLiteDao = {
+export interface SQLiteDao {
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
   getLastestWaterGoal: () => Promise<WaterGoal>;
   getWaterGoalHistory: () => Promise<WaterGoal[]>;
   addWaterIntake: (waterIntake: WaterIntake) => Promise<boolean>;
-};
+}
 
-export function createSQLiteDao(dbConnection: SQLiteDBConnection): SQLiteDao {
+export async function createSQLiteDao(
+  dbConnectionPromise: Promise<SQLiteDBConnection>
+): Promise<SQLiteDao> {
+  const dbConnection = await dbConnectionPromise;
+
   async function getWaterIntakeHistory(): Promise<WaterIntake[]> {
     await dbConnection.open();
     const waterIntakeHistoryResponse = dbConnection.query(
