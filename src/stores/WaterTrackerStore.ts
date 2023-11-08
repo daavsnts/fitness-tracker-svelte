@@ -1,6 +1,6 @@
 import type { WaterGoal } from "$types/fitnessTypes";
-import type { WaterRepository } from "src/data/repository/WaterRepository";
-import appContainer from "src/di/AppContainer";
+import type { WaterRepository } from "../data/repository/WaterRepository";
+import appContainer from "../di/AppContainer";
 import { writable, type Writable } from "svelte/store";
 
 export type WaterTrackerStore = {
