@@ -3,9 +3,10 @@ import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
 
 export interface SQLiteDao {
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
-  getLastestWaterGoal: () => Promise<WaterGoal>;
+  getLatestWaterGoal: () => Promise<WaterGoal>;
   getWaterGoalHistory: () => Promise<WaterGoal[]>;
   addWaterIntake: (waterIntake: WaterIntake) => Promise<boolean>;
+  updateWaterGoal: (waterGoal: WaterGoal) => Promise<boolean>;
 }
 
 export async function createSQLiteDao(
@@ -22,13 +23,13 @@ export async function createSQLiteDao(
     return (await waterIntakeHistoryResponse).values as WaterIntake[];
   }
 
-  async function getLastestWaterGoal(): Promise<WaterGoal> {
+  async function getLatestWaterGoal(): Promise<WaterGoal> {
     await dbConnection.open();
-    const lastestWaterGoalResponse = dbConnection.query(
-      "SELECT * FROM water_goal_log ORDER BY id DESC LIMIT 1;"
+    const latestWaterGoalResponse = dbConnection.query(
+      "SELECT * FROM water_goal_log ORDER BY timeStamp DESC LIMIT 1;"
     );
     await dbConnection.close();
-    return (await lastestWaterGoalResponse).values[0] as WaterGoal;
+    return (await latestWaterGoalResponse).values[0] as WaterGoal;
   }
 
   async function getWaterGoalHistory(): Promise<WaterGoal[]> {
@@ -44,16 +45,41 @@ export async function createSQLiteDao(
     await dbConnection.open();
     const addWaterIntakeResponse = dbConnection.run(
       "INSERT INTO water_intake_log (quantity, timeStamp) VALUES (?, ?);",
-      [waterIntake.quantity, waterIntake.timeStamp]
+      [waterIntake.quantity, waterIntake.timeStamp.toISOString()]
     );
     await dbConnection.close();
     return (await addWaterIntakeResponse).changes.changes == 1;
   }
 
+  async function updateWaterGoal(waterGoal: WaterGoal): Promise<boolean> {
+    const latestWaterGoal = await getLatestWaterGoal();
+
+    if (latestWaterGoal) {
+      await dbConnection.open();
+      const updateWaterGoalResponse = dbConnection.run(
+        `UPDATE water_goal_log
+        SET quantity = ?, timeStamp = ?
+          WHERE timeStamp = (SELECT MAX(timeStamp) FROM water_goal_log);`,
+        [waterGoal.quantity, waterGoal.timeStamp.toISOString()]
+      );
+      await dbConnection.close();
+      return (await updateWaterGoalResponse).changes.changes == 1;
+    }
+
+    await dbConnection.open();
+    const addWaterGoalResponse = dbConnection.run(
+      "INSERT INTO water_goal_log (quantity, timeStamp) VALUES (?, ?);",
+      [waterGoal.quantity, waterGoal.timeStamp.toISOString()]
+    );
+    await dbConnection.close();
+    return (await addWaterGoalResponse).changes.changes == 1;
+  }
+
   return {
     getWaterIntakeHistory,
-    getLastestWaterGoal,
+    getLatestWaterGoal,
     getWaterGoalHistory,
     addWaterIntake,
+    updateWaterGoal,
   };
 }

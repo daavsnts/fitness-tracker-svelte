@@ -8,13 +8,17 @@ export interface WaterTrackerStore {
   addWaterIntake: (quantity: number) => Promise<boolean>;
   getLatestWaterGoal: () => Writable<WaterGoal>;
   refreshStoreStates: () => Promise<void>;
+  updateWaterGoal(quantity: number): Promise<boolean>;
 }
 
 function createWaterTrackerStore(
   waterRepositoryPromise: Promise<WaterRepository>
 ): WaterTrackerStore {
   const totalWaterIntake: Writable<number> = writable(0);
-  const latestWaterGoal: Writable<WaterGoal> = writable(null as WaterGoal);
+  const latestWaterGoal: Writable<WaterGoal> = writable({
+    quantity: 0,
+    timeStamp: new Date(),
+  } as WaterGoal);
   let waterRepository: WaterRepository;
 
   async function refreshStoreStates() {
@@ -47,11 +51,19 @@ function createWaterTrackerStore(
     return latestWaterGoal;
   }
 
+  async function updateWaterGoal(quantity: number): Promise<boolean> {
+    const result = await waterRepository.updateWaterGoal(quantity);
+    await refreshStoreStates();
+    console.log(result);
+    return result;
+  }
+
   return {
     getTotalWaterIntake,
     addWaterIntake,
     getLatestWaterGoal,
     refreshStoreStates,
+    updateWaterGoal,
   };
 }
 
