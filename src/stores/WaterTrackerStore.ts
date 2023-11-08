@@ -1,40 +1,51 @@
+import type { WaterGoal } from "$types/fitnessTypes";
+import type { WaterRepository } from "src/data/repository/WaterRepository";
+import appContainer from "src/di/AppContainer";
 import { writable, type Writable } from "svelte/store";
-import waterRepository from "../data/repository/WaterRepository";
 
 export type WaterTrackerStore = {
-  getWaterQuantity: () => Writable<number>;
-  addWaterQuantity: (moreWater: number) => void;
-  getWaterGoal: () => Writable<number>;
+  getTotalWaterIntake: () => Writable<number>;
+  addWaterIntake: (quantity: number) => Promise<boolean>;
+  getLatestWaterGoal: () => Writable<WaterGoal>;
+  refreshStoreStates: () => Promise<void>;
 };
 
 function createWaterTrackerStore(
-  initialWaterQuantity: number,
-  initialWaterGoal: number
+  waterRepository: WaterRepository
 ): WaterTrackerStore {
-  const waterQuantity = writable(initialWaterQuantity);
-  const waterGoal = writable(initialWaterGoal);
+  const totalWaterIntake: Writable<number> = writable(0);
+  const latestWaterGoal: Writable<WaterGoal> = writable(null as WaterGoal);
 
-  function getWaterQuantity(): Writable<number> {
-    return waterQuantity;
+  async function refreshStoreStates() {
+    try {
+      totalWaterIntake.set(await waterRepository.getTotalWaterIntake());
+      latestWaterGoal.set(await waterRepository.getLatestWaterGoal());
+    } catch (msg) {
+      console.log(msg);
+    }
   }
 
-  function addWaterQuantity(moreWater: number) {
-    waterQuantity.update((waterQuantity) => waterQuantity + moreWater);
+  function getTotalWaterIntake(): Writable<number> {
+    return totalWaterIntake;
   }
 
-  function getWaterGoal(): Writable<number> {
-    return waterGoal;
+  async function addWaterIntake(quantity: number): Promise<boolean> {
+    return await waterRepository.addWaterIntake(quantity);
+  }
+
+  function getLatestWaterGoal(): Writable<WaterGoal> {
+    return latestWaterGoal;
   }
 
   return {
-    getWaterQuantity,
-    addWaterQuantity,
-    getWaterGoal,
+    getTotalWaterIntake,
+    addWaterIntake,
+    getLatestWaterGoal,
+    refreshStoreStates,
   };
 }
 
 const waterTrackerStore = createWaterTrackerStore(
-  waterRepository.getDailyWaterQuantity(),
-  waterRepository.getWaterGoal()
+  appContainer.getWaterRepository()
 );
 export default waterTrackerStore;

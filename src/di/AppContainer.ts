@@ -24,5 +24,5 @@ async function createAppContainer() {
   };
 }
 
-const appContainer = createAppContainer();
+const appContainer = await createAppContainer();
 export default appContainer;
