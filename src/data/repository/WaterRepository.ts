@@ -1,4 +1,4 @@
-import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
+import type { WaterIntakeGoal, WaterIntake } from "$types/fitnessTypes";
 import type { SQLiteWaterDao } from "../local/SQLiteWaterDao";
 
 export interface WaterRepository {
@@ -6,10 +6,10 @@ export interface WaterRepository {
   getTodayTotalWaterIntake: () => Promise<number>;
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
   getTodayWaterIntakeHistory: () => Promise<WaterIntake[]>;
-  getLatestWaterGoal: () => Promise<WaterGoal>;
-  getTodayWaterGoal: () => Promise<WaterGoal>;
+  getLatestWaterIntakeGoal: () => Promise<WaterIntakeGoal>;
+  getTodayWaterIntakeGoal: () => Promise<WaterIntakeGoal>;
   addWaterIntake: (quantity: number) => Promise<boolean>;
-  updateTodayWaterGoal: (quantity: number) => Promise<boolean>;
+  updateTodayWaterIntakeGoal: (quantity: number) => Promise<boolean>;
 }
 
 export async function createWaterRepository(
@@ -39,12 +39,12 @@ export async function createWaterRepository(
     return await dao.getTodayWaterIntakeHistory();
   }
 
-  async function getLatestWaterGoal(): Promise<WaterGoal> {
-    return await dao.getLatestWaterGoal();
+  async function getLatestWaterIntakeGoal(): Promise<WaterIntakeGoal> {
+    return await dao.getLatestWaterIntakeGoal();
   }
 
-  async function getTodayWaterGoal(): Promise<WaterGoal> {
-    return await dao.getTodayWaterGoal();
+  async function getTodayWaterIntakeGoal(): Promise<WaterIntakeGoal> {
+    return await dao.getTodayWaterIntakeGoal();
   }
 
   async function addWaterIntake(quantity: number): Promise<boolean> {
@@ -54,11 +54,11 @@ export async function createWaterRepository(
     } as WaterIntake);
   }
 
-  async function updateTodayWaterGoal(quantity: number): Promise<boolean> {
-    return await dao.updateTodayWaterGoal({
+  async function updateTodayWaterIntakeGoal(quantity: number): Promise<boolean> {
+    return await dao.updateTodayWaterIntakeGoal({
       quantity: quantity,
       timeStamp: new Date(),
-    } as WaterGoal);
+    } as WaterIntakeGoal);
   }
 
   return {
@@ -66,9 +66,9 @@ export async function createWaterRepository(
     getTodayTotalWaterIntake,
     getWaterIntakeHistory,
     getTodayWaterIntakeHistory,
-    getLatestWaterGoal,
-    getTodayWaterGoal,
+    getLatestWaterIntakeGoal,
+    getTodayWaterIntakeGoal,
     addWaterIntake,
-    updateTodayWaterGoal,
+    updateTodayWaterIntakeGoal,
   };
 }

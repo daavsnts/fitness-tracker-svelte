@@ -3,7 +3,7 @@ export type WaterIntake = {
   timeStamp: Date;
 };
 
-export type WaterGoal = {
+export type WaterIntakeGoal = {
   quantity: number;
   timeStamp: Date;
 };

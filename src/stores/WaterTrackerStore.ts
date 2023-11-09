@@ -1,4 +1,4 @@
-import type { WaterGoal } from "$types/fitnessTypes";
+import type { WaterIntakeGoal } from "$types/fitnessTypes";
 import type { WaterRepository } from "../data/repository/WaterRepository";
 import { appContainer } from "../di/AppContainer";
 import { writable, type Writable } from "svelte/store";
@@ -6,19 +6,19 @@ import { writable, type Writable } from "svelte/store";
 export interface WaterTrackerStore {
   getTodayTotalWaterIntake: () => Writable<number>;
   addWaterIntake: (quantity: number) => Promise<boolean>;
-  getTodayWaterGoal: () => Writable<WaterGoal>;
+  getTodayWaterIntakeGoal: () => Writable<WaterIntakeGoal>;
   refreshStoreStates: () => Promise<void>;
-  updateTodayWaterGoal(quantity: number): Promise<boolean>;
+  updateTodayWaterIntakeGoal(quantity: number): Promise<boolean>;
 }
 
 function createWaterTrackerStore(
   waterRepositoryPromise: Promise<WaterRepository>
 ): WaterTrackerStore {
   const todayTotalWaterIntake: Writable<number> = writable(0);
-  const todayWaterGoal: Writable<WaterGoal> = writable({
+  const todayWaterIntakeGoal: Writable<WaterIntakeGoal> = writable({
     quantity: 0,
     timeStamp: new Date(),
-  } as WaterGoal);
+  } as WaterIntakeGoal);
   let waterRepository: WaterRepository;
 
   async function refreshStoreStates() {
@@ -30,8 +30,8 @@ function createWaterTrackerStore(
       if (awaitedTodayTotalWaterIntake)
         todayTotalWaterIntake.set(awaitedTodayTotalWaterIntake);
 
-      const awaitedTodayWaterGoal = await waterRepository.getTodayWaterGoal();
-      if (awaitedTodayWaterGoal) todayWaterGoal.set(awaitedTodayWaterGoal);
+      const awaitedTodayWaterIntakeGoal = await waterRepository.getTodayWaterIntakeGoal();
+      if (awaitedTodayWaterIntakeGoal) todayWaterIntakeGoal.set(awaitedTodayWaterIntakeGoal);
     } catch (msg) {
       console.log(`createWaterTrackerStore -> refreshStoreStates -> ${msg}`);
     }
@@ -47,12 +47,12 @@ function createWaterTrackerStore(
     return result;
   }
 
-  function getTodayWaterGoal(): Writable<WaterGoal> {
-    return todayWaterGoal;
+  function getTodayWaterIntakeGoal(): Writable<WaterIntakeGoal> {
+    return todayWaterIntakeGoal;
   }
 
-  async function updateTodayWaterGoal(quantity: number): Promise<boolean> {
-    const result = await waterRepository.updateTodayWaterGoal(quantity);
+  async function updateTodayWaterIntakeGoal(quantity: number): Promise<boolean> {
+    const result = await waterRepository.updateTodayWaterIntakeGoal(quantity);
     await refreshStoreStates();
     console.log(result);
     return result;
@@ -61,9 +61,9 @@ function createWaterTrackerStore(
   return {
     getTodayTotalWaterIntake,
     addWaterIntake,
-    getTodayWaterGoal,
+    getTodayWaterIntakeGoal,
     refreshStoreStates,
-    updateTodayWaterGoal,
+    updateTodayWaterIntakeGoal,
   };
 }
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type WaterGoal } from "$types/fitnessTypes";
+  import { type WaterIntakeGoal } from "$types/fitnessTypes";
   import waterTrackerStore from "$stores/WaterTrackerStore";
   import { onMount } from "svelte";
   import type { Writable } from "svelte/store";
@@ -11,14 +11,14 @@
 
   const {
     getTodayTotalWaterIntake,
-    getTodayWaterGoal,
+    getTodayWaterIntakeGoal,
     refreshStoreStates,
-    updateTodayWaterGoal,
+    updateTodayWaterIntakeGoal,
     addWaterIntake,
   } = waterTrackerStore;
 
   let todayTotalWaterIntake: Writable<number> = getTodayTotalWaterIntake();
-  let todayWaterGoal: Writable<WaterGoal> = getTodayWaterGoal();
+  let todayWaterIntakeGoal: Writable<WaterIntakeGoal> = getTodayWaterIntakeGoal();
 
   onMount(() => {
     refreshStoreStates();
@@ -35,7 +35,7 @@
   function getModalValue(value: number, type: string) {
     if (type != "") {
       if (type == "water-intake") addWaterIntake(value);
-      if (type == "water-goal") updateTodayWaterGoal(value);
+      if (type == "water-goal") updateTodayWaterIntakeGoal(value);
     }
     showModal = !showModal;
   }
@@ -55,7 +55,7 @@
     <div class="water-intake-text">
       <h1>{$todayTotalWaterIntake}ml</h1>
       <h1>/</h1>
-      <h1>{$todayWaterGoal.quantity}ml</h1>
+      <h1>{$todayWaterIntakeGoal.quantity}ml</h1>
     </div>
   </div>
 

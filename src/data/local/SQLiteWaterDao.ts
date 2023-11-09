@@ -1,15 +1,17 @@
-import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
+import type { WaterIntakeGoal, WaterIntake } from "$types/fitnessTypes";
 import type { SQLiteDao } from "./SQLiteDao";
 
 export interface SQLiteWaterDao {
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
   getTodayWaterIntakeHistory: () => Promise<WaterIntake[]>;
-  getLatestWaterGoal: () => Promise<WaterGoal>;
-  getTodayWaterGoal: () => Promise<WaterGoal>;
-  getWaterGoalHistory: () => Promise<WaterGoal[]>;
-  getTodayWaterGoalHistory: () => Promise<WaterGoal[]>;
+  getLatestWaterIntakeGoal: () => Promise<WaterIntakeGoal>;
+  getTodayWaterIntakeGoal: () => Promise<WaterIntakeGoal>;
+  getWaterIntakeGoalHistory: () => Promise<WaterIntakeGoal[]>;
+  getTodayWaterIntakeGoalHistory: () => Promise<WaterIntakeGoal[]>;
   addWaterIntake: (waterIntake: WaterIntake) => Promise<boolean>;
-  updateTodayWaterGoal: (waterGoal: WaterGoal) => Promise<boolean>;
+  updateTodayWaterIntakeGoal: (
+    waterIntakeGoal: WaterIntakeGoal
+  ) => Promise<boolean>;
 }
 
 export async function createSQLiteWaterDao(
@@ -17,7 +19,7 @@ export async function createSQLiteWaterDao(
 ): Promise<SQLiteWaterDao> {
   const dao = await daoPromise;
   const WATER_INTAKE_TABLE = "water_intake_log";
-  const WATER_GOAL_TABLE = "water_goal_log";
+  const WATER_INTAKE_GOAL_TABLE = "water_intake_goal_log";
 
   async function getWaterIntakeHistory(): Promise<WaterIntake[]> {
     return await dao.getHistory(WATER_INTAKE_TABLE);
@@ -27,38 +29,40 @@ export async function createSQLiteWaterDao(
     return await dao.getTodayHistory(WATER_INTAKE_TABLE);
   }
 
-  async function getLatestWaterGoal(): Promise<WaterGoal> {
-    return await dao.getLatest(WATER_GOAL_TABLE);
+  async function getLatestWaterIntakeGoal(): Promise<WaterIntakeGoal> {
+    return await dao.getLatest(WATER_INTAKE_GOAL_TABLE);
   }
 
-  async function getTodayWaterGoal(): Promise<WaterGoal> {
-    return await dao.getToday(WATER_GOAL_TABLE);
+  async function getTodayWaterIntakeGoal(): Promise<WaterIntakeGoal> {
+    return await dao.getToday(WATER_INTAKE_GOAL_TABLE);
   }
 
-  async function getWaterGoalHistory(): Promise<WaterGoal[]> {
-    return await dao.getHistory(WATER_GOAL_TABLE);
+  async function getWaterIntakeGoalHistory(): Promise<WaterIntakeGoal[]> {
+    return await dao.getHistory(WATER_INTAKE_GOAL_TABLE);
   }
 
-  async function getTodayWaterGoalHistory(): Promise<WaterGoal[]> {
-    return await dao.getTodayHistory(WATER_GOAL_TABLE);
+  async function getTodayWaterIntakeGoalHistory(): Promise<WaterIntakeGoal[]> {
+    return await dao.getTodayHistory(WATER_INTAKE_GOAL_TABLE);
   }
 
   async function addWaterIntake(waterIntake: WaterIntake): Promise<boolean> {
     return await dao.addQuantity(waterIntake, WATER_INTAKE_TABLE);
   }
 
-  async function updateTodayWaterGoal(waterGoal: WaterGoal): Promise<boolean> {
-    return await dao.updateTodayGoal(waterGoal, WATER_GOAL_TABLE);
+  async function updateTodayWaterIntakeGoal(
+    waterIntakeGoal: WaterIntakeGoal
+  ): Promise<boolean> {
+    return await dao.updateTodayGoal(waterIntakeGoal, WATER_INTAKE_GOAL_TABLE);
   }
 
   return {
     getWaterIntakeHistory,
     getTodayWaterIntakeHistory,
-    getLatestWaterGoal,
-    getTodayWaterGoal,
-    getWaterGoalHistory,
-    getTodayWaterGoalHistory,
+    getLatestWaterIntakeGoal,
+    getTodayWaterIntakeGoal,
+    getWaterIntakeGoalHistory,
+    getTodayWaterIntakeGoalHistory,
     addWaterIntake,
-    updateTodayWaterGoal,
+    updateTodayWaterIntakeGoal,
   };
 }

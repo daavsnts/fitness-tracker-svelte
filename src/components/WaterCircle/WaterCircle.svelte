@@ -1,17 +1,17 @@
 <script lang="ts">
   import waterTrackerStore from "$stores/WaterTrackerStore";
-  import type { WaterGoal } from "$types/fitnessTypes";
+  import type { WaterIntakeGoal } from "$types/fitnessTypes";
   import { onMount } from "svelte";
   import type { Writable } from "svelte/store";
 
   const {
     getTodayTotalWaterIntake,
-    getTodayWaterGoal,
+    getTodayWaterIntakeGoal,
     refreshStoreStates,
   } = waterTrackerStore;
 
   let todayTotalWaterIntake: Writable<number> = getTodayTotalWaterIntake();
-  let todayWaterGoal: Writable<WaterGoal> = getTodayWaterGoal();
+  let todayWaterIntakeGoal: Writable<WaterIntakeGoal> = getTodayWaterIntakeGoal();
 
   onMount(() => {
     refreshStoreStates();
@@ -21,8 +21,8 @@
   let fixedPercentage: string = "0";
   let convertedPercentage: number = 100;
 
-  $: if ($todayTotalWaterIntake > 0 && $todayWaterGoal.quantity > 0) {
-    percentage = ($todayTotalWaterIntake / $todayWaterGoal.quantity) * 100;
+  $: if ($todayTotalWaterIntake > 0 && $todayWaterIntakeGoal.quantity > 0) {
+    percentage = ($todayTotalWaterIntake / $todayWaterIntakeGoal.quantity) * 100;
     fixedPercentage = percentage.toFixed();
     convertedPercentage = 100 - Number(fixedPercentage);
   }
