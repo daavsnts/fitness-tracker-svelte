@@ -39,13 +39,13 @@ export async function createSQLiteDatabase(): Promise<SQLiteDBConnection> {
         timeStamp INTEGER NOT NULL
       );
 
-      CREATE TABLE IF NOT EXISTS exercise_log (
+      CREATE TABLE IF NOT EXISTS exercise_pauses_log (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         exerciseType TEXT NOT NULL,
         timeStamp INTEGER NOT NULL
       );
 
-      CREATE TABLE IF NOT EXISTS exercise_goal_log (
+      CREATE TABLE IF NOT EXISTS exercise_pauses_goal_log (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         quantity INTEGER NOT NULL,
         timeStamp INTEGER NOT NULL
