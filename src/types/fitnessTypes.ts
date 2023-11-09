@@ -8,12 +8,12 @@ export type WaterGoal = {
   timeStamp: Date;
 };
 
-export type Exercise = {
+export type ExercisePause = {
   type: string;
   timeStamp: Date;
 };
 
-export type ExerciseGoal = {
+export type ExercisePausesGoal = {
   quantity: number;
   timeStamp: Date;
 };
