@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Router, { push } from "svelte-spa-router";
+  import Router from "svelte-spa-router";
   import {
     conditionsFailHandler,
     routeLoadingHandler,

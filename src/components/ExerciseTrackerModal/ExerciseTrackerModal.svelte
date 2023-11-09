@@ -4,7 +4,6 @@
   import runningIcon from "$assets/person-running-icon.svg";
   import IconButton from "$components/IconButton/IconButton.svelte";
   import TextButton from "$components/TextButton/TextButton.svelte";
-  import { text } from "svelte/internal";
   export let toggleModal: Function;
   export let getModalValue: Function;
   export let getModalChoice: Function;
