@@ -18,6 +18,11 @@ export type ExerciseGoal = {
   timeStamp: Date;
 };
 
+export type Goal = {
+  quantity: number;
+  timeStamp: Date;
+};
+
 export class TodayInterval {
   public start: Date;
   public end: Date;
