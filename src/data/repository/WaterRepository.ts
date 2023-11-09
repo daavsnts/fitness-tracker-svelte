@@ -43,6 +43,13 @@ export async function createWaterRepository(
     } as WaterGoal);
   }
 
+  async function updateTodayWaterGoal(quantity: number): Promise<boolean> {
+    return await dao.updateTodayWaterGoal({
+      quantity: quantity,
+      timeStamp: new Date(),
+    } as WaterGoal);
+  }
+
   return {
     getTotalWaterIntake,
     getWaterIntakeHistory,
