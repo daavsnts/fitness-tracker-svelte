@@ -81,7 +81,7 @@
     left: -50%;
     transform: rotate(360deg);
     transition: all 5s ease;
-    animation: wave 40s linear infinite;
+    /*animation: wave 40s linear infinite;*/
   }
 
   .percentage-text {
