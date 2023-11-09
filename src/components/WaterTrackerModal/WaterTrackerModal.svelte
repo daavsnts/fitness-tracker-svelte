@@ -1,5 +1,6 @@
 <script lang="ts">
   import closeIcon from "$assets/x-icon.svg";
+  import TextButton from "$components/TextButton/TextButton.svelte";
   export let toggleModal: Function;
   export let getModalValue: Function;
   export let modalType: string;
@@ -35,9 +36,11 @@
       type="number"
       bind:value={inputValue}
     />
-    <button on:click={() => getModalValue(inputValue, modalType)}>
-      {buttonTitle}
-    </button>
+
+    <TextButton
+      onClickFunction={() => getModalValue(inputValue, modalType)}
+      text={buttonTitle}
+    />
   </div>
 </div>
 
