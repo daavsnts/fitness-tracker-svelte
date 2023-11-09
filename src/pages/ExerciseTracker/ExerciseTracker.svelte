@@ -61,12 +61,12 @@
     <RoundedIconButton
       onClickFunction={() => toggleModal("exercise-pause")}
       iconPath={plusIcon}
-      alt="add water intake"
+      alt="add exercise pause"
     />
     <RoundedIconButton
       onClickFunction={() => toggleModal("exercise-goal")}
       iconPath={setUpIcon}
-      alt="add water goal"
+      alt="set exercise goal"
     />
   </div>
 </div>
