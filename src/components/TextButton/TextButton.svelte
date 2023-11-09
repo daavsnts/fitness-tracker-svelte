@@ -1,13 +1,9 @@
 <script lang="ts">
   export let onClickFunction: Function;
   export let text: string;
-  export let size: number;
 </script>
 
-<button
-  style="--size: {size}"
-  on:click={() => onClickFunction()}
->
+<button on:click={() => onClickFunction()}>
   {text}
 </button>
 
@@ -15,7 +11,6 @@
   button {
     border: none;
     padding: 10px;
-    size: var(--size);
     border-radius: 10px;
     background-color: #11b5fc;
     font-size: 1.7rem;
