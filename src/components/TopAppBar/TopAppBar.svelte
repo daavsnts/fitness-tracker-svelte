@@ -12,8 +12,8 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: 5%;
-    align-items: center;
+    padding: 3%;
+    align-items: end;
 
     h1 {
       font-size: 3rem;
