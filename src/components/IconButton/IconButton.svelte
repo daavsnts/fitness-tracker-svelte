@@ -1,14 +1,13 @@
 <script lang="ts">
-  import { push } from "svelte-spa-router";
-
+  export let onClickFunction: Function;
   export let iconPath: string;
-  export let route: string;
+  export let alt: string;
 </script>
 
-<button on:click={() => push(route)}>
+<button on:click={() => onClickFunction()}>
   <img
     src={iconPath}
-    alt="Water Tracker Icon"
+    {alt}
   />
 </button>
 
