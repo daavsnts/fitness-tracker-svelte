@@ -56,7 +56,7 @@
         stroke-dasharray={dashArray}
       />
     </svg>
-    <div class="percentage-text"><h1>{fixedPercentage}%</h1></div>
+    <div class="percentage-text"><h1>{fixedPercentage || 0}%</h1></div>
   </div>
 </div>
 
