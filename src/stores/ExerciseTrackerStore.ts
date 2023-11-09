@@ -4,6 +4,7 @@ import { appContainer } from "../di/AppContainer";
 import { writable, type Writable } from "svelte/store";
 
 export interface ExerciseTrackerStore {
+  getTotalExercisePauses: () => Writable<number>;
   getTodayTotalExercisePauses: () => Writable<number>;
   addExercisePause: (type: string) => Promise<boolean>;
   getTodayExercisePausesGoal: () => Writable<ExercisePausesGoal>;
@@ -14,6 +15,7 @@ export interface ExerciseTrackerStore {
 function createExerciseTrackerStore(
   exerciseRepositoryPromise: Promise<ExerciseRepository>
 ): ExerciseTrackerStore {
+  const totalExercisePauses: Writable<number> = writable(0);
   const todayTotalExercisePauses: Writable<number> = writable(0);
   const todayExercisePausesGoal: Writable<ExercisePausesGoal> = writable({
     quantity: 0,
@@ -25,6 +27,11 @@ function createExerciseTrackerStore(
     try {
       if (!exerciseRepository)
         exerciseRepository = await exerciseRepositoryPromise;
+
+      const awaitedTotalExercisePauses =
+        await exerciseRepository.getTotalExercisePauses();
+      if (awaitedTotalExercisePauses)
+        totalExercisePauses.set(awaitedTotalExercisePauses);
 
       const awaitedTodayTotalExercisePauses =
         await exerciseRepository.getTodayTotalExercisePauses();
@@ -38,6 +45,10 @@ function createExerciseTrackerStore(
     } catch (msg) {
       console.log(`createExerciseTrackerStore -> refreshStoreStates -> ${msg}`);
     }
+  }
+
+  function getTotalExercisePauses(): Writable<number> {
+    return totalExercisePauses;
   }
 
   function getTodayTotalExercisePauses(): Writable<number> {
@@ -66,6 +77,7 @@ function createExerciseTrackerStore(
   }
 
   return {
+    getTotalExercisePauses,
     getTodayTotalExercisePauses,
     addExercisePause,
     getTodayExercisePausesGoal,
