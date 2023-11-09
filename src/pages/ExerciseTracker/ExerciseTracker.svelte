@@ -1,7 +1,128 @@
 <script lang="ts">
+  import ExerciseTrackerModal from "$components/ExerciseTrackerModal/ExerciseTrackerModal.svelte";
+  import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
+  import { onMount } from "svelte";
+  import plusIcon from "$assets/plus-icon.svg";
+  import setUpIcon from "$assets/set-up-icon.svg";
+  import RoundedIconButton from "$components/RoundedIconButton/RoundedIconButton.svelte";
+  import PieChart from "$components/PieChart/PieChart.svelte";
+
+  const {
+    getTodayTotalExercisePauses,
+    getTodayExercisePausesGoal,
+    refreshStoreStates,
+    addExercisePause,
+    updateTodayExercisePausesGoal,
+  } = exerciseTrackerStore;
+
+  let todayTotalExercisePauses = getTodayTotalExercisePauses();
+  let todayExercisePausesGoal = getTodayExercisePausesGoal();
+
+  onMount(() => {
+    refreshStoreStates();
+  });
+
+  let showModal = false;
+  let modalType: string;
+
+  function toggleModal(type: string) {
+    modalType = type;
+    showModal = !showModal;
+  }
+
+  function getModalChoice(choice: string) {
+    addExercisePause(choice);
+    showModal = !showModal;
+  }
+
+  function getModalValue(value: number) {
+    updateTodayExercisePausesGoal(value);
+    showModal = !showModal;
+  }
 </script>
 
-<h1>Exercise Tracker</h1>
+<div class="ExerciseTracker">
+  {#if showModal}
+    <ExerciseTrackerModal
+      {modalType}
+      {toggleModal}
+      {getModalValue}
+      {getModalChoice}
+    />
+  {/if}
+
+  <div class="exercise-container">
+    <PieChart />
+    <div class="exercise-text">
+      <h1>{$todayTotalExercisePauses}</h1>
+      <h1>/</h1>
+      <h1>{$todayExercisePausesGoal.quantity}</h1>
+    </div>
+  </div>
+
+  <div class="tips">
+    <h2>After running or stretching click "+" button to record it</h2>
+    <h2>If you want to change your goal, click on "config" button</h2>
+  </div>
+
+  <div class="buttons-container">
+    <RoundedIconButton
+      onClickFunction={() => toggleModal("exercise-pause")}
+      iconPath={plusIcon}
+      alt="add exercise pause"
+    />
+    <RoundedIconButton
+      onClickFunction={() => toggleModal("exercise-goal")}
+      iconPath={setUpIcon}
+      alt="set exercise pauses goal"
+    />
+  </div>
+</div>
 
 <style lang="scss">
+  .ExerciseTracker {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    .exercise-container {
+      margin-top: 5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      row-gap: 30px;
+
+      .exercise-text {
+        display: flex;
+        color: #fff;
+        text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+        column-gap: 10px;
+      }
+    }
+
+    .tips {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      row-gap: 10px;
+
+      h2 {
+        color: #fff;
+        font-weight: normal;
+        text-align: center;
+        font-size: 2rem;
+        text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
+    .buttons-container {
+      display: flex;
+      flex-direction: row;
+      column-gap: 30px;
+      margin-bottom: 5%;
+    }
+  }
 </style>
