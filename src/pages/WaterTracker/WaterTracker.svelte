@@ -15,7 +15,7 @@
   });
 
   onDestroy(() => {
-    waterTrackerStore.updateTodayWaterGoal(0);
+    waterTrackerStore.setTodayCurrentWaterGoal(0);
     waterTrackerStore.setTodayTotalWaterIntake(0);
   });
 

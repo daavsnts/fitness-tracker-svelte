@@ -15,7 +15,7 @@
   });
 
   onDestroy(() => {
-    exerciseTrackerStore.updateTodayExerciseGoal(0);
+    exerciseTrackerStore.setTodayExerciseGoal(0);
     exerciseTrackerStore.setTodayTotalExercisePauses(0);
   });
 

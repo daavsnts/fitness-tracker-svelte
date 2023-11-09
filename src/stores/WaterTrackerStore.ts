@@ -76,6 +76,10 @@ export class WaterTrackerStore {
   setTotalWaterIntake(quantity: number) {
     this._totalWaterIntake.set(quantity);
   }
+
+  setTodayCurrentWaterGoal(quantity: number) {
+    this._todayCurrentWaterGoal.set(new WaterGoal(quantity, new Date()));
+  }
 }
 
 const waterTrackerStore = new WaterTrackerStore(appContainer.waterRepository);

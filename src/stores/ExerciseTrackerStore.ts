@@ -77,6 +77,10 @@ export class ExerciseTrackerStore {
   setTotalExercisePauses(quantity: number) {
     this._totalExercisePauses.set(quantity);
   }
+
+  setTodayExerciseGoal(quantity: number) {
+    this._todayCurrentExerciseGoal.set(new ExerciseGoal(quantity, new Date()));
+  }
 }
 
 const exerciseTrackerStore = new ExerciseTrackerStore(
