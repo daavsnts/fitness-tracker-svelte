@@ -4,26 +4,26 @@
   import { onMount } from "svelte";
   import type { Writable } from "svelte/store";
 
-  const { getTotalWaterIntake, getLatestWaterGoal, refreshStoreStates } =
+  const { getTodayTotalWaterIntake, getTodayLatestWaterGoal, refreshStoreStates } =
     waterTrackerStore;
 
-  let totalWaterIntake: Writable<number> = getTotalWaterIntake();
-  let latestWaterGoal: Writable<WaterGoal> = getLatestWaterGoal();
+  let todayTotalWaterIntake: Writable<number> = getTodayTotalWaterIntake();
+  let todayLatestWaterGoal: Writable<WaterGoal> = getTodayLatestWaterGoal();
 
   onMount(() => {
     refreshStoreStates();
   });
 
-  let waterInputQuantity: number = 0;
+  let waterIntakeInput: number = 0;
   let waterGoalInput: number = 0;
 </script>
 
-<h1>{$totalWaterIntake || 0}/{$latestWaterGoal.quantity}</h1>
+<h1>{$todayTotalWaterIntake || 0}/{$todayLatestWaterGoal.quantity}</h1>
 <input
   type="number"
-  bind:value={waterInputQuantity}
+  bind:value={waterIntakeInput}
 />
-<button on:click={() => waterTrackerStore.addWaterIntake(waterInputQuantity)}
+<button on:click={() => waterTrackerStore.addWaterIntake(waterIntakeInput)}
   >Add</button
 >
 
@@ -31,7 +31,7 @@
   type="number"
   bind:value={waterGoalInput}
 />
-<button on:click={() => waterTrackerStore.updateWaterGoal(waterGoalInput)}
+<button on:click={() => waterTrackerStore.updateTodayWaterGoal(waterGoalInput)}
   >Add</button
 >
 
