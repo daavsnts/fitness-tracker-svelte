@@ -11,7 +11,8 @@
   } = waterTrackerStore;
 
   let todayTotalWaterIntake: Writable<number> = getTodayTotalWaterIntake();
-  let todayWaterIntakeGoal: Writable<WaterIntakeGoal> = getTodayWaterIntakeGoal();
+  let todayWaterIntakeGoal: Writable<WaterIntakeGoal> =
+    getTodayWaterIntakeGoal();
 
   onMount(() => {
     refreshStoreStates();
@@ -22,7 +23,8 @@
   let convertedPercentage: number = 100;
 
   $: if ($todayTotalWaterIntake > 0 && $todayWaterIntakeGoal.quantity > 0) {
-    percentage = ($todayTotalWaterIntake / $todayWaterIntakeGoal.quantity) * 100;
+    percentage =
+      ($todayTotalWaterIntake / $todayWaterIntakeGoal.quantity) * 100;
     fixedPercentage = percentage.toFixed();
     convertedPercentage = 100 - Number(fixedPercentage);
   }
@@ -79,7 +81,7 @@
     left: -50%;
     transform: rotate(360deg);
     transition: all 5s ease;
-    /*animation: wave 40s linear infinite;*/
+    animation: wave 40s linear infinite;
   }
 
   .percentage-text {
