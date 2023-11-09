@@ -83,7 +83,7 @@ export async function createSQLiteDao(
 
     await dbConnection.open();
     const addGoalResponse = dbConnection.run(
-      "INSERT INTO ${table} (quantity, timeStamp) VALUES (?, ?);",
+      `INSERT INTO ${table} (quantity, timeStamp) VALUES (?, ?);`,
       [goal.quantity, goal.timeStamp.toISOString()]
     );
     await dbConnection.close();
