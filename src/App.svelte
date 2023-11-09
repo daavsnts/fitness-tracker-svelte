@@ -21,11 +21,11 @@
   .App {
     width: 100%;
     height: 100vh;
+    background: linear-gradient(#0258af, #379ddd);
   }
 
   .Screens {
     width: 100%;
     height: 80%;
-    background-color: green;
   }
 </style>
