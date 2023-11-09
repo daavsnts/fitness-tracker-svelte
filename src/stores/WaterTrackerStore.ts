@@ -49,7 +49,7 @@ function createWaterTrackerStore(
       const awaitedTodayLatestWaterGoal =
         await waterRepository.getTodayLatestWaterGoal();
       if (awaitedTodayLatestWaterGoal)
-        latestWaterGoal.set(awaitedTodayLatestWaterGoal);
+        todayLatestWaterGoal.set(awaitedTodayLatestWaterGoal);
     } catch (msg) {
       console.log(`createWaterTrackerStore -> refreshStoreStates -> ${msg}`);
     }
