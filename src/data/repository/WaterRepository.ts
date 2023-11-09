@@ -7,7 +7,7 @@ export interface WaterRepository {
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
   getTodayWaterIntakeHistory: () => Promise<WaterIntake[]>;
   getLatestWaterGoal: () => Promise<WaterGoal>;
-  getTodayLatestWaterGoal: () => Promise<WaterGoal>;
+  getTodayWaterGoal: () => Promise<WaterGoal>;
   addWaterIntake: (quantity: number) => Promise<boolean>;
   updateTodayWaterGoal: (quantity: number) => Promise<boolean>;
 }
@@ -43,8 +43,8 @@ export async function createWaterRepository(
     return await dao.getLatestWaterGoal();
   }
 
-  async function getTodayLatestWaterGoal(): Promise<WaterGoal> {
-    return await dao.getTodayLatestWaterGoal();
+  async function getTodayWaterGoal(): Promise<WaterGoal> {
+    return await dao.getTodayWaterGoal();
   }
 
   async function addWaterIntake(quantity: number): Promise<boolean> {
@@ -67,7 +67,7 @@ export async function createWaterRepository(
     getWaterIntakeHistory,
     getTodayWaterIntakeHistory,
     getLatestWaterGoal,
-    getTodayLatestWaterGoal,
+    getTodayWaterGoal,
     addWaterIntake,
     updateTodayWaterGoal,
   };

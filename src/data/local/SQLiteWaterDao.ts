@@ -5,7 +5,7 @@ export interface SQLiteWaterDao {
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
   getTodayWaterIntakeHistory: () => Promise<WaterIntake[]>;
   getLatestWaterGoal: () => Promise<WaterGoal>;
-  getTodayLatestWaterGoal: () => Promise<WaterGoal>;
+  getTodayWaterGoal: () => Promise<WaterGoal>;
   getWaterGoalHistory: () => Promise<WaterGoal[]>;
   getTodayWaterGoalHistory: () => Promise<WaterGoal[]>;
   addWaterIntake: (waterIntake: WaterIntake) => Promise<boolean>;
@@ -31,8 +31,8 @@ export async function createSQLiteWaterDao(
     return await dao.getLatest(WATER_GOAL_TABLE);
   }
 
-  async function getTodayLatestWaterGoal(): Promise<WaterGoal> {
-    return await dao.getTodayLatest(WATER_GOAL_TABLE);
+  async function getTodayWaterGoal(): Promise<WaterGoal> {
+    return await dao.getToday(WATER_GOAL_TABLE);
   }
 
   async function getWaterGoalHistory(): Promise<WaterGoal[]> {
@@ -55,7 +55,7 @@ export async function createSQLiteWaterDao(
     getWaterIntakeHistory,
     getTodayWaterIntakeHistory,
     getLatestWaterGoal,
-    getTodayLatestWaterGoal,
+    getTodayWaterGoal,
     getWaterGoalHistory,
     getTodayWaterGoalHistory,
     addWaterIntake,

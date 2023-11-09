@@ -11,14 +11,14 @@
 
   const {
     getTodayTotalWaterIntake,
-    getTodayLatestWaterGoal,
+    getTodayWaterGoal,
     refreshStoreStates,
     updateTodayWaterGoal,
     addWaterIntake,
   } = waterTrackerStore;
 
   let todayTotalWaterIntake: Writable<number> = getTodayTotalWaterIntake();
-  let todayWaterGoal: Writable<WaterGoal> = getTodayLatestWaterGoal();
+  let todayWaterGoal: Writable<WaterGoal> = getTodayWaterGoal();
 
   onMount(() => {
     refreshStoreStates();

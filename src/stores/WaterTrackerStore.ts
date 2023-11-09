@@ -6,7 +6,7 @@ import { writable, type Writable } from "svelte/store";
 export interface WaterTrackerStore {
   getTodayTotalWaterIntake: () => Writable<number>;
   addWaterIntake: (quantity: number) => Promise<boolean>;
-  getTodayLatestWaterGoal: () => Writable<WaterGoal>;
+  getTodayWaterGoal: () => Writable<WaterGoal>;
   refreshStoreStates: () => Promise<void>;
   updateTodayWaterGoal(quantity: number): Promise<boolean>;
 }
@@ -15,7 +15,7 @@ function createWaterTrackerStore(
   waterRepositoryPromise: Promise<WaterRepository>
 ): WaterTrackerStore {
   const todayTotalWaterIntake: Writable<number> = writable(0);
-  const todayLatestWaterGoal: Writable<WaterGoal> = writable({
+  const todayWaterGoal: Writable<WaterGoal> = writable({
     quantity: 0,
     timeStamp: new Date(),
   } as WaterGoal);
@@ -30,10 +30,8 @@ function createWaterTrackerStore(
       if (awaitedTodayTotalWaterIntake)
         todayTotalWaterIntake.set(awaitedTodayTotalWaterIntake);
 
-      const awaitedTodayLatestWaterGoal =
-        await waterRepository.getTodayLatestWaterGoal();
-      if (awaitedTodayLatestWaterGoal)
-        todayLatestWaterGoal.set(awaitedTodayLatestWaterGoal);
+      const awaitedTodayWaterGoal = await waterRepository.getTodayWaterGoal();
+      if (awaitedTodayWaterGoal) todayWaterGoal.set(awaitedTodayWaterGoal);
     } catch (msg) {
       console.log(`createWaterTrackerStore -> refreshStoreStates -> ${msg}`);
     }
@@ -49,8 +47,8 @@ function createWaterTrackerStore(
     return result;
   }
 
-  function getTodayLatestWaterGoal(): Writable<WaterGoal> {
-    return todayLatestWaterGoal;
+  function getTodayWaterGoal(): Writable<WaterGoal> {
+    return todayWaterGoal;
   }
 
   async function updateTodayWaterGoal(quantity: number): Promise<boolean> {
@@ -63,7 +61,7 @@ function createWaterTrackerStore(
   return {
     getTodayTotalWaterIntake,
     addWaterIntake,
-    getTodayLatestWaterGoal,
+    getTodayWaterGoal,
     refreshStoreStates,
     updateTodayWaterGoal,
   };

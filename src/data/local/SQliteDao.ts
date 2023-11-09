@@ -5,7 +5,7 @@ export interface SQLiteDao {
   getHistory: <T>(table: string) => Promise<T[]>;
   getTodayHistory: <T>(table: string) => Promise<T[]>;
   getLatest: <T>(table: string) => Promise<T>;
-  getTodayLatest: <T>(table: string) => Promise<T>;
+  getToday: <T>(table: string) => Promise<T>;
   updateTodayGoal<T extends Goal>(goal: T, table: string): Promise<boolean>;
   getGoalHistory: <T extends Goal>(table: string) => Promise<T[]>;
   getTodayGoalHistory: <T extends Goal>(table: string) => Promise<T[]>;
@@ -49,7 +49,7 @@ export async function createSQLiteDao(
     return (await latestResponse).values[0] as T;
   }
 
-  async function getTodayLatest<T>(table: string): Promise<T> {
+  async function getToday<T>(table: string): Promise<T> {
     const todayInterval = new TodayInterval();
 
     await dbConnection.open();
@@ -67,9 +67,9 @@ export async function createSQLiteDao(
     goal: T,
     table: string
   ): Promise<boolean> {
-    const todayLatestGoal = await getTodayLatest(table);
+    const todayGoal = await getLatest(table);
 
-    if (todayLatestGoal) {
+    if (todayGoal) {
       await dbConnection.open();
       const updateTodayGoalResponse = dbConnection.run(
         `UPDATE ${table}
@@ -129,7 +129,7 @@ export async function createSQLiteDao(
     getHistory,
     getTodayHistory,
     getLatest,
-    getTodayLatest,
+    getToday,
     updateTodayGoal,
     getGoalHistory,
     getTodayGoalHistory,
