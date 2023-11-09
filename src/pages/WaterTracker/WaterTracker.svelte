@@ -7,12 +7,12 @@
   import WaterTrackerModal from "$components/WaterTrackerModal/WaterTrackerModal.svelte";
   import RoundedIconButton from "$components/RoundedIconButton/RoundedIconButton.svelte";
 
+  let todayTotalWaterIntake = waterTrackerStore.todayTotalWaterIntake;
+  let todayCurrentWaterGoal = waterTrackerStore.todayCurrentWaterGoal;
+
   onMount(() => {
     waterTrackerStore.refreshStoreStates();
   });
-
-  let todayTotalWaterIntake = waterTrackerStore.todayTotalWaterIntake;
-  let todayCurrentWaterGoal = waterTrackerStore.todayCurrentWaterGoal;
 
   let showModal = false;
   let modalType: string;
