@@ -19,7 +19,7 @@ export interface AppContainer {
 function createAppContainer(): AppContainer {
   const dbConnection = createSQLiteDatabase();
   const dao = createSQLiteDao(dbConnection);
-  const waterDao = createSQLiteWaterDao(dao);
+  const waterDao = createSQLiteWaterDao(dao, dbConnection);
   const exerciseDao = createSQLiteExerciseDao(dao, dbConnection);
   const waterRepository = createWaterRepository(waterDao);
   const exerciseRepository = createExerciseRepository(exerciseDao);

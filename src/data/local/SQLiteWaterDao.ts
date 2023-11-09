@@ -1,4 +1,5 @@
 import type { WaterIntakeGoal, WaterIntake } from "$types/fitnessTypes";
+import type { SQLiteDBConnection } from "@capacitor-community/sqlite";
 import type { SQLiteDao } from "./SQLiteDao";
 
 export interface SQLiteWaterDao {
@@ -15,8 +16,10 @@ export interface SQLiteWaterDao {
 }
 
 export async function createSQLiteWaterDao(
-  daoPromise: Promise<SQLiteDao>
+  daoPromise: Promise<SQLiteDao>,
+  dbConnectionPromise: Promise<SQLiteDBConnection>
 ): Promise<SQLiteWaterDao> {
+  const dbConnection = await dbConnectionPromise;
   const dao = await daoPromise;
   const WATER_INTAKE_TABLE = "water_intake_log";
   const WATER_INTAKE_GOAL_TABLE = "water_intake_goal_log";
