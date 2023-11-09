@@ -19,7 +19,6 @@
       push("/");
     }}
     text="Logout"
-    size={30}
   />
   <h1>Welcome {userDisplayName}!</h1>
 </div>
