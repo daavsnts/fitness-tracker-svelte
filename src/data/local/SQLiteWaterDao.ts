@@ -16,8 +16,8 @@ export interface SQLiteWaterDao {
 }
 
 export async function createSQLiteWaterDao(
-  daoPromise: Promise<SQLiteDao>,
-  dbConnectionPromise: Promise<SQLiteDBConnection>
+  dbConnectionPromise: Promise<SQLiteDBConnection>,
+  daoPromise: Promise<SQLiteDao>
 ): Promise<SQLiteWaterDao> {
   const dbConnection = await dbConnectionPromise;
   const dao = await daoPromise;

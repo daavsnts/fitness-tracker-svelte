@@ -19,9 +19,9 @@ export interface AppContainer {
 function createAppContainer(): AppContainer {
   const dbConnection = createSQLiteDatabase();
   const dao = createSQLiteDao(dbConnection);
-  const waterDao = createSQLiteWaterDao(dao, dbConnection);
-  const exerciseDao = createSQLiteExerciseDao(dao, dbConnection);
+  const waterDao = createSQLiteWaterDao(dbConnection, dao);
   const waterRepository = createWaterRepository(waterDao);
+  const exerciseDao = createSQLiteExerciseDao(dbConnection, dao);
   const exerciseRepository = createExerciseRepository(exerciseDao);
 
   async function getWaterRepository(): Promise<WaterRepository> {

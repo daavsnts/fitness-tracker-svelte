@@ -16,8 +16,8 @@ export interface SQLiteExerciseDao {
 }
 
 export async function createSQLiteExerciseDao(
-  daoPromise: Promise<SQLiteDao>,
-  dbConnectionPromise: Promise<SQLiteDBConnection>
+  dbConnectionPromise: Promise<SQLiteDBConnection>,
+  daoPromise: Promise<SQLiteDao>
 ): Promise<SQLiteExerciseDao> {
   const dbConnection = await dbConnectionPromise;
   const dao = await daoPromise;
