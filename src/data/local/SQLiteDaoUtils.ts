@@ -74,7 +74,7 @@ export async function createSQLiteDaoUtils(
       const updateTodayGoalResponse = dbConnection.run(
         `UPDATE ${table}
          SET quantity = ?, timeStamp = ?
-         WHERE timeStamp = (SELECT MAX(timeStamp) FROM water_goal_log);`,
+         WHERE timeStamp = (SELECT MAX(timeStamp) FROM ${table});`,
         [goal.quantity, goal.timeStamp.toISOString()]
       );
       await dbConnection.close();
