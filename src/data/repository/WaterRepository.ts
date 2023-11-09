@@ -1,5 +1,5 @@
 import type { WaterGoal, WaterIntake } from "$types/fitnessTypes";
-import type { SQLiteDao } from "../local/SQLiteDao";
+import type { SQLiteWaterDao } from "../local/SQLiteWaterDao";
 
 export interface WaterRepository {
   getTotalWaterIntake: () => Promise<number>;
@@ -13,9 +13,9 @@ export interface WaterRepository {
 }
 
 export async function createWaterRepository(
-  daoPromise: Promise<SQLiteDao>
+  waterDaoPromise: Promise<SQLiteWaterDao>
 ): Promise<WaterRepository> {
-  const dao = await daoPromise;
+  const dao = await waterDaoPromise;
 
   async function getTotalWaterIntake(): Promise<number> {
     const waterIntakeHistory = await dao.getWaterIntakeHistory();

@@ -1,3 +1,4 @@
+import { createSQLiteWaterDao } from "../data/local/SQLiteWaterDao";
 import { createSQLiteDao } from "../data/local/SQLiteDao";
 import { createSQLiteDatabase } from "../data/local/SQLiteDatabase";
 import {
@@ -12,7 +13,8 @@ export interface AppContainer {
 function createAppContainer(): AppContainer {
   const dbConnection = createSQLiteDatabase();
   const dao = createSQLiteDao(dbConnection);
-  const waterRepository = createWaterRepository(dao);
+  const waterDao = createSQLiteWaterDao(dao);
+  const waterRepository = createWaterRepository(waterDao);
 
   async function getWaterRepository(): Promise<WaterRepository> {
     return await waterRepository;
