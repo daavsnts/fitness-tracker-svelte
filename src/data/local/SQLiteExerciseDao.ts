@@ -1,6 +1,6 @@
 import type { ExercisePause, ExercisePausesGoal } from "$types/fitnessTypes";
 import type { SQLiteDBConnection } from "@capacitor-community/sqlite";
-import type { SQLiteDao } from "./SQLiteDao";
+import type { SQLiteDaoUtils } from "./SQLiteDaoUtils";
 
 export interface SQLiteExerciseDao {
   getExercisePausesHistory: () => Promise<ExercisePause[]>;
@@ -17,37 +17,37 @@ export interface SQLiteExerciseDao {
 
 export async function createSQLiteExerciseDao(
   dbConnectionPromise: Promise<SQLiteDBConnection>,
-  daoPromise: Promise<SQLiteDao>
+  daoUtilsPromise: Promise<SQLiteDaoUtils>
 ): Promise<SQLiteExerciseDao> {
   const dbConnection = await dbConnectionPromise;
-  const dao = await daoPromise;
+  const daoUtils = await daoUtilsPromise;
   const EXERCISE_PAUSES_TABLE = "exercise_pauses_log";
   const EXERCISE_PAUSES_GOAL_TABLE = "exercise_pauses_goal_log";
 
   async function getExercisePausesHistory(): Promise<ExercisePause[]> {
-    return await dao.getHistory(EXERCISE_PAUSES_TABLE);
+    return await daoUtils.getHistory(EXERCISE_PAUSES_TABLE);
   }
 
   async function getTodayExercisePausesHistory(): Promise<ExercisePause[]> {
-    return await dao.getTodayHistory(EXERCISE_PAUSES_TABLE);
+    return await daoUtils.getTodayHistory(EXERCISE_PAUSES_TABLE);
   }
 
   async function getLatestExercisePausesGoal(): Promise<ExercisePausesGoal> {
-    return await dao.getLatest(EXERCISE_PAUSES_GOAL_TABLE);
+    return await daoUtils.getLatest(EXERCISE_PAUSES_GOAL_TABLE);
   }
 
   async function getTodayExercisePausesGoal(): Promise<ExercisePausesGoal> {
-    return await dao.getToday(EXERCISE_PAUSES_GOAL_TABLE);
+    return await daoUtils.getToday(EXERCISE_PAUSES_GOAL_TABLE);
   }
 
   async function getExercisePausesGoalHistory(): Promise<ExercisePausesGoal[]> {
-    return await dao.getHistory(EXERCISE_PAUSES_GOAL_TABLE);
+    return await daoUtils.getHistory(EXERCISE_PAUSES_GOAL_TABLE);
   }
 
   async function getTodayExercisePausesGoalHistory(): Promise<
     ExercisePausesGoal[]
   > {
-    return await dao.getTodayHistory(EXERCISE_PAUSES_GOAL_TABLE);
+    return await daoUtils.getTodayHistory(EXERCISE_PAUSES_GOAL_TABLE);
   }
 
   async function addExercisePause(
@@ -65,7 +65,7 @@ export async function createSQLiteExerciseDao(
   async function updateTodayExercisePausesGoal(
     exercisePausesGoal: ExercisePausesGoal
   ): Promise<boolean> {
-    return await dao.updateTodayGoal(
+    return await daoUtils.updateTodayGoal(
       exercisePausesGoal,
       EXERCISE_PAUSES_GOAL_TABLE
     );

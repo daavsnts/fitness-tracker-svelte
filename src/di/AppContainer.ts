@@ -1,5 +1,5 @@
 import { createSQLiteWaterDao } from "../data/local/SQLiteWaterDao";
-import { createSQLiteDao } from "../data/local/SQLiteDao";
+import { createSQLiteDaoUtils } from "../data/local/SQLiteDaoUtils";
 import { createSQLiteDatabase } from "../data/local/SQLiteDatabase";
 import {
   createWaterRepository,
@@ -18,10 +18,10 @@ export interface AppContainer {
 
 function createAppContainer(): AppContainer {
   const dbConnection = createSQLiteDatabase();
-  const dao = createSQLiteDao(dbConnection);
-  const waterDao = createSQLiteWaterDao(dbConnection, dao);
+  const daoUtils = createSQLiteDaoUtils(dbConnection);
+  const waterDao = createSQLiteWaterDao(dbConnection, daoUtils);
   const waterRepository = createWaterRepository(waterDao);
-  const exerciseDao = createSQLiteExerciseDao(dbConnection, dao);
+  const exerciseDao = createSQLiteExerciseDao(dbConnection, daoUtils);
   const exerciseRepository = createExerciseRepository(exerciseDao);
 
   async function getWaterRepository(): Promise<WaterRepository> {

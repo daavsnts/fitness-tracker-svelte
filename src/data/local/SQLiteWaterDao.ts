@@ -1,6 +1,6 @@
 import type { WaterIntakeGoal, WaterIntake } from "$types/fitnessTypes";
 import type { SQLiteDBConnection } from "@capacitor-community/sqlite";
-import type { SQLiteDao } from "./SQLiteDao";
+import type { SQLiteDaoUtils } from "./SQLiteDaoUtils";
 
 export interface SQLiteWaterDao {
   getWaterIntakeHistory: () => Promise<WaterIntake[]>;
@@ -17,45 +17,45 @@ export interface SQLiteWaterDao {
 
 export async function createSQLiteWaterDao(
   dbConnectionPromise: Promise<SQLiteDBConnection>,
-  daoPromise: Promise<SQLiteDao>
+  daoUtilsPromise: Promise<SQLiteDaoUtils>
 ): Promise<SQLiteWaterDao> {
   const dbConnection = await dbConnectionPromise;
-  const dao = await daoPromise;
+  const daoUtils = await daoUtilsPromise;
   const WATER_INTAKE_TABLE = "water_intake_log";
   const WATER_INTAKE_GOAL_TABLE = "water_intake_goal_log";
 
   async function getWaterIntakeHistory(): Promise<WaterIntake[]> {
-    return await dao.getHistory(WATER_INTAKE_TABLE);
+    return await daoUtils.getHistory(WATER_INTAKE_TABLE);
   }
 
   async function getTodayWaterIntakeHistory(): Promise<WaterIntake[]> {
-    return await dao.getTodayHistory(WATER_INTAKE_TABLE);
+    return await daoUtils.getTodayHistory(WATER_INTAKE_TABLE);
   }
 
   async function getLatestWaterIntakeGoal(): Promise<WaterIntakeGoal> {
-    return await dao.getLatest(WATER_INTAKE_GOAL_TABLE);
+    return await daoUtils.getLatest(WATER_INTAKE_GOAL_TABLE);
   }
 
   async function getTodayWaterIntakeGoal(): Promise<WaterIntakeGoal> {
-    return await dao.getToday(WATER_INTAKE_GOAL_TABLE);
+    return await daoUtils.getToday(WATER_INTAKE_GOAL_TABLE);
   }
 
   async function getWaterIntakeGoalHistory(): Promise<WaterIntakeGoal[]> {
-    return await dao.getHistory(WATER_INTAKE_GOAL_TABLE);
+    return await daoUtils.getHistory(WATER_INTAKE_GOAL_TABLE);
   }
 
   async function getTodayWaterIntakeGoalHistory(): Promise<WaterIntakeGoal[]> {
-    return await dao.getTodayHistory(WATER_INTAKE_GOAL_TABLE);
+    return await daoUtils.getTodayHistory(WATER_INTAKE_GOAL_TABLE);
   }
 
   async function addWaterIntake(waterIntake: WaterIntake): Promise<boolean> {
-    return await dao.addQuantity(waterIntake, WATER_INTAKE_TABLE);
+    return await daoUtils.addQuantity(waterIntake, WATER_INTAKE_TABLE);
   }
 
   async function updateTodayWaterIntakeGoal(
     waterIntakeGoal: WaterIntakeGoal
   ): Promise<boolean> {
-    return await dao.updateTodayGoal(waterIntakeGoal, WATER_INTAKE_GOAL_TABLE);
+    return await daoUtils.updateTodayGoal(waterIntakeGoal, WATER_INTAKE_GOAL_TABLE);
   }
 
   return {

@@ -1,7 +1,7 @@
 import { SQLiteDBConnection } from "@capacitor-community/sqlite";
 import { TodayInterval, type Goal } from "$types/fitnessTypes";
 
-export interface SQLiteDao {
+export interface SQLiteDaoUtils {
   getHistory: <T>(table: string) => Promise<T[]>;
   getTodayHistory: <T>(table: string) => Promise<T[]>;
   getLatest: <T>(table: string) => Promise<T>;
@@ -15,9 +15,9 @@ export interface SQLiteDao {
   ) => Promise<boolean>;
 }
 
-export async function createSQLiteDao(
+export async function createSQLiteDaoUtils(
   dbConnectionPromise: Promise<SQLiteDBConnection>
-): Promise<SQLiteDao> {
+): Promise<SQLiteDaoUtils> {
   const dbConnection = await dbConnectionPromise;
 
   async function getHistory<T>(table: string): Promise<T[]> {
