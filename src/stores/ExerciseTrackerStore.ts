@@ -69,6 +69,10 @@ export class ExerciseTrackerStore {
     await this._exerciseRepository.updateTodayExerciseGoal(quantity);
     await this.refreshStoreStates();
   }
+
+  setTodayTotalExercisePauses(quantity: number) {
+    this._todayTotalExercisePauses.set(quantity);
+  }
 }
 
 const exerciseTrackerStore = new ExerciseTrackerStore(

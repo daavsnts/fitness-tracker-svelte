@@ -1,7 +1,7 @@
 <script lang="ts">
   import ExerciseTrackerModal from "$components/ExerciseTrackerModal/ExerciseTrackerModal.svelte";
   import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import plusIcon from "$assets/plus-icon.svg";
   import setUpIcon from "$assets/set-up-icon.svg";
   import RoundedIconButton from "$components/RoundedIconButton/RoundedIconButton.svelte";
@@ -12,6 +12,11 @@
 
   onMount(() => {
     exerciseTrackerStore.refreshStoreStates();
+  });
+
+  onDestroy(() => {
+    exerciseTrackerStore.updateTodayExerciseGoal(0);
+    exerciseTrackerStore.setTodayTotalExercisePauses(0);
   });
 
   let showModal = false;
