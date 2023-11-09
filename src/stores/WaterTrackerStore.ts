@@ -70,7 +70,6 @@ function createWaterTrackerStore(
   ): Promise<boolean> {
     const result = await waterRepository.updateTodayWaterIntakeGoal(quantity);
     await refreshStoreStates();
-    console.log(result);
     return result;
   }
 
