@@ -41,7 +41,7 @@ export async function createSQLiteDatabase(): Promise<SQLiteDBConnection> {
 
       CREATE TABLE IF NOT EXISTS exercise_pauses_log (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        exerciseType TEXT NOT NULL,
+        type TEXT NOT NULL,
         timeStamp INTEGER NOT NULL
       );
 
