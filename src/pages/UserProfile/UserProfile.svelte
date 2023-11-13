@@ -1,7 +1,13 @@
 <script lang="ts">
-  import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
-  import waterTrackerStore from "$stores/WaterTrackerStore";
-  import { onDestroy, onMount } from "svelte";
+  import { ExerciseTrackerStore } from "$stores/ExerciseTrackerStore";
+  import { WaterTrackerStore } from "$stores/WaterTrackerStore";
+  import appContainer from "../../di/AppContainer";
+  import { onMount } from "svelte";
+
+  const waterTrackerStore = new WaterTrackerStore(appContainer.waterRepository);
+  const exerciseTrackerStore = new ExerciseTrackerStore(
+    appContainer.exerciseRepository
+  );
 
   let totalWaterIntake = waterTrackerStore.totalWaterIntake;
   let totalExercisePauses = exerciseTrackerStore.totalExercisePauses;
@@ -9,11 +15,6 @@
   onMount(() => {
     waterTrackerStore.refreshStoreStates();
     exerciseTrackerStore.refreshStoreStates();
-  });
-
-  onDestroy(() => {
-    waterTrackerStore.setTotalWaterIntake(0);
-    exerciseTrackerStore.setTotalExercisePauses(0);
   });
 </script>
 
