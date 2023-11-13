@@ -81,6 +81,3 @@ export class WaterTrackerStore {
     this._todayCurrentWaterGoal.set(new WaterGoal(quantity, new Date()));
   }
 }
-
-const waterTrackerStore = new WaterTrackerStore(appContainer.waterRepository);
-export default waterTrackerStore;
