@@ -82,8 +82,3 @@ export class ExerciseTrackerStore {
     this._todayCurrentExerciseGoal.set(new ExerciseGoal(quantity, new Date()));
   }
 }
-
-const exerciseTrackerStore = new ExerciseTrackerStore(
-  appContainer.exerciseRepository
-);
-export default exerciseTrackerStore;
