@@ -1,22 +1,22 @@
 <script lang="ts">
   import ExerciseTrackerModal from "$components/ExerciseTrackerModal/ExerciseTrackerModal.svelte";
-  import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
-  import { onDestroy, onMount } from "svelte";
+  import { ExerciseTrackerStore } from "$stores/ExerciseTrackerStore";
+  import { onMount } from "svelte";
   import plusIcon from "$assets/plus-icon.svg";
   import setUpIcon from "$assets/set-up-icon.svg";
   import RoundedIconButton from "$components/RoundedIconButton/RoundedIconButton.svelte";
   import PieChart from "$components/PieChart/PieChart.svelte";
+  import appContainer from "../../di/AppContainer";
+
+  const exerciseTrackerStore = new ExerciseTrackerStore(
+    appContainer.exerciseRepository
+  );
 
   let todayTotalExercisePauses = exerciseTrackerStore.todayTotalExercisePauses;
   let todayCurrentExerciseGoal = exerciseTrackerStore.todayCurrentExerciseGoal;
 
   onMount(() => {
     exerciseTrackerStore.refreshStoreStates();
-  });
-
-  onDestroy(() => {
-    exerciseTrackerStore.setTodayExerciseGoal(0);
-    exerciseTrackerStore.setTodayTotalExercisePauses(0);
   });
 
   let showModal = false;
