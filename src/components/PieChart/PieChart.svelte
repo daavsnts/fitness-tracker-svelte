@@ -1,6 +1,11 @@
 <script lang="ts">
-  import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
+  import { ExerciseTrackerStore } from "$stores/ExerciseTrackerStore";
+  import appContainer from "../../di/AppContainer";
   import { onMount } from "svelte";
+
+  const exerciseTrackerStore = new ExerciseTrackerStore(
+    appContainer.exerciseRepository
+  );
 
   let todayTotalExercisePauses = exerciseTrackerStore.todayTotalExercisePauses;
   let todayCurrentExerciseGoal = exerciseTrackerStore.todayCurrentExerciseGoal;
