@@ -1,18 +1,21 @@
 <script lang="ts">
   import WaterCircle from "$components/WaterCircle/WaterCircle.svelte";
-  import waterTrackerStore from "$stores/WaterTrackerStore";
+  import { WaterTrackerStore } from "$stores/WaterTrackerStore";
   import { onMount } from "svelte";
   import plusIcon from "$assets/plus-icon.svg";
   import setUpIcon from "$assets/set-up-icon.svg";
   import WaterTrackerModal from "$components/WaterTrackerModal/WaterTrackerModal.svelte";
   import RoundedIconButton from "$components/RoundedIconButton/RoundedIconButton.svelte";
+  import appContainer from "../../di/AppContainer";
+
+  const waterTrackerStore = new WaterTrackerStore(appContainer.waterRepository);
+
+  let todayTotalWaterIntake = waterTrackerStore.todayTotalWaterIntake;
+  let todayCurrentWaterGoal = waterTrackerStore.todayCurrentWaterGoal;
 
   onMount(() => {
     waterTrackerStore.refreshStoreStates();
   });
-
-  let todayTotalWaterIntake = waterTrackerStore.todayTotalWaterIntake;
-  let todayCurrentWaterGoal = waterTrackerStore.todayCurrentWaterGoal;
 
   let showModal = false;
   let modalType: string;

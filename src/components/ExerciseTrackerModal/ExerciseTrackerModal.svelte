@@ -3,6 +3,7 @@
   import strechIcon from "$assets/person-stretching-icon.svg";
   import runningIcon from "$assets/person-running-icon.svg";
   import IconButton from "$components/IconButton/IconButton.svelte";
+  import TextButton from "$components/TextButton/TextButton.svelte";
   export let toggleModal: Function;
   export let getModalValue: Function;
   export let getModalChoice: Function;
@@ -53,9 +54,10 @@
           type="number"
           bind:value={inputValue}
         />
-        <button on:click={() => getModalValue(inputValue, modalType)}>
-          {buttonTitle}
-        </button>
+        <TextButton
+          onClickFunction={() => getModalValue(inputValue, modalType)}
+          text={buttonTitle}
+        />
       </div>
     {:else if modalType == "exercise-pause"}
       <div class="buttons-container">

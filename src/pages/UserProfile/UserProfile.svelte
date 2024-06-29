@@ -1,7 +1,13 @@
 <script lang="ts">
-  import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
-  import waterTrackerStore from "$stores/WaterTrackerStore";
+  import { ExerciseTrackerStore } from "$stores/ExerciseTrackerStore";
+  import { WaterTrackerStore } from "$stores/WaterTrackerStore";
+  import appContainer from "../../di/AppContainer";
   import { onMount } from "svelte";
+
+  const waterTrackerStore = new WaterTrackerStore(appContainer.waterRepository);
+  const exerciseTrackerStore = new ExerciseTrackerStore(
+    appContainer.exerciseRepository
+  );
 
   let totalWaterIntake = waterTrackerStore.totalWaterIntake;
   let totalExercisePauses = exerciseTrackerStore.totalExercisePauses;

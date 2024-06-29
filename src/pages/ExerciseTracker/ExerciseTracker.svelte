@@ -1,11 +1,16 @@
 <script lang="ts">
   import ExerciseTrackerModal from "$components/ExerciseTrackerModal/ExerciseTrackerModal.svelte";
-  import exerciseTrackerStore from "$stores/ExerciseTrackerStore";
+  import { ExerciseTrackerStore } from "$stores/ExerciseTrackerStore";
   import { onMount } from "svelte";
   import plusIcon from "$assets/plus-icon.svg";
   import setUpIcon from "$assets/set-up-icon.svg";
   import RoundedIconButton from "$components/RoundedIconButton/RoundedIconButton.svelte";
   import PieChart from "$components/PieChart/PieChart.svelte";
+  import appContainer from "../../di/AppContainer";
+
+  const exerciseTrackerStore = new ExerciseTrackerStore(
+    appContainer.exerciseRepository
+  );
 
   let todayTotalExercisePauses = exerciseTrackerStore.todayTotalExercisePauses;
   let todayCurrentExerciseGoal = exerciseTrackerStore.todayCurrentExerciseGoal;
@@ -61,12 +66,12 @@
     <RoundedIconButton
       onClickFunction={() => toggleModal("exercise-pause")}
       iconPath={plusIcon}
-      alt="add water intake"
+      alt="add exercise pause"
     />
     <RoundedIconButton
       onClickFunction={() => toggleModal("exercise-goal")}
       iconPath={setUpIcon}
-      alt="add water goal"
+      alt="set exercise goal"
     />
   </div>
 </div>

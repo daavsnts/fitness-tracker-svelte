@@ -37,7 +37,6 @@
     <TextButton
       onClickFunction={() => push("/")}
       text="Back"
-      size={100}
     />
     <TextButton
       onClickFunction={async () =>
@@ -47,7 +46,6 @@
           displayNameInputValue
         ))}
       text="Register"
-      size={100}
     />
   </div>
 

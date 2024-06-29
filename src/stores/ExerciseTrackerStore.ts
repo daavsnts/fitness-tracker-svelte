@@ -69,9 +69,16 @@ export class ExerciseTrackerStore {
     await this._exerciseRepository.updateTodayExerciseGoal(quantity);
     await this.refreshStoreStates();
   }
-}
 
-const exerciseTrackerStore = new ExerciseTrackerStore(
-  appContainer.exerciseRepository
-);
-export default exerciseTrackerStore;
+  setTodayTotalExercisePauses(quantity: number) {
+    this._todayTotalExercisePauses.set(quantity);
+  }
+
+  setTotalExercisePauses(quantity: number) {
+    this._totalExercisePauses.set(quantity);
+  }
+
+  setTodayExerciseGoal(quantity: number) {
+    this._todayCurrentExerciseGoal.set(new ExerciseGoal(quantity, new Date()));
+  }
+}

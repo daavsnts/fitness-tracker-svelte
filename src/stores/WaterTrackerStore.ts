@@ -68,7 +68,16 @@ export class WaterTrackerStore {
     await this._waterRepository.updateTodayWaterGoal(quantity);
     await this.refreshStoreStates();
   }
-}
 
-const waterTrackerStore = new WaterTrackerStore(appContainer.waterRepository);
-export default waterTrackerStore;
+  setTodayTotalWaterIntake(quantity: number) {
+    this._todayTotalWaterIntake.set(quantity);
+  }
+
+  setTotalWaterIntake(quantity: number) {
+    this._totalWaterIntake.set(quantity);
+  }
+
+  setTodayCurrentWaterGoal(quantity: number) {
+    this._todayCurrentWaterGoal.set(new WaterGoal(quantity, new Date()));
+  }
+}

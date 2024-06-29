@@ -1,6 +1,9 @@
 <script lang="ts">
-  import waterTrackerStore from "$stores/WaterTrackerStore";
+  import { WaterTrackerStore } from "$stores/WaterTrackerStore";
+  import appContainer from "../../di/AppContainer";
   import { onMount } from "svelte";
+
+  const waterTrackerStore = new WaterTrackerStore(appContainer.waterRepository);
 
   let todayTotalWaterIntake = waterTrackerStore.todayTotalWaterIntake;
   let todayCurrentWaterGoal = waterTrackerStore.todayCurrentWaterGoal;

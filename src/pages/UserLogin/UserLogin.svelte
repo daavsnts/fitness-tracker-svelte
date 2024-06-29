@@ -29,13 +29,11 @@
       onClickFunction={() =>
         userAuthenticationStore.userLogin(loginInputValue, passwordInputValue)}
       text="Login"
-      size={100}
     />
 
     <TextButton
       onClickFunction={() => push("/user-register")}
       text="Register"
-      size={100}
     />
   </div>
 </div>
